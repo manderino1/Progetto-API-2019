@@ -699,7 +699,7 @@ binaryTreeEntities_t *rbTreeEntitiesDelete(binaryTreeEntities_t *T, binaryTreeEn
         strncpy(z->id, y->id, RELATIONS_ID_SIZE);
     }
     if (y->color == BLACK) {
-        rbTreeEntitiesInsertFixup(T, x);
+        rbTreeEntitiesDeleteFixup(T, x);
     }
     return y;
 }
@@ -975,7 +975,7 @@ binaryTreeEntitiesDest_t *rbTreeEntitiesDestDelete(binaryTreeEntitiesDest_t *T, 
         strncpy(z->id, y->id, RELATIONS_ID_SIZE);
     }
     if (y->color == BLACK) {
-        rbTreeEntitiesDestInsertFixup(T, x);
+        rbTreeEntitiesDestDeleteFixup(T, x);
     }
     return y;
 }
