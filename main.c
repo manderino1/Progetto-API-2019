@@ -20,6 +20,7 @@
 #define RED 0
 #define BLACK 1
 #define HASH_TABLE_SIZE 50
+#define NOT_FOUND -1
 
 /*
 /	Typedef
@@ -219,7 +220,7 @@ void addEntManager() {
     char idEntity[ENTITY_ID_SIZE];
     scanf("%s", idEntity); // Reading in buffer from stdin
 
-    if(rbTreeEntitiesSearch(entitiesRoot, idEntity) == binaryTreeEntitiesNIL) { // Go only if entity doesn't already exist (logn)
+    if(rbTreeEntitiesSearch(entitiesRoot, idEntity) != binaryTreeEntitiesNIL) { // Go only if entity doesn't already exist (logn)
         binaryTreeEntities_t *newEntity = malloc(sizeof(binaryTreeEntities_t));
         strncpy(newEntity->id, idEntity, ENTITY_ID_SIZE);
         rbTreeEntitiesInsert(entitiesRoot, newEntity);
@@ -231,7 +232,69 @@ void delEntManager() {
 }
 
 void addRelManager() {
+    char idOrig[ENTITY_ID_SIZE];
+    char idDest[ENTITY_ID_SIZE];
+    char idRel[RELATIONS_ID_SIZE];
 
+    scanf("%s", idOrig); // Reading from stdin
+    scanf("%s", idDest);
+    scanf("%s", idRel);
+
+    binaryTreeEntities_t *checkExistence;
+    checkExistence = rbTreeEntitiesSearch(entitiesRoot, idDest);
+    if(checkExistence == binaryTreeEntitiesNIL) {
+        return;
+    }
+    char **idDestRef = checkExistence->id; // Store the reference for later use
+    checkExistence = rbTreeEntitiesSearch(entitiesRoot, idOrig);
+    if(checkExistence == binaryTreeEntitiesNIL) {
+        return;
+    }
+    char **idOrigRef = checkExistence->id; // Store the reference for later use
+
+    binaryTreeRelTypes_t * relType = rbTreeRelTypesSearch(relTypesRoot, idRel);
+    if(relType == binaryTreeRelTypesNIL) { // Relation type does not exist, add it
+        //Add new relation tipe
+        binaryTreeRelTypes_t *newRelType = malloc(sizeof(binaryTreeRelTypes_t));
+        strncpy(newRelType->id, idRel, RELATIONS_ID_SIZE);
+        rbTreeRelTypesInsert(relTypesRoot, newRelType);
+
+        //Add dest to the new relation type
+        binaryTreeEntitiesDest_t *newDest = malloc(sizeof(binaryTreeEntitiesDest_t));
+        newDest->id=idDestRef;
+        rbTreeEntitiesDestInsert(relType->destTreeRoot, newDest);
+
+        //Add orig to the dest
+        hashEntitiesOrig_t *newOrig = malloc(sizeof(hashEntitiesOrig_t));
+        newOrig->id = idOrigRef;
+        hashDestInsert(newDest->hashDest, newOrig);
+        return;
+    }
+
+    // If i reach there so the rel type already exists, go into it and search for origin
+    binaryTreeEntitiesDest_t *destinyEnt = rbTreeEntitiesDestSearch(relType->destTreeRoot, idDest);
+    if(destinyEnt == binaryTreeEntitiesDestNIL) { // Relations dest doesn't exist, add it
+        //Add dest to the existent rel type
+        binaryTreeEntitiesDest_t *newDest = malloc(sizeof(binaryTreeEntitiesDest_t));
+        newDest->id=idDestRef;
+        rbTreeEntitiesDestInsert(relType->destTreeRoot, newDest);
+
+        //Add orig to the new dest
+        hashEntitiesOrig_t *newOrig = malloc(sizeof(hashEntitiesOrig_t));
+        newOrig->id = idOrigRef;
+        hashDestInsert(newDest->hashDest, newOrig);
+        return;
+    }
+
+    //If i reach there the dest exist, check if the relations already exist
+    hashEntitiesOrig_t *newOrig = malloc(sizeof(hashEntitiesOrig_t));
+    newOrig->id = idOrigRef;
+    if(hashDestSearch(destinyEnt->hashDest, newOrig) == NOT_FOUND) { // Doesn't exist, add
+        hashDestInsert(destinyEnt->hashDest, newOrig);
+        return;
+    }
+
+    //If it already exist, do nothing
 }
 
 void delRelManager() {
