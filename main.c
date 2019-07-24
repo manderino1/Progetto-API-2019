@@ -313,13 +313,21 @@ void rbTreeRelTypesInsertFixup(binaryTreeRelTypes_t *T, binaryTreeRelTypes_t *z)
                 rbTreeRelTypesRightRotate(T, z->p->p);
             }
         } else {
-            if (z == z->p->left) {
-                z = z->p;
-                rbTreeRelTypesRightRotate(T, z);
+            binaryTreeRelTypes_t *y = z->p->p->left;
+            if (y->color == RED) {
+                z->p->color = BLACK;
+                y->color = BLACK;
+                z->p->p->color = RED;
+                z = z->p->p;
+            } else {
+                if (z == z->p->left) {
+                    z = z->p;
+                    rbTreeRelTypesRightRotate(T, z);
+                }
+                z->p->color = BLACK;
+                z->p->p->color = RED;
+                rbTreeRelTypesLeftRotate(T, z->p->p);
             }
-            z->p->color = BLACK;
-            z->p->p->color = RED;
-            rbTreeRelTypesLeftRotate(T, z->p->p);
         }
     }
 }
@@ -583,13 +591,21 @@ void rbTreeEntitiesInsertFixup(binaryTreeEntities_t *T, binaryTreeEntities_t *z)
                 rbTreeEntitiesRightRotate(T, z->p->p);
             }
         } else {
-            if (z == z->p->left) {
-                z = z->p;
-                rbTreeEntitiesRightRotate(T, z);
+            binaryTreeEntities_t *y = z->p->p->left;
+            if (y->color == RED) {
+                z->p->color = BLACK;
+                y->color = BLACK;
+                z->p->p->color = RED;
+                z = z->p->p;
+            } else {
+                if (z == z->p->left) {
+                    z = z->p;
+                    rbTreeEntitiesRightRotate(T, z);
+                }
+                z->p->color = BLACK;
+                z->p->p->color = RED;
+                rbTreeEntitiesLeftRotate(T, z->p->p);
             }
-            z->p->color = BLACK;
-            z->p->p->color = RED;
-            rbTreeEntitiesLeftRotate(T, z->p->p);
         }
     }
 }
