@@ -1,0 +1,3 @@
+/mnt/c/Users/marco/CLionProjects/APIProject/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/mnt/c/Users/marco/CLionProjects/APIProject/cmake-build-debug/CMakeFiles/APIProject.dir
+/mnt/c/Users/marco/CLionProjects/APIProject/cmake-build-debug/CMakeFiles/edit_cache.dir
