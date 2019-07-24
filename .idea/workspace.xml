@@ -35,8 +35,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="162" lean-forward="true" selection-start-line="162" selection-end-line="162" />
+            <state relative-caret-position="360">
+              <caret line="337" lean-forward="true" selection-start-line="337" selection-end-line="337" />
             </state>
           </provider>
         </entry>
@@ -137,12 +137,12 @@
       <option name="presentableId" value="Default" />
       <updated>1563959208186</updated>
       <workItem from="1563959209988" duration="6811000" />
-      <workItem from="1563983646558" duration="8894000" />
+      <workItem from="1563983646558" duration="9553000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="15705000" />
+    <option name="totallyTimeSpent" value="16364000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -222,8 +222,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="162" lean-forward="true" selection-start-line="162" selection-end-line="162" />
+        <state relative-caret-position="360">
+          <caret line="337" lean-forward="true" selection-start-line="337" selection-end-line="337" />
         </state>
       </provider>
     </entry>
