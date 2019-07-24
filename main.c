@@ -335,7 +335,19 @@ void delRelManager() {
 }
 
 void reportManager() {
-
+    if(relTypesRoot != binaryTreeRelTypesNIL) {
+        binaryTreeRelTypes_t *relTypesWalk = rbTreeRelTypesMinimum(relTypesRoot); // Print rel type name
+        do {
+            fputs(relTypesWalk->id , stdout);
+            binaryTreeEntitiesDest_t *destWalk = rbTreeEntitiesDestMinimum(relTypesWalk->maxDestRoot); // Print dest names
+            do {
+                fputs(destWalk->id , stdout);
+                destWalk = rbTreeEntitiesDestSuccessor(destWalk);
+            } while(destWalk != binaryTreeEntitiesDestNIL);
+            printf("%i", relTypesWalk->maxRelations);
+            relTypesWalk = rbTreeRelTypesSuccessor(relTypesWalk);
+        } while(relTypesWalk != binaryTreeRelTypesNIL);
+    }
 }
 
 /*
@@ -1210,7 +1222,7 @@ void rbTreeEntitiesDestPurge(binaryTreeEntitiesDest_t *T) {
 /*
  * Insert a value in the hash
  */
-inline int hash(hashEntitiesOrig_t *k, int i) {
+int hash(hashEntitiesOrig_t *k, int i) {
     int res = 0;
     for (int j = 0; j < strlen(k->id); j++) {
         res = res + k->id[j];
