@@ -31,6 +31,7 @@ typedef struct binaryTreeEntitiesDest binaryTreeEntitiesDest_t;
 struct binaryTreeRelTypes {
     struct binaryTreeRelTypes *p;
     char id[RELATIONS_ID_SIZE];
+    binaryTreeEntitiesDest_t *destTreeRoot;
     int maxRelations;
     _Bool color;
     struct binaryTreeRelTypes *left;
