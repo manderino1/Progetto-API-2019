@@ -58,6 +58,7 @@ struct binaryTreeEntitiesDest {
     struct binaryTreeEntitiesDest *p;
     char *id;
     hashEntitiesOrig_t hashDest[HASH_TABLE_SIZE];
+    int relationsNum;
     _Bool color;
     struct binaryTreeEntitiesDest *left;
     struct binaryTreeEntitiesDest *right;
@@ -262,6 +263,7 @@ void addRelManager() {
         //Add dest to the new relation type
         binaryTreeEntitiesDest_t *newDest = malloc(sizeof(binaryTreeEntitiesDest_t));
         newDest->id=idDestRef;
+        newDest->relationsNum = 1;
         rbTreeEntitiesDestInsert(relType->destTreeRoot, newDest);
 
         //Add orig to the dest
@@ -277,6 +279,7 @@ void addRelManager() {
         //Add dest to the existent rel type
         binaryTreeEntitiesDest_t *newDest = malloc(sizeof(binaryTreeEntitiesDest_t));
         newDest->id=idDestRef;
+        newDest->relationsNum = 1;
         rbTreeEntitiesDestInsert(relType->destTreeRoot, newDest);
 
         //Add orig to the new dest
@@ -288,6 +291,7 @@ void addRelManager() {
 
     //If i reach there the dest exist, check if the relations already exist
     hashEntitiesOrig_t *newOrig = malloc(sizeof(hashEntitiesOrig_t));
+    (destinyEnt->relationsNum)++; // Increase the relationsnum number accordingly
     newOrig->id = idOrigRef;
     if(hashDestSearch(destinyEnt->hashDest, newOrig) == NOT_FOUND) { // Doesn't exist, add
         hashDestInsert(destinyEnt->hashDest, newOrig);
