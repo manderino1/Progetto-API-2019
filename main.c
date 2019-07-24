@@ -182,26 +182,26 @@ binaryTreeEntitiesDest_t *binaryTreeEntitiesDestNIL;
 
 
 int main() {
+    relTypesRoot = malloc(sizeof(binaryTreeRelTypes_t));
+    binaryTreeRelTypesNIL = malloc(sizeof(binaryTreeRelTypes_t));
+    binaryTreeRelTypesNIL->color = BLACK;
+
+    relTypesRoot->p = binaryTreeRelTypesNIL;
+    relTypesRoot->right = binaryTreeRelTypesNIL;
+    relTypesRoot->left = binaryTreeRelTypesNIL;
+
+    entitiesRoot = malloc(sizeof(binaryTreeEntities_t));
+    binaryTreeEntitiesNIL = malloc(sizeof(binaryTreeEntities_t));
+    binaryTreeEntitiesNIL->color = BLACK;
+
+    entitiesRoot->p = binaryTreeEntitiesNIL;
+    entitiesRoot->right = binaryTreeEntitiesNIL;
+    entitiesRoot->left = binaryTreeEntitiesNIL;
+
+    binaryTreeEntitiesDestNIL = malloc(sizeof(binaryTreeEntitiesDest_t));
+    binaryTreeEntitiesDestNIL->color = BLACK;
+    
     for (;;) {
-        relTypesRoot = malloc(sizeof(binaryTreeRelTypes_t));
-        binaryTreeRelTypesNIL = malloc(sizeof(binaryTreeRelTypes_t));
-        binaryTreeRelTypesNIL->color = BLACK;
-
-        relTypesRoot->p = binaryTreeRelTypesNIL;
-        relTypesRoot->right = binaryTreeRelTypesNIL;
-        relTypesRoot->left = binaryTreeRelTypesNIL;
-
-        entitiesRoot = malloc(sizeof(binaryTreeEntities_t));
-        binaryTreeEntitiesNIL = malloc(sizeof(binaryTreeEntities_t));
-        binaryTreeEntitiesNIL->color = BLACK;
-
-        entitiesRoot->p = binaryTreeEntitiesNIL;
-        entitiesRoot->right = binaryTreeEntitiesNIL;
-        entitiesRoot->left = binaryTreeEntitiesNIL;
-
-        binaryTreeEntitiesDestNIL = malloc(sizeof(binaryTreeEntitiesDest_t));
-        binaryTreeEntitiesDestNIL->color = BLACK;
-
         char commandRead[COMMAND_READ_SIZE];
         scanf("%s", commandRead);
         if (strcmp(commandRead, "addent") == 0) {
