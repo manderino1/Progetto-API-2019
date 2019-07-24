@@ -19,6 +19,7 @@
 #define RELATIONS_ID_SIZE 500
 #define RED 0
 #define BLACK 1
+#define HASH_TABLE_SIZE 50
 
 /*
 /	Typedef
@@ -26,6 +27,7 @@
 typedef struct binaryTreeRelTypes binaryTreeRelTypes_t;
 typedef struct binaryTreeEntities binaryTreeEntities_t;
 typedef struct binaryTreeEntitiesDest binaryTreeEntitiesDest_t;
+typedef struct hashEntitiesOrig hashEntitiesOrig_t;
 
 // RB tree structs
 struct binaryTreeRelTypes {
@@ -47,9 +49,14 @@ struct binaryTreeEntities {
     struct binaryTreeEntities *right;
 };
 
+struct hashEntitiesOrig {
+    char *id;
+};
+
 struct binaryTreeEntitiesDest {
     struct binaryTreeEntitiesDest *p;
     char *id;
+    hashEntitiesOrig_t hashDest[HASH_TABLE_SIZE];
     _Bool color;
     struct binaryTreeEntitiesDest *left;
     struct binaryTreeEntitiesDest *right;
@@ -143,6 +150,15 @@ binaryTreeEntitiesDest_t *rbTreeEntitiesDestDelete(binaryTreeEntitiesDest_t *T, 
 
 void rbTreeEntitiesDestDeleteFixup(binaryTreeEntitiesDest_t *T, binaryTreeEntitiesDest_t *x);
 
+// Hash functions
+
+inline int hash(hashEntitiesOrig_t *k, int i);
+
+int hashDestInsert(hashEntitiesOrig_t **T, hashEntitiesOrig_t *k);
+
+int hashDestSearch(hashEntitiesOrig_t **T, hashEntitiesOrig_t *k);
+
+
 /*
  * Global variables
  */
@@ -160,22 +176,22 @@ int main() {
     for (;;) {
         relTypesRoot = malloc(sizeof(binaryTreeRelTypes_t));
         binaryTreeRelTypesNIL = malloc(sizeof(binaryTreeRelTypes_t));
-        binaryTreeRelTypesNIL -> color = BLACK;
+        binaryTreeRelTypesNIL->color = BLACK;
 
-        relTypesRoot->p=binaryTreeRelTypesNIL;
-        relTypesRoot->right=binaryTreeRelTypesNIL;
-        relTypesRoot->left=binaryTreeRelTypesNIL;
+        relTypesRoot->p = binaryTreeRelTypesNIL;
+        relTypesRoot->right = binaryTreeRelTypesNIL;
+        relTypesRoot->left = binaryTreeRelTypesNIL;
 
         entitiesRoot = malloc(sizeof(binaryTreeEntities_t));
         binaryTreeEntitiesNIL = malloc(sizeof(binaryTreeEntities_t));
-        binaryTreeEntitiesNIL -> color = BLACK;
+        binaryTreeEntitiesNIL->color = BLACK;
 
-        entitiesRoot->p=binaryTreeEntitiesNIL;
-        entitiesRoot->right=binaryTreeEntitiesNIL;
-        entitiesRoot->left=binaryTreeEntitiesNIL;
+        entitiesRoot->p = binaryTreeEntitiesNIL;
+        entitiesRoot->right = binaryTreeEntitiesNIL;
+        entitiesRoot->left = binaryTreeEntitiesNIL;
 
         binaryTreeEntitiesDestNIL = malloc(sizeof(binaryTreeEntitiesDest_t));
-        binaryTreeEntitiesDestNIL -> color = BLACK;
+        binaryTreeEntitiesDestNIL->color = BLACK;
 
         char commandRead[COMMAND_READ_SIZE];
         scanf("%s", commandRead);
@@ -1049,4 +1065,47 @@ void rbTreeEntitiesDestDeleteDestFixup(binaryTreeEntitiesDest_t *T, binaryTreeEn
         }
     }
     x->color = BLACK;
+}
+
+/*
+ * HASHING FUNCTIONS
+ */
+
+/*
+ * Insert a value in the hash
+ */
+inline int hash(hashEntitiesOrig_t *k, int i) {
+    int res = 0;
+    for (int j = 0; j < strlen(k->id); j++) {
+        res = res + k->id[j];
+    }
+    res = (res * i) % HASH_TABLE_SIZE;
+    return res;
+}
+
+int hashDestInsert(hashEntitiesOrig_t **T, hashEntitiesOrig_t *k) {
+    int i = 0;
+    do {
+        int j = hash(k, i); // FUNZIONE DA CALCOLARE
+        if (T[j] == NULL) {
+            T[j] = k;
+            return j;
+        } else {
+            i = i + 1;
+        }
+    } while (i != HASH_TABLE_SIZE);
+    return -1;
+}
+
+int hashDestSearch(hashEntitiesOrig_t **T, hashEntitiesOrig_t *k) {
+    int i = 0;
+    int j;
+    do {
+        j = hash(k, i);
+        if (T[j] == k) {
+            return j;
+        }
+        i = i + 1;
+    } while ((T[j] != NULL) && (i != HASH_TABLE_SIZE));
+    return -1;
 }
