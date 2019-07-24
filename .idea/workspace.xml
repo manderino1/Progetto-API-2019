@@ -35,8 +35,17 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="381">
-              <caret line="1104" column="21" lean-forward="true" selection-start-line="1104" selection-start-column="21" selection-end-line="1104" selection-end-column="21" />
+            <state relative-caret-position="334">
+              <caret line="233" lean-forward="true" selection-start-line="233" selection-end-line="233" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../APIC/main.c">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="112">
+              <caret line="96" column="26" lean-forward="true" selection-start-line="95" selection-start-column="4" selection-end-line="96" selection-end-column="26" />
             </state>
           </provider>
         </entry>
@@ -127,12 +136,12 @@
       <option name="presentableId" value="Default" />
       <updated>1563959208186</updated>
       <workItem from="1563959209988" duration="6811000" />
-      <workItem from="1563983646558" duration="4921000" />
+      <workItem from="1563983646558" duration="5609000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="11732000" />
+    <option name="totallyTimeSpent" value="12420000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -200,20 +209,20 @@
     </option>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/../APIC/main.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="544">
-          <caret line="34" column="2" lean-forward="true" selection-start-line="28" selection-end-line="34" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
+    <entry file="file://$PROJECT_DIR$/../APIC/main.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="112">
+          <caret line="96" column="26" lean-forward="true" selection-start-line="95" selection-start-column="4" selection-end-line="96" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/main.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="381">
-          <caret line="1104" column="21" lean-forward="true" selection-start-line="1104" selection-start-column="21" selection-end-line="1104" selection-end-column="21" />
+        <state relative-caret-position="334">
+          <caret line="233" lean-forward="true" selection-start-line="233" selection-end-line="233" />
         </state>
       </provider>
     </entry>

@@ -216,7 +216,14 @@ int main() {
  */
 
 void addEntManager() {
+    char idEntity[ENTITY_ID_SIZE];
+    scanf("%s", idEntity); // Reading in buffer from stdin
 
+    if(rbTreeEntitiesSearch(entitiesRoot, idEntity) == binaryTreeEntitiesNIL) { // Go only if entity doesn't already exist (logn)
+        binaryTreeEntities_t *newEntity = malloc(sizeof(binaryTreeEntities_t));
+        strncpy(newEntity->id, idEntity, ENTITY_ID_SIZE);
+        rbTreeEntitiesInsert(entitiesRoot, newEntity);
+    }
 }
 
 void delEntManager() {
@@ -935,7 +942,7 @@ void rbTreeEntitiesDestInsert(binaryTreeEntitiesDest_t *T, binaryTreeEntitiesDes
 /*
  * Fixup insert value in rb trees
  */
-void rbTreeEntitiesDestInsertDestFixup(binaryTreeEntitiesDest_t *T, binaryTreeEntitiesDest_t *z) {
+void rbTreeEntitiesDestInsertFixup(binaryTreeEntitiesDest_t *T, binaryTreeEntitiesDest_t *z) {
     while (z->p->color == RED) {
         if (z->p == z->p->p->left) {
             binaryTreeEntitiesDest_t *y = z->p->p->right;
@@ -1011,7 +1018,7 @@ binaryTreeEntitiesDest_t *rbTreeEntitiesDestDelete(binaryTreeEntitiesDest_t *T, 
  * Fixup delete rb trees selected value
  */
 
-void rbTreeEntitiesDestDeleteDestFixup(binaryTreeEntitiesDest_t *T, binaryTreeEntitiesDest_t *x) {
+void rbTreeEntitiesDestDeleteFixup(binaryTreeEntitiesDest_t *T, binaryTreeEntitiesDest_t *x) {
     binaryTreeEntitiesDest_t *w;
     while ((x != T) && (x->color == BLACK)) {
         if (x == x->p->left) {
