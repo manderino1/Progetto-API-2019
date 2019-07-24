@@ -35,17 +35,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1056">
-              <caret line="293" column="81" selection-start-line="293" selection-start-column="81" selection-end-line="293" selection-end-column="81" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../APIC/main.c">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-5154">
-              <caret line="269" column="4" lean-forward="true" selection-start-line="269" selection-start-column="4" selection-end-line="275" selection-end-column="23" />
+            <state relative-caret-position="240">
+              <caret line="162" lean-forward="true" selection-start-line="162" selection-end-line="162" />
             </state>
           </provider>
         </entry>
@@ -94,7 +85,17 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="ProjectPane" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="APIProject" type="b2602c69:ProjectViewProjectNode" />
+              <item name="APIProject" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
       <pane id="Scope" />
     </panes>
   </component>
@@ -136,12 +137,12 @@
       <option name="presentableId" value="Default" />
       <updated>1563959208186</updated>
       <workItem from="1563959209988" duration="6811000" />
-      <workItem from="1563983646558" duration="8305000" />
+      <workItem from="1563983646558" duration="8894000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="15116000" />
+    <option name="totallyTimeSpent" value="15705000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -156,10 +157,10 @@
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25266525" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25266525" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info active="true" anchor="bottom" id="Messages" visible="true" weight="0.32936078" />
+      <window_info anchor="bottom" id="Messages" visible="true" weight="0.32936078" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.2979415" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.32936078" />
@@ -209,9 +210,6 @@
     </option>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/../APIC/main.c">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-5154">
@@ -219,10 +217,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/main.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1056">
-          <caret line="293" column="81" selection-start-line="293" selection-start-column="81" selection-end-line="293" selection-end-column="81" />
+        <state relative-caret-position="240">
+          <caret line="162" lean-forward="true" selection-start-line="162" selection-end-line="162" />
         </state>
       </provider>
     </entry>

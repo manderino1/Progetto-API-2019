@@ -35,6 +35,7 @@ struct binaryTreeRelTypes {
     struct binaryTreeRelTypes *p;
     char id[RELATIONS_ID_SIZE];
     binaryTreeEntitiesDest_t *destTreeRoot;
+    binaryTreeEntitiesDest_t *maxDestRoot;
     int maxRelations;
     _Bool color;
     struct binaryTreeRelTypes *left;
@@ -104,6 +105,8 @@ binaryTreeRelTypes_t *rbTreeRelTypesDelete(binaryTreeRelTypes_t *T, binaryTreeRe
 
 void rbTreeRelTypesDeleteFixup(binaryTreeRelTypes_t *T, binaryTreeRelTypes_t *x);
 
+void rbTreeRelTypesPurge(binaryTreeRelTypes_t *T);
+
 // Entities trees
 
 binaryTreeEntities_t *rbTreeEntitiesSearch(binaryTreeEntities_t *x, char *k);
@@ -128,6 +131,8 @@ binaryTreeEntities_t *rbTreeEntitiesDelete(binaryTreeEntities_t *T, binaryTreeEn
 
 void rbTreeEntitiesDeleteFixup(binaryTreeEntities_t *T, binaryTreeEntities_t *x);
 
+void rbTreeEntitiesPurge(binaryTreeEntities_t *T);
+
 // Dest entities trees
 
 binaryTreeEntitiesDest_t *rbTreeEntitiesDestSearch(binaryTreeEntitiesDest_t *x, char *k);
@@ -151,6 +156,8 @@ void rbTreeEntitiesDestInsertFixup(binaryTreeEntitiesDest_t *T, binaryTreeEntiti
 binaryTreeEntitiesDest_t *rbTreeEntitiesDestDelete(binaryTreeEntitiesDest_t *T, binaryTreeEntitiesDest_t *z);
 
 void rbTreeEntitiesDestDeleteFixup(binaryTreeEntitiesDest_t *T, binaryTreeEntitiesDest_t *x);
+
+void rbTreeEntitiesDestPurge(binaryTreeEntitiesDest_t *T);
 
 // Hash functions
 
@@ -270,6 +277,9 @@ void addRelManager() {
         hashEntitiesOrig_t *newOrig = malloc(sizeof(hashEntitiesOrig_t));
         newOrig->id = idOrigRef;
         hashDestInsert(newDest->hashDest, newOrig);
+
+        //Add the dest to the max dest tree
+        rbTreeEntitiesDestInsert(relType->maxDestRoot, newDest);
         return;
     }
 
@@ -590,6 +600,17 @@ void rbTreeRelTypesDeleteFixup(binaryTreeRelTypes_t *T, binaryTreeRelTypes_t *x)
 }
 
 /*
+ * Free all the tree memory
+ */
+void rbTreeRelTypesPurge(binaryTreeRelTypes_t *T) {
+    if(T == binaryTreeRelTypesNIL) {
+        return;
+    }
+    rbTreeRelTypesPurge(T->left); // Free left memory
+    rbTreeRelTypesPurge(T->right); // Free right memory
+}
+
+/*
  *  ENTITIES TYPE RB TREES
  */
 
@@ -866,6 +887,17 @@ void rbTreeEntitiesDeleteFixup(binaryTreeEntities_t *T, binaryTreeEntities_t *x)
 }
 
 /*
+ * Free all the tree memory
+ */
+void rbTreeEntitiesPurge(binaryTreeEntities_t *T) {
+    if(T == binaryTreeEntitiesNIL) {
+        return;
+    }
+    rbTreeEntitiesPurge(T->left); // Free left memory
+    rbTreeEntitiesPurge(T->right); // Free right memory
+}
+
+/*
  *  ENTITIES DEST TYPE RB TREES
  */
 
@@ -1139,6 +1171,17 @@ void rbTreeEntitiesDestDeleteFixup(binaryTreeEntitiesDest_t *T, binaryTreeEntiti
         }
     }
     x->color = BLACK;
+}
+
+/*
+ * Free all the tree memory
+ */
+void rbTreeEntitiesDestPurge(binaryTreeEntitiesDest_t *T) {
+    if(T == binaryTreeEntitiesDestNIL) {
+        return;
+    }
+    rbTreeEntitiesDestPurge(T->left); // Free left memory
+    rbTreeEntitiesDestPurge(T->right); // Free right memory
 }
 
 /*
