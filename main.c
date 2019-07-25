@@ -184,6 +184,9 @@ binaryTreeEntitiesDest_t *binaryTreeEntitiesDestNIL;
 int main() {
     relTypesRoot = malloc(sizeof(binaryTreeRelTypes_t));
     binaryTreeRelTypesNIL = malloc(sizeof(binaryTreeRelTypes_t));
+    binaryTreeRelTypesNIL->left = binaryTreeRelTypesNIL;
+    binaryTreeRelTypesNIL->right = binaryTreeRelTypesNIL;
+    binaryTreeRelTypesNIL->p = binaryTreeRelTypesNIL;
     binaryTreeRelTypesNIL->color = BLACK;
 
     relTypesRoot->p = binaryTreeRelTypesNIL;
@@ -202,6 +205,9 @@ int main() {
     entitiesRoot->left = binaryTreeEntitiesNIL;
 
     binaryTreeEntitiesDestNIL = malloc(sizeof(binaryTreeEntitiesDest_t));
+    binaryTreeEntitiesDestNIL->left = binaryTreeEntitiesDestNIL;
+    binaryTreeEntitiesDestNIL->right = binaryTreeEntitiesDestNIL;
+    binaryTreeEntitiesDestNIL->p = binaryTreeEntitiesDestNIL;
     binaryTreeEntitiesDestNIL->color = BLACK;
 
     for (;;) {
