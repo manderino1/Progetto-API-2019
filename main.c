@@ -170,7 +170,7 @@ binaryTreeEntities_t *createEntity(char *idToSet);
 
 binaryTreeEntitiesDest_t *createEntityDest(binaryTreeRelTypes_t **relType, char *idToSet);
 
-binaryTreeEntitiesDest_t *addEntityDestMax(binaryTreeRelTypes_t **relType, binaryTreeEntitiesDest_t *destToAdd);
+binaryTreeEntitiesDest_t *addEntityDestMax(binaryTreeRelTypes_t **relType, char *idToSet);
 
 char *createHashOrig(binaryTreeEntitiesDest_t **destEnt, char *idToSet);
 
@@ -285,7 +285,7 @@ void addRelManager() {
         char *newOrig = createHashOrig(&newDest, idOrigRef);
 
         //Add the dest to the max dest tree
-        addEntityDestMax(&newRelType, newDest);
+        addEntityDestMax(&newRelType, idDestRef);
 
         // Set maxRelations to the new rel created (1)
         newRelType->maxRelations = newDest->relationsNum;
@@ -304,10 +304,10 @@ void addRelManager() {
         // Check if maxrelations is greater than 1
         if (relType->maxRelations < newDest->relationsNum) {
             rbTreeEntitiesDestPurge(relType->maxDestRoot);
-            addEntityDestMax(&relType, newDest);
+            addEntityDestMax(&relType, idDestRef);
             relType->maxRelations = newDest->relationsNum;
         } else if (relType->maxRelations == newDest->relationsNum) { // If it's 1, add it to the max tree
-            addEntityDestMax(&relType, newDest);
+            addEntityDestMax(&relType, idDestRef);
         }
         return;
     }
@@ -1299,9 +1299,11 @@ binaryTreeEntitiesDest_t *createEntityDest(binaryTreeRelTypes_t **relType, char 
     return entityDest;
 }
 
-binaryTreeEntitiesDest_t *addEntityDestMax(binaryTreeRelTypes_t **relType, binaryTreeEntitiesDest_t *destToAdd) {
-    rbTreeEntitiesDestInsert(&((*relType)->maxDestRoot), destToAdd);
-    return destToAdd;
+binaryTreeEntitiesDest_t *addEntityDestMax(binaryTreeRelTypes_t **relType, char *idToSet) {
+    binaryTreeEntitiesDest_t *entityDestMax = malloc(sizeof(binaryTreeEntitiesDest_t));
+    entityDestMax->id = idToSet;
+    rbTreeEntitiesDestInsert(&((*relType)->maxDestRoot), entityDestMax);
+    return entityDestMax;
 }
 
 char *createHashOrig(binaryTreeEntitiesDest_t **destEnt, char *idToSet) {
