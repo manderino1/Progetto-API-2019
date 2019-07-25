@@ -175,7 +175,7 @@ binaryTreeEntities_t *createEntity(char *idToSet);
 
 binaryTreeEntitiesDest_t *createEntityDest(binaryTreeRelTypes_t **relType, char *idToSet);
 
-binaryTreeEntitiesDest_t *createEntityDestMax(binaryTreeRelTypes_t **relType, char *idToSet);
+binaryTreeEntitiesDest_t *addEntityDestMax(binaryTreeRelTypes_t **relType, binaryTreeEntitiesDest_t *destToAdd);
 
 hashEntitiesOrig_t *createHashOrig(binaryTreeEntitiesDest_t **destEnt, char *idToSet);
 
@@ -290,7 +290,7 @@ void addRelManager() {
         hashEntitiesOrig_t *newOrig = createHashOrig(&newDest, idOrigRef);
 
         //Add the dest to the max dest tree
-        createEntityDestMax(&newRelType, idDestRef);
+        addEntityDestMax(&newRelType, newDest);
 
         // Set maxRelations to the new rel created (1)
         newRelType->maxRelations = newDest->relationsNum;
@@ -301,46 +301,37 @@ void addRelManager() {
     binaryTreeEntitiesDest_t *destinyEnt = rbTreeEntitiesDestSearch(relType->destTreeRoot, idDest);
     if (destinyEnt == binaryTreeEntitiesDestNIL) { // Relations dest doesn't exist, add it
         //Add dest to the existent rel type
-        binaryTreeEntitiesDest_t *newDest = malloc(sizeof(binaryTreeEntitiesDest_t));
-        newDest->id = idDestRef;
-        newDest->relationsNum = 1;
-        rbTreeEntitiesDestInsert(&(relType->destTreeRoot), newDest);
+        binaryTreeEntitiesDest_t *newDest = createEntityDest(&relType, idDestRef);
 
         //Add orig to the new dest
-        hashEntitiesOrig_t *newOrig = malloc(sizeof(hashEntitiesOrig_t));
-        newOrig->id = idOrigRef;
-        hashDestInsert(newDest->hashDest, newOrig);
+        hashEntitiesOrig_t *newOrig = createHashOrig(&newDest, idOrigRef);
 
         // Check if maxrelations is greater than 1
         if (relType->maxRelations < newDest->relationsNum) {
             rbTreeEntitiesDestPurge(relType->maxDestRoot);
-            rbTreeEntitiesDestInsert(&(relType->maxDestRoot), newDest);
+            addEntityDestMax(&relType, newDest);
             relType->maxRelations = newDest->relationsNum;
         } else if (relType->maxRelations == newDest->relationsNum) { // If it's 1, add it to the max tree
-            rbTreeEntitiesDestInsert(&(relType->maxDestRoot), newDest);
+            addEntityDestMax(&relType, newDest);
         }
         return;
     }
 
     //If i reach there the dest exist, check if the relations already exist
-    hashEntitiesOrig_t *newOrig = malloc(sizeof(hashEntitiesOrig_t));
-    (destinyEnt->relationsNum)++; // Increase the relationsnum number accordingly
-    newOrig->id = idOrigRef;
-    if (hashDestSearch(destinyEnt->hashDest, newOrig) == NOT_FOUND) { // Doesn't exist, add
-        hashDestInsert(destinyEnt->hashDest, newOrig);
+    hashEntitiesOrig_t *newOrig = createHashOrig(&destinyEnt, idOrigRef);
 
-        // Check if maxrelations is greater than 1
+    if(newOrig != NULL) { // If it doesn't exist
+        (destinyEnt->relationsNum)++; // Increase the relationsNum number accordingly
+        // Check if maxRelations is greater than 1
         if (relType->maxRelations < destinyEnt->relationsNum) {
-            rbTreeEntitiesDestPurge(relType->maxDestRoot);
-            rbTreeEntitiesDestInsert(&(relType->maxDestRoot), destinyEnt);
-            relType->maxRelations = destinyEnt->relationsNum;
+            rbTreeEntitiesDestPurge(relType->maxDestRoot); // Clean the tree
+            rbTreeEntitiesDestInsert(&(relType->maxDestRoot), destinyEnt); // Add dest to the  maxTree
+            relType->maxRelations = destinyEnt->relationsNum; // Set maxRelations to the new maxRelations value
         } else if (relType->maxRelations == destinyEnt->relationsNum) { // If it's 1, add it to the max tree
-            rbTreeEntitiesDestInsert(&(relType->maxDestRoot), destinyEnt);
+            rbTreeEntitiesDestInsert(&(relType->maxDestRoot), destinyEnt); // Add the value to the tree
         }
         return;
     }
-
-    //If it already exist, do nothing
 }
 
 void delRelManager() {
@@ -1306,17 +1297,19 @@ binaryTreeEntitiesDest_t *createEntityDest(binaryTreeRelTypes_t **relType, char 
     return entityDest;
 }
 
-binaryTreeEntitiesDest_t *createEntityDestMax(binaryTreeRelTypes_t **relType, char *idToSet) {
-    binaryTreeEntitiesDest_t *entityDest = malloc(sizeof(binaryTreeEntitiesDest_t));
-    strncpy(entityDest->id, idToSet, ENTITY_ID_SIZE);
-    entityDest->relationsNum = 1;
-    rbTreeEntitiesDestInsert(&((*relType)->maxDestRoot), entityDest);
-    return entityDest;
+binaryTreeEntitiesDest_t *addEntityDestMax(binaryTreeRelTypes_t **relType, binaryTreeEntitiesDest_t *destToAdd) {
+    rbTreeEntitiesDestInsert(&((*relType)->maxDestRoot), destToAdd);
+    return destToAdd;
 }
 
 hashEntitiesOrig_t *createHashOrig(binaryTreeEntitiesDest_t **destEnt, char *idToSet) {
     hashEntitiesOrig_t *newOrig = malloc(sizeof(hashEntitiesOrig_t));
     newOrig->id = idToSet;
-    hashDestInsert((*destEnt)->hashDest, newOrig);
-    return newOrig;
+
+    if (hashDestSearch((*destEnt)->hashDest, newOrig) == NOT_FOUND) { // Doesn't exist, add
+        hashDestInsert((*destEnt)->hashDest, newOrig);
+        return newOrig;
+    }
+
+    return NULL; // Already exists, nothing added
 }
