@@ -175,6 +175,10 @@ binaryTreeEntities_t *createEntity(char *idToSet);
 
 binaryTreeEntitiesDest_t *createEntityDest(binaryTreeRelTypes_t **relType, char *idToSet);
 
+binaryTreeEntitiesDest_t *createEntityDestMax(binaryTreeRelTypes_t **relType, char *idToSet);
+
+hashEntitiesOrig_t *createHashOrig(binaryTreeEntitiesDest_t **destEnt, char *idToSet);
+
 
 /*
  * Global variables
@@ -245,9 +249,7 @@ void addEntManager() {
 
     if (rbTreeEntitiesSearch(entitiesRoot, idEntity) ==
         binaryTreeEntitiesNIL) { // Go only if entity doesn't already exist (logn)
-        binaryTreeEntities_t *newEntity = malloc(sizeof(binaryTreeEntities_t));
-        strncpy(newEntity->id, idEntity, ENTITY_ID_SIZE);
-        rbTreeEntitiesInsert(&entitiesRoot, newEntity);
+        binaryTreeEntities_t *newEntity = createEntity(idEntity); // Add the new entity to the entities tree
     }
 }
 
@@ -282,18 +284,15 @@ void addRelManager() {
         binaryTreeRelTypes_t *newRelType = createRelType(idRel);
 
         //Add dest to the new relation type
-        binaryTreeEntitiesDest_t *newDest = malloc(sizeof(binaryTreeEntitiesDest_t));
-        newDest->id = idDestRef;
-        newDest->relationsNum = 1;
-        rbTreeEntitiesDestInsert(&(relType->destTreeRoot), newDest);
+        binaryTreeEntitiesDest_t *newDest = createEntityDest(&newRelType, idDestRef);
 
         //Add orig to the dest
-        hashEntitiesOrig_t *newOrig = malloc(sizeof(hashEntitiesOrig_t));
-        newOrig->id = idOrigRef;
-        hashDestInsert(newDest->hashDest, newOrig);
+        hashEntitiesOrig_t *newOrig = createHashOrig(&newDest, idOrigRef);
 
         //Add the dest to the max dest tree
-        rbTreeEntitiesDestInsert(&(newRelType->maxDestRoot), newDest);
+        createEntityDestMax(&newRelType, idDestRef);
+
+        // Set maxRelations to the new rel created (1)
         newRelType->maxRelations = newDest->relationsNum;
         return;
     }
@@ -1284,8 +1283,8 @@ int hashDestSearch(hashEntitiesOrig_t **T, hashEntitiesOrig_t *k) {
  */
 binaryTreeRelTypes_t *createRelType(char *idToSet) {
     binaryTreeRelTypes_t *relType = malloc(sizeof(binaryTreeRelTypes_t));
-    relType->destTreeRoot = malloc(sizeof(binaryTreeEntitiesDest_t));
-    relType->maxDestRoot = malloc(sizeof(binaryTreeEntitiesDest_t));
+    relType->destTreeRoot = binaryTreeEntitiesDestNIL;
+    relType->maxDestRoot = binaryTreeEntitiesDestNIL;
     relType->maxRelations = 1;
     strncpy(relType->id, idToSet, RELATIONS_ID_SIZE);
     rbTreeRelTypesInsert(&relTypesRoot, relType);
@@ -1302,6 +1301,22 @@ binaryTreeEntities_t *createEntity(char *idToSet) {
 binaryTreeEntitiesDest_t *createEntityDest(binaryTreeRelTypes_t **relType, char *idToSet) {
     binaryTreeEntitiesDest_t *entityDest = malloc(sizeof(binaryTreeEntitiesDest_t));
     strncpy(entityDest->id, idToSet, ENTITY_ID_SIZE);
+    entityDest->relationsNum = 1;
     rbTreeEntitiesDestInsert(&((*relType)->destTreeRoot), entityDest);
     return entityDest;
+}
+
+binaryTreeEntitiesDest_t *createEntityDestMax(binaryTreeRelTypes_t **relType, char *idToSet) {
+    binaryTreeEntitiesDest_t *entityDest = malloc(sizeof(binaryTreeEntitiesDest_t));
+    strncpy(entityDest->id, idToSet, ENTITY_ID_SIZE);
+    entityDest->relationsNum = 1;
+    rbTreeEntitiesDestInsert(&((*relType)->maxDestRoot), entityDest);
+    return entityDest;
+}
+
+hashEntitiesOrig_t *createHashOrig(binaryTreeEntitiesDest_t **destEnt, char *idToSet) {
+    hashEntitiesOrig_t *newOrig = malloc(sizeof(hashEntitiesOrig_t));
+    newOrig->id = idToSet;
+    hashDestInsert((*destEnt)->hashDest, newOrig);
+    return newOrig;
 }
