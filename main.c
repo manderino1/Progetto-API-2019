@@ -320,10 +320,11 @@ void addRelManager() {
         // Check if maxRelations is greater than 1
         if (relType->maxRelations < destinyEnt->relationsNum) {
             rbTreeEntitiesDestPurge(relType->maxDestRoot); // Clean the tree
-            rbTreeEntitiesDestInsert(&(relType->maxDestRoot), destinyEnt); // Add dest to the  maxTree
+            relType->maxDestRoot = binaryTreeEntitiesDestNIL;
+            addEntityDestMax(&relType, idDestRef);
             relType->maxRelations = destinyEnt->relationsNum; // Set maxRelations to the new maxRelations value
         } else if (relType->maxRelations == destinyEnt->relationsNum) { // If it's 1, add it to the max tree
-            rbTreeEntitiesDestInsert(&(relType->maxDestRoot), destinyEnt); // Add the value to the tree
+            addEntityDestMax(&relType, idDestRef);
         }
         return;
     }
