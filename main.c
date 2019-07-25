@@ -167,6 +167,14 @@ int hashDestInsert(hashEntitiesOrig_t **T, hashEntitiesOrig_t *k);
 
 int hashDestSearch(hashEntitiesOrig_t **T, hashEntitiesOrig_t *k);
 
+// Creating object and initializing functions
+
+void createRelType(binaryTreeRelTypes_t **relType, char *idToSet);
+
+void createEntity(binaryTreeEntities_t **entity, char *idToSet);
+
+void createEntityDest(binaryTreeEntitiesDest_t **entityDest, binaryTreeRelTypes_t **relType, char *idToSet);
+
 
 /*
  * Global variables
@@ -220,6 +228,8 @@ int main() {
         } else if (strcmp(commandRead, "report") == 0) {
             reportManager();
         } else {
+            free(relTypesRoot);
+            free(entitiesRoot);
             return 0;
         }
     }
@@ -1269,4 +1279,28 @@ int hashDestSearch(hashEntitiesOrig_t **T, hashEntitiesOrig_t *k) {
         i = i + 1;
     } while ((T[j] != NULL) && (i != HASH_TABLE_SIZE));
     return -1;
+}
+
+/*
+ * CREATE AND INIT NODES FUNCTIONS
+ */
+void createRelType(binaryTreeRelTypes_t **relType, char *idToSet) {
+    *relType = malloc(sizeof(binaryTreeRelTypes_t));
+    (*relType)->destTreeRoot = malloc(sizeof(binaryTreeEntitiesDest_t));
+    (*relType)->maxDestRoot = malloc(sizeof(binaryTreeEntitiesDest_t));
+    (*relType)->maxRelations = 1;
+    strncpy((*relType)->id, idToSet, RELATIONS_ID_SIZE);
+    rbTreeRelTypesInsert(&relTypesRoot, (*relType));
+}
+
+void createEntity(binaryTreeEntities_t **entity, char *idToSet) {
+    *entity = malloc(sizeof(binaryTreeEntities_t));
+    strncpy((*entity)->id, idToSet, ENTITY_ID_SIZE);
+    rbTreeEntitiesInsert(&entitiesRoot, (*entity));
+}
+
+void createEntityDest(binaryTreeEntitiesDest_t **entityDest, binaryTreeRelTypes_t **relType, char *idToSet) {
+    *entityDest = malloc(sizeof(binaryTreeEntitiesDest_t));
+    strncpy((*entityDest)->id, idToSet, ENTITY_ID_SIZE);
+    rbTreeEntitiesDestInsert(&((*relType)->destTreeRoot), (*entityDest));
 }
