@@ -192,6 +192,9 @@ int main() {
 
     entitiesRoot = malloc(sizeof(binaryTreeEntities_t));
     binaryTreeEntitiesNIL = malloc(sizeof(binaryTreeEntities_t));
+    binaryTreeEntitiesNIL->p = binaryTreeEntitiesNIL;
+    binaryTreeEntitiesNIL->left = binaryTreeEntitiesNIL;
+    binaryTreeEntitiesNIL->right = binaryTreeEntitiesNIL;
     binaryTreeEntitiesNIL->color = BLACK;
 
     entitiesRoot->p = binaryTreeEntitiesNIL;
