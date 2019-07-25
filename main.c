@@ -93,17 +93,17 @@ binaryTreeRelTypes_t *rbTreeRelTypesSuccessor(binaryTreeRelTypes_t *x);
 
 binaryTreeRelTypes_t *rbTreeRelTypesPredecessor(binaryTreeRelTypes_t *x);
 
-void rbTreeRelTypesLeftRotate(binaryTreeRelTypes_t *T, binaryTreeRelTypes_t *x);
+void rbTreeRelTypesLeftRotate(binaryTreeRelTypes_t **T, binaryTreeRelTypes_t *x);
 
-void rbTreeRelTypesRightRotate(binaryTreeRelTypes_t *T, binaryTreeRelTypes_t *x);
+void rbTreeRelTypesRightRotate(binaryTreeRelTypes_t **T, binaryTreeRelTypes_t *x);
 
-void rbTreeRelTypesInsert(binaryTreeRelTypes_t *T, binaryTreeRelTypes_t *z);
+void rbTreeRelTypesInsert(binaryTreeRelTypes_t **T, binaryTreeRelTypes_t *z);
 
-void rbTreeRelTypesInsertFixup(binaryTreeRelTypes_t *T, binaryTreeRelTypes_t *z);
+void rbTreeRelTypesInsertFixup(binaryTreeRelTypes_t **T, binaryTreeRelTypes_t *z);
 
-binaryTreeRelTypes_t *rbTreeRelTypesDelete(binaryTreeRelTypes_t *T, binaryTreeRelTypes_t *z);
+binaryTreeRelTypes_t *rbTreeRelTypesDelete(binaryTreeRelTypes_t **T, binaryTreeRelTypes_t *z);
 
-void rbTreeRelTypesDeleteFixup(binaryTreeRelTypes_t *T, binaryTreeRelTypes_t *x);
+void rbTreeRelTypesDeleteFixup(binaryTreeRelTypes_t **T, binaryTreeRelTypes_t *x);
 
 void rbTreeRelTypesPurge(binaryTreeRelTypes_t *T);
 
@@ -200,7 +200,7 @@ int main() {
 
     binaryTreeEntitiesDestNIL = malloc(sizeof(binaryTreeEntitiesDest_t));
     binaryTreeEntitiesDestNIL->color = BLACK;
-    
+
     for (;;) {
         char commandRead[COMMAND_READ_SIZE];
         scanf("%s", commandRead);
@@ -265,7 +265,7 @@ void addRelManager() {
         //Add new relation tipe
         binaryTreeRelTypes_t *newRelType = malloc(sizeof(binaryTreeRelTypes_t));
         strncpy(newRelType->id, idRel, RELATIONS_ID_SIZE);
-        rbTreeRelTypesInsert(relTypesRoot, newRelType);
+        rbTreeRelTypesInsert(&relTypesRoot, newRelType);
 
         //Add dest to the new relation type
         binaryTreeEntitiesDest_t *newDest = malloc(sizeof(binaryTreeEntitiesDest_t));
@@ -428,7 +428,7 @@ binaryTreeRelTypes_t *rbTreeRelTypesPredecessor(binaryTreeRelTypes_t *x) {
 /*
  * Left rotate the rb tree for rel types
  */
-void rbTreeRelTypesLeftRotate(binaryTreeRelTypes_t *T, binaryTreeRelTypes_t *x) {
+void rbTreeRelTypesLeftRotate(binaryTreeRelTypes_t **T, binaryTreeRelTypes_t *x) {
     binaryTreeRelTypes_t *y = x->right;
     x->right = y->left;
     if (y->left != binaryTreeRelTypesNIL) {
@@ -436,7 +436,7 @@ void rbTreeRelTypesLeftRotate(binaryTreeRelTypes_t *T, binaryTreeRelTypes_t *x) 
     }
     y->p = x->p;
     if (x->p == binaryTreeRelTypesNIL) {
-        T = y;
+        *T = y;
     } else if (x == x->p->left) {
         x->p->left = y;
     } else {
@@ -449,7 +449,7 @@ void rbTreeRelTypesLeftRotate(binaryTreeRelTypes_t *T, binaryTreeRelTypes_t *x) 
 /*
  * Right rotate the rb tree for rel types
  */
-void rbTreeRelTypesRightRotate(binaryTreeRelTypes_t *T, binaryTreeRelTypes_t *x) {
+void rbTreeRelTypesRightRotate(binaryTreeRelTypes_t **T, binaryTreeRelTypes_t *x) {
     binaryTreeRelTypes_t *y = x->left;
     x->left = y->right;
     if (y->right != binaryTreeRelTypesNIL) {
@@ -457,7 +457,7 @@ void rbTreeRelTypesRightRotate(binaryTreeRelTypes_t *T, binaryTreeRelTypes_t *x)
     }
     y->p = x->p;
     if (x->p == binaryTreeRelTypesNIL) {
-        T = y;
+        *T = y;
     } else if (x == x->p->right) {
         x->p->right = y;
     } else {
@@ -470,9 +470,9 @@ void rbTreeRelTypesRightRotate(binaryTreeRelTypes_t *T, binaryTreeRelTypes_t *x)
 /*
  * Insert value in rb trees
  */
-void rbTreeRelTypesInsert(binaryTreeRelTypes_t *T, binaryTreeRelTypes_t *z) {
+void rbTreeRelTypesInsert(binaryTreeRelTypes_t **T, binaryTreeRelTypes_t *z) {
     binaryTreeRelTypes_t *y = binaryTreeRelTypesNIL;
-    binaryTreeRelTypes_t *x = T;
+    binaryTreeRelTypes_t *x = *T;
     while (x != binaryTreeRelTypesNIL) {
         y = x;
         if (strncmp(z->id, x->id, RELATIONS_ID_SIZE) < 0) {
@@ -483,7 +483,7 @@ void rbTreeRelTypesInsert(binaryTreeRelTypes_t *T, binaryTreeRelTypes_t *z) {
     }
     z->p = y;
     if (y == binaryTreeRelTypesNIL) {
-        T = z;
+        *T = z;
     } else if (strncmp(z->id, y->id, RELATIONS_ID_SIZE) < 0) {
         y->left = z;
     } else {
@@ -498,7 +498,7 @@ void rbTreeRelTypesInsert(binaryTreeRelTypes_t *T, binaryTreeRelTypes_t *z) {
 /*
  * Fixup insert value in rb trees
  */
-void rbTreeRelTypesInsertFixup(binaryTreeRelTypes_t *T, binaryTreeRelTypes_t *z) {
+void rbTreeRelTypesInsertFixup(binaryTreeRelTypes_t **T, binaryTreeRelTypes_t *z) {
     while (z->p->color == RED) {
         if (z->p == z->p->p->left) {
             binaryTreeRelTypes_t *y = z->p->p->right;
@@ -540,7 +540,7 @@ void rbTreeRelTypesInsertFixup(binaryTreeRelTypes_t *T, binaryTreeRelTypes_t *z)
  * Delete rb trees selected value
  */
 
-binaryTreeRelTypes_t *rbTreeRelTypesDelete(binaryTreeRelTypes_t *T, binaryTreeRelTypes_t *z) {
+binaryTreeRelTypes_t *rbTreeRelTypesDelete(binaryTreeRelTypes_t **T, binaryTreeRelTypes_t *z) {
     binaryTreeRelTypes_t *y;
     binaryTreeRelTypes_t *x;
     if ((z->left == binaryTreeRelTypesNIL) || (z->right == binaryTreeRelTypesNIL)) {
@@ -555,7 +555,7 @@ binaryTreeRelTypes_t *rbTreeRelTypesDelete(binaryTreeRelTypes_t *T, binaryTreeRe
     }
     x->p = y->p;
     if (y->p == binaryTreeRelTypesNIL) {
-        T = x;
+        *T = x;
     } else if (y == y->p->left) {
         y->p->left = x;
     } else {
@@ -574,9 +574,9 @@ binaryTreeRelTypes_t *rbTreeRelTypesDelete(binaryTreeRelTypes_t *T, binaryTreeRe
  * Fixup delete rb trees selected value
  */
 
-void rbTreeRelTypesDeleteFixup(binaryTreeRelTypes_t *T, binaryTreeRelTypes_t *x) {
+void rbTreeRelTypesDeleteFixup(binaryTreeRelTypes_t **T, binaryTreeRelTypes_t *x) {
     binaryTreeRelTypes_t *w;
-    while ((x != T) && (x->color == BLACK)) {
+    while ((x != *T) && (x->color == BLACK)) {
         if (x == x->p->left) {
             w = x->p->right;
             if (w->color == RED) {
@@ -599,7 +599,7 @@ void rbTreeRelTypesDeleteFixup(binaryTreeRelTypes_t *T, binaryTreeRelTypes_t *x)
                 x->p->color = BLACK;
                 w->right->color = BLACK;
                 rbTreeRelTypesLeftRotate(T, x->p);
-                x = T;
+                x = *T;
             }
         } else {
             w = x->p->left;
@@ -623,7 +623,7 @@ void rbTreeRelTypesDeleteFixup(binaryTreeRelTypes_t *T, binaryTreeRelTypes_t *x)
                 x->p->color = BLACK;
                 w->left->color = BLACK;
                 rbTreeRelTypesRightRotate(T, x->p);
-                x = T;
+                x = *T;
             }
         }
     }
@@ -639,6 +639,7 @@ void rbTreeRelTypesPurge(binaryTreeRelTypes_t *T) {
     }
     rbTreeRelTypesPurge(T->left); // Free left memory
     rbTreeRelTypesPurge(T->right); // Free right memory
+    free(T);
 }
 
 /*
@@ -926,6 +927,7 @@ void rbTreeEntitiesPurge(binaryTreeEntities_t *T) {
     }
     rbTreeEntitiesPurge(T->left); // Free left memory
     rbTreeEntitiesPurge(T->right); // Free right memory
+    free(T);
 }
 
 /*
@@ -1213,6 +1215,7 @@ void rbTreeEntitiesDestPurge(binaryTreeEntitiesDest_t *T) {
     }
     rbTreeEntitiesDestPurge(T->left); // Free left memory
     rbTreeEntitiesDestPurge(T->right); // Free right memory
+    free(T);
 }
 
 /*
