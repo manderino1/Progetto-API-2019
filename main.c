@@ -119,17 +119,17 @@ binaryTreeEntities_t *rbTreeEntitiesSuccessor(binaryTreeEntities_t *x);
 
 binaryTreeEntities_t *rbTreeEntitiesPredecessor(binaryTreeEntities_t *x);
 
-void rbTreeEntitiesLeftRotate(binaryTreeEntities_t *T, binaryTreeEntities_t *x);
+void rbTreeEntitiesLeftRotate(binaryTreeEntities_t **T, binaryTreeEntities_t *x);
 
-void rbTreeEntitiesRightRotate(binaryTreeEntities_t *T, binaryTreeEntities_t *x);
+void rbTreeEntitiesRightRotate(binaryTreeEntities_t **T, binaryTreeEntities_t *x);
 
-void rbTreeEntitiesInsert(binaryTreeEntities_t *T, binaryTreeEntities_t *z);
+void rbTreeEntitiesInsert(binaryTreeEntities_t **T, binaryTreeEntities_t *z);
 
-void rbTreeEntitiesInsertFixup(binaryTreeEntities_t *T, binaryTreeEntities_t *z);
+void rbTreeEntitiesInsertFixup(binaryTreeEntities_t **T, binaryTreeEntities_t *z);
 
-binaryTreeEntities_t *rbTreeEntitiesDelete(binaryTreeEntities_t *T, binaryTreeEntities_t *z);
+binaryTreeEntities_t *rbTreeEntitiesDelete(binaryTreeEntities_t **T, binaryTreeEntities_t *z);
 
-void rbTreeEntitiesDeleteFixup(binaryTreeEntities_t *T, binaryTreeEntities_t *x);
+void rbTreeEntitiesDeleteFixup(binaryTreeEntities_t **T, binaryTreeEntities_t *x);
 
 void rbTreeEntitiesPurge(binaryTreeEntities_t *T);
 
@@ -231,7 +231,7 @@ void addEntManager() {
     if(rbTreeEntitiesSearch(entitiesRoot, idEntity) != binaryTreeEntitiesNIL) { // Go only if entity doesn't already exist (logn)
         binaryTreeEntities_t *newEntity = malloc(sizeof(binaryTreeEntities_t));
         strncpy(newEntity->id, idEntity, ENTITY_ID_SIZE);
-        rbTreeEntitiesInsert(entitiesRoot, newEntity);
+        rbTreeEntitiesInsert(&entitiesRoot, newEntity);
     }
 }
 
@@ -716,7 +716,7 @@ binaryTreeEntities_t *rbTreeEntitiesPredecessor(binaryTreeEntities_t *x) {
 /*
  * Left rotate the rb tree for entities types
  */
-void rbTreeEntitiesLeftRotate(binaryTreeEntities_t *T, binaryTreeEntities_t *x) {
+void rbTreeEntitiesLeftRotate(binaryTreeEntities_t **T, binaryTreeEntities_t *x) {
     binaryTreeEntities_t *y = x->right;
     x->right = y->left;
     if (y->left != binaryTreeEntitiesNIL) {
@@ -724,7 +724,7 @@ void rbTreeEntitiesLeftRotate(binaryTreeEntities_t *T, binaryTreeEntities_t *x) 
     }
     y->p = x->p;
     if (x->p == binaryTreeEntitiesNIL) {
-        T = y;
+        *T = y;
     } else if (x == x->p->left) {
         x->p->left = y;
     } else {
@@ -737,7 +737,7 @@ void rbTreeEntitiesLeftRotate(binaryTreeEntities_t *T, binaryTreeEntities_t *x) 
 /*
  * Right rotate the rb tree for entities types
  */
-void rbTreeEntitiesRightRotate(binaryTreeEntities_t *T, binaryTreeEntities_t *x) {
+void rbTreeEntitiesRightRotate(binaryTreeEntities_t **T, binaryTreeEntities_t *x) {
     binaryTreeEntities_t *y = x->left;
     x->left = y->right;
     if (y->right != binaryTreeEntitiesNIL) {
@@ -745,7 +745,7 @@ void rbTreeEntitiesRightRotate(binaryTreeEntities_t *T, binaryTreeEntities_t *x)
     }
     y->p = x->p;
     if (x->p == binaryTreeEntitiesNIL) {
-        T = y;
+        *T = y;
     } else if (x == x->p->right) {
         x->p->right = y;
     } else {
@@ -758,9 +758,9 @@ void rbTreeEntitiesRightRotate(binaryTreeEntities_t *T, binaryTreeEntities_t *x)
 /*
  * Insert value in rb trees
  */
-void rbTreeEntitiesInsert(binaryTreeEntities_t *T, binaryTreeEntities_t *z) {
+void rbTreeEntitiesInsert(binaryTreeEntities_t **T, binaryTreeEntities_t *z) {
     binaryTreeEntities_t *y = binaryTreeEntitiesNIL;
-    binaryTreeEntities_t *x = T;
+    binaryTreeEntities_t *x = *T;
     while (x != binaryTreeEntitiesNIL) {
         y = x;
         if (strncmp(z->id, x->id, RELATIONS_ID_SIZE) < 0) {
@@ -771,7 +771,7 @@ void rbTreeEntitiesInsert(binaryTreeEntities_t *T, binaryTreeEntities_t *z) {
     }
     z->p = y;
     if (y == binaryTreeEntitiesNIL) {
-        T = z;
+        *T = z;
     } else if (strncmp(z->id, y->id, RELATIONS_ID_SIZE) < 0) {
         y->left = z;
     } else {
@@ -786,7 +786,7 @@ void rbTreeEntitiesInsert(binaryTreeEntities_t *T, binaryTreeEntities_t *z) {
 /*
  * Fixup insert value in rb trees
  */
-void rbTreeEntitiesInsertFixup(binaryTreeEntities_t *T, binaryTreeEntities_t *z) {
+void rbTreeEntitiesInsertFixup(binaryTreeEntities_t **T, binaryTreeEntities_t *z) {
     while (z->p->color == RED) {
         if (z->p == z->p->p->left) {
             binaryTreeEntities_t *y = z->p->p->right;
@@ -828,7 +828,7 @@ void rbTreeEntitiesInsertFixup(binaryTreeEntities_t *T, binaryTreeEntities_t *z)
  * Delete rb trees selected value
  */
 
-binaryTreeEntities_t *rbTreeEntitiesDelete(binaryTreeEntities_t *T, binaryTreeEntities_t *z) {
+binaryTreeEntities_t *rbTreeEntitiesDelete(binaryTreeEntities_t **T, binaryTreeEntities_t *z) {
     binaryTreeEntities_t *y;
     binaryTreeEntities_t *x;
     if ((z->left == binaryTreeEntitiesNIL) || (z->right == binaryTreeEntitiesNIL)) {
@@ -843,7 +843,7 @@ binaryTreeEntities_t *rbTreeEntitiesDelete(binaryTreeEntities_t *T, binaryTreeEn
     }
     x->p = y->p;
     if (y->p == binaryTreeEntitiesNIL) {
-        T = x;
+        *T = x;
     } else if (y == y->p->left) {
         y->p->left = x;
     } else {
@@ -862,9 +862,9 @@ binaryTreeEntities_t *rbTreeEntitiesDelete(binaryTreeEntities_t *T, binaryTreeEn
  * Fixup delete rb trees selected value
  */
 
-void rbTreeEntitiesDeleteFixup(binaryTreeEntities_t *T, binaryTreeEntities_t *x) {
+void rbTreeEntitiesDeleteFixup(binaryTreeEntities_t **T, binaryTreeEntities_t *x) {
     binaryTreeEntities_t *w;
-    while ((x != T) && (x->color == BLACK)) {
+    while ((x != *T) && (x->color == BLACK)) {
         if (x == x->p->left) {
             w = x->p->right;
             if (w->color == RED) {
@@ -887,7 +887,7 @@ void rbTreeEntitiesDeleteFixup(binaryTreeEntities_t *T, binaryTreeEntities_t *x)
                 x->p->color = BLACK;
                 w->right->color = BLACK;
                 rbTreeEntitiesLeftRotate(T, x->p);
-                x = T;
+                x = *T;
             }
         } else {
             w = x->p->left;
@@ -911,7 +911,7 @@ void rbTreeEntitiesDeleteFixup(binaryTreeEntities_t *T, binaryTreeEntities_t *x)
                 x->p->color = BLACK;
                 w->left->color = BLACK;
                 rbTreeEntitiesLeftRotate(T, x->p);
-                x = T;
+                x = *T;
             }
         }
     }
