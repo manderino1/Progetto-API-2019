@@ -228,7 +228,7 @@ void addEntManager() {
     char idEntity[ENTITY_ID_SIZE];
     scanf("%s", idEntity); // Reading in buffer from stdin
 
-    if(rbTreeEntitiesSearch(entitiesRoot, idEntity) != binaryTreeEntitiesNIL) { // Go only if entity doesn't already exist (logn)
+    if(rbTreeEntitiesSearch(entitiesRoot, idEntity) == binaryTreeEntitiesNIL) { // Go only if entity doesn't already exist (logn)
         binaryTreeEntities_t *newEntity = malloc(sizeof(binaryTreeEntities_t));
         strncpy(newEntity->id, idEntity, ENTITY_ID_SIZE);
         rbTreeEntitiesInsert(&entitiesRoot, newEntity);
@@ -364,7 +364,7 @@ void reportManager() {
  * Check for string id alphabetical order
  */
 binaryTreeRelTypes_t *rbTreeRelTypesSearch(binaryTreeRelTypes_t *x, char *k) {
-    while ((x != binaryTreeRelTypesNIL) || (strncmp(k, x->id, RELATIONS_ID_SIZE) != 0)) {
+    while ((x != binaryTreeRelTypesNIL) && (strncmp(k, x->id, RELATIONS_ID_SIZE) != 0)) {
         if (strncmp(k, x->id, RELATIONS_ID_SIZE) < 0) {
             x = x->left;
         } else {
@@ -652,7 +652,7 @@ void rbTreeRelTypesPurge(binaryTreeRelTypes_t *T) {
  * Check for string id alphabetical order
  */
 binaryTreeEntities_t *rbTreeEntitiesSearch(binaryTreeEntities_t *x, char *k) {
-    while ((x != binaryTreeEntitiesNIL) || (strncmp(k, x->id, RELATIONS_ID_SIZE) != 0)) {
+    while ((x != binaryTreeEntitiesNIL) && (strncmp(k, x->id, RELATIONS_ID_SIZE) != 0)) {
         if (strncmp(k, x->id, RELATIONS_ID_SIZE) < 0) {
             x = x->left;
         } else {
@@ -940,7 +940,7 @@ void rbTreeEntitiesPurge(binaryTreeEntities_t *T) {
  * Check for string id alphabetical order
  */
 binaryTreeEntitiesDest_t *rbTreeEntitiesDestSearch(binaryTreeEntitiesDest_t *x, char *k) {
-    while ((x != binaryTreeEntitiesDestNIL) || (strncmp(k, x->id, RELATIONS_ID_SIZE) != 0)) {
+    while ((x != binaryTreeEntitiesDestNIL) && (strncmp(k, x->id, RELATIONS_ID_SIZE) != 0)) {
         if (strncmp(k, x->id, RELATIONS_ID_SIZE) < 0) {
             x = x->left;
         } else {
