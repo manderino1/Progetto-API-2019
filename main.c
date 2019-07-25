@@ -189,6 +189,9 @@ binaryTreeEntitiesDest_t *binaryTreeEntitiesDestNIL;
 
 
 int main() {
+    freopen("input.txt","r",stdin);
+    freopen("output.txt","w",stdout);
+
     relTypesRoot = malloc(sizeof(binaryTreeRelTypes_t));
     binaryTreeRelTypesNIL = malloc(sizeof(binaryTreeRelTypes_t));
     binaryTreeRelTypesNIL->left = binaryTreeRelTypesNIL;
@@ -351,6 +354,9 @@ void reportManager() {
             fputs("; ", stdout);
             relTypesWalk = rbTreeRelTypesSuccessor(relTypesWalk);
         } while (relTypesWalk != binaryTreeRelTypesNIL);
+        fputs("\n", stdout);
+    } else {
+        fputs("none\n", stdout);
     }
     fflush(stdout);
 }
