@@ -1291,7 +1291,7 @@ binaryTreeEntities_t *createEntity(char *idToSet) {
 
 binaryTreeEntitiesDest_t *createEntityDest(binaryTreeRelTypes_t **relType, char *idToSet) {
     binaryTreeEntitiesDest_t *entityDest = malloc(sizeof(binaryTreeEntitiesDest_t));
-    strncpy(entityDest->id, idToSet, ENTITY_ID_SIZE);
+    entityDest->id = idToSet;
     entityDest->relationsNum = 1;
     rbTreeEntitiesDestInsert(&((*relType)->destTreeRoot), entityDest);
     return entityDest;
