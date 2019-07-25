@@ -28,7 +28,6 @@
 typedef struct binaryTreeRelTypes binaryTreeRelTypes_t;
 typedef struct binaryTreeEntities binaryTreeEntities_t;
 typedef struct binaryTreeEntitiesDest binaryTreeEntitiesDest_t;
-typedef struct hashEntitiesOrig hashEntitiesOrig_t;
 
 // RB tree structs
 struct binaryTreeRelTypes {
@@ -51,14 +50,10 @@ struct binaryTreeEntities {
     struct binaryTreeEntities *right;
 };
 
-struct hashEntitiesOrig {
-    char *id;
-};
-
 struct binaryTreeEntitiesDest {
     struct binaryTreeEntitiesDest *p;
     char *id;
-    hashEntitiesOrig_t *hashDest[HASH_TABLE_SIZE];
+    char *hashDest[HASH_TABLE_SIZE];
     int relationsNum;
     _Bool color;
     struct binaryTreeEntitiesDest *left;
@@ -161,11 +156,11 @@ void rbTreeEntitiesDestPurge(binaryTreeEntitiesDest_t *T);
 
 // Hash functions
 
-inline int hash(hashEntitiesOrig_t *k, int i);
+inline int hash(char *k, int i);
 
-int hashDestInsert(hashEntitiesOrig_t **T, hashEntitiesOrig_t *k);
+int hashDestInsert(char **T, char *k);
 
-int hashDestSearch(hashEntitiesOrig_t **T, hashEntitiesOrig_t *k);
+int hashDestSearch(char **T, char *k);
 
 // Creating object and initializing functions
 
@@ -177,7 +172,7 @@ binaryTreeEntitiesDest_t *createEntityDest(binaryTreeRelTypes_t **relType, char 
 
 binaryTreeEntitiesDest_t *addEntityDestMax(binaryTreeRelTypes_t **relType, binaryTreeEntitiesDest_t *destToAdd);
 
-hashEntitiesOrig_t *createHashOrig(binaryTreeEntitiesDest_t **destEnt, char *idToSet);
+char *createHashOrig(binaryTreeEntitiesDest_t **destEnt, char *idToSet);
 
 
 /*
@@ -287,7 +282,7 @@ void addRelManager() {
         binaryTreeEntitiesDest_t *newDest = createEntityDest(&newRelType, idDestRef);
 
         //Add orig to the dest
-        hashEntitiesOrig_t *newOrig = createHashOrig(&newDest, idOrigRef);
+        char *newOrig = createHashOrig(&newDest, idOrigRef);
 
         //Add the dest to the max dest tree
         addEntityDestMax(&newRelType, newDest);
@@ -304,7 +299,7 @@ void addRelManager() {
         binaryTreeEntitiesDest_t *newDest = createEntityDest(&relType, idDestRef);
 
         //Add orig to the new dest
-        hashEntitiesOrig_t *newOrig = createHashOrig(&newDest, idOrigRef);
+        char *newOrig = createHashOrig(&newDest, idOrigRef);
 
         // Check if maxrelations is greater than 1
         if (relType->maxRelations < newDest->relationsNum) {
@@ -318,7 +313,7 @@ void addRelManager() {
     }
 
     //If i reach there the dest exist, check if the relations already exist
-    hashEntitiesOrig_t *newOrig = createHashOrig(&destinyEnt, idOrigRef);
+    char *newOrig = createHashOrig(&destinyEnt, idOrigRef);
 
     if(newOrig != NULL) { // If it doesn't exist
         (destinyEnt->relationsNum)++; // Increase the relationsNum number accordingly
@@ -343,13 +338,16 @@ void reportManager() {
         binaryTreeRelTypes_t *relTypesWalk = rbTreeRelTypesMinimum(relTypesRoot); // Print rel type name
         do {
             fputs(relTypesWalk->id, stdout);
+            fputs(" ", stdout);
             binaryTreeEntitiesDest_t *destWalk = rbTreeEntitiesDestMinimum(
                     relTypesWalk->maxDestRoot); // Print dest names
             do {
                 fputs(destWalk->id, stdout);
+                fputs(" ", stdout);
                 destWalk = rbTreeEntitiesDestSuccessor(destWalk);
             } while (destWalk != binaryTreeEntitiesDestNIL);
             printf("%i", relTypesWalk->maxRelations);
+            fputs(" ", stdout);
             relTypesWalk = rbTreeRelTypesSuccessor(relTypesWalk);
         } while (relTypesWalk != binaryTreeRelTypesNIL);
     }
@@ -1233,16 +1231,16 @@ void rbTreeEntitiesDestPurge(binaryTreeEntitiesDest_t *T) {
 /*
  * Insert a value in the hash
  */
-int hash(hashEntitiesOrig_t *k, int i) {
+int hash(char *k, int i) {
     int res = 0;
-    for (int j = 0; j < strlen(k->id); j++) {
-        res = res + k->id[j];
+    for (int j = 0; j < strlen(k); j++) {
+        res = res + k[j];
     }
     res = (res * i) % HASH_TABLE_SIZE;
     return res;
 }
 
-int hashDestInsert(hashEntitiesOrig_t **T, hashEntitiesOrig_t *k) {
+int hashDestInsert(char *T[], char *k) {
     int i = 0;
     do {
         int j = hash(k, i); // FUNZIONE DA CALCOLARE
@@ -1256,7 +1254,7 @@ int hashDestInsert(hashEntitiesOrig_t **T, hashEntitiesOrig_t *k) {
     return -1;
 }
 
-int hashDestSearch(hashEntitiesOrig_t **T, hashEntitiesOrig_t *k) {
+int hashDestSearch(char **T, char *k) {
     int i = 0;
     int j;
     do {
@@ -1302,9 +1300,9 @@ binaryTreeEntitiesDest_t *addEntityDestMax(binaryTreeRelTypes_t **relType, binar
     return destToAdd;
 }
 
-hashEntitiesOrig_t *createHashOrig(binaryTreeEntitiesDest_t **destEnt, char *idToSet) {
-    hashEntitiesOrig_t *newOrig = malloc(sizeof(hashEntitiesOrig_t));
-    newOrig->id = idToSet;
+char *createHashOrig(binaryTreeEntitiesDest_t **destEnt, char *idToSet) {
+    char *newOrig = malloc(sizeof(char));
+    newOrig = idToSet;
 
     if (hashDestSearch((*destEnt)->hashDest, newOrig) == NOT_FOUND) { // Doesn't exist, add
         hashDestInsert((*destEnt)->hashDest, newOrig);

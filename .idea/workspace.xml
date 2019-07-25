@@ -35,8 +35,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="138">
-              <caret line="1293" column="28" selection-start-line="1293" selection-start-column="28" selection-end-line="1293" selection-end-column="28" />
+            <state relative-caret-position="176">
+              <caret line="217" selection-start-line="217" selection-end-line="217" />
             </state>
           </provider>
         </entry>
@@ -153,12 +153,12 @@
       <workItem from="1564000726697" duration="212000" />
       <workItem from="1564047285050" duration="4999000" />
       <workItem from="1564055677476" duration="110000" />
-      <workItem from="1564058987247" duration="3123000" />
+      <workItem from="1564058987247" duration="4479000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="25520000" />
+    <option name="totallyTimeSpent" value="26876000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -171,24 +171,23 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.26332623" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.2979415" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49253732" visible="true" weight="0.32936078" />
-      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.47867805" weight="0.3726977" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.48933902" visible="true" weight="0.32936078" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.4749467" weight="0.3726977" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32936078" />
       <window_info anchor="bottom" id="Database Changes" order="7" />
       <window_info anchor="bottom" id="Terminal" order="8" />
-      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.5074627" side_tool="true" visible="true" weight="0.32936078" />
+      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.510661" side_tool="true" visible="true" weight="0.32936078" />
       <window_info anchor="bottom" id="Version Control" order="10" weight="0.32936078" />
       <window_info anchor="bottom" id="CMake" order="11" />
-      <window_info anchor="bottom" id="Messages" order="12" sideWeight="0.47654584" weight="0.32936078" />
+      <window_info anchor="bottom" id="Messages" order="12" sideWeight="0.4696162" weight="0.32936078" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -240,11 +239,18 @@
     </option>
   </component>
   <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/main.c</url>
+          <line>1246</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
     <watches-manager>
       <configuration name="CMakeRunConfiguration">
-        <watch expression="binaryTreeEntitiesNIL" />
-        <watch expression="entitiesRoot" />
-        <watch expression="entitiesRoot-&gt;color" />
+        <watch expression="relType" />
       </configuration>
     </watches-manager>
   </component>
@@ -261,8 +267,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="138">
-          <caret line="1293" column="28" selection-start-line="1293" selection-start-column="28" selection-end-line="1293" selection-end-column="28" />
+        <state relative-caret-position="176">
+          <caret line="217" selection-start-line="217" selection-end-line="217" />
         </state>
       </provider>
     </entry>
