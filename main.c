@@ -347,10 +347,11 @@ void reportManager() {
                 destWalk = rbTreeEntitiesDestSuccessor(destWalk);
             } while (destWalk != binaryTreeEntitiesDestNIL);
             printf("%i", relTypesWalk->maxRelations);
-            fputs(" ", stdout);
+            fputs("; ", stdout);
             relTypesWalk = rbTreeRelTypesSuccessor(relTypesWalk);
         } while (relTypesWalk != binaryTreeRelTypesNIL);
     }
+    fflush(stdout);
 }
 
 /*
@@ -1220,8 +1221,11 @@ void rbTreeEntitiesDestPurge(binaryTreeEntitiesDest_t *T) {
         return;
     }
     rbTreeEntitiesDestPurge(T->left); // Free left memory
+    T->left=binaryTreeEntitiesDestNIL;
     rbTreeEntitiesDestPurge(T->right); // Free right memory
+    T->right=binaryTreeEntitiesDestNIL;
     free(T);
+    T=binaryTreeEntitiesDestNIL;
 }
 
 /*
