@@ -233,7 +233,8 @@ void addEntManager() {
     char idEntity[ENTITY_ID_SIZE];
     scanf("%s", idEntity); // Reading in buffer from stdin
 
-    if(rbTreeEntitiesSearch(entitiesRoot, idEntity) == binaryTreeEntitiesNIL) { // Go only if entity doesn't already exist (logn)
+    if (rbTreeEntitiesSearch(entitiesRoot, idEntity) ==
+        binaryTreeEntitiesNIL) { // Go only if entity doesn't already exist (logn)
         binaryTreeEntities_t *newEntity = malloc(sizeof(binaryTreeEntities_t));
         strncpy(newEntity->id, idEntity, ENTITY_ID_SIZE);
         rbTreeEntitiesInsert(&entitiesRoot, newEntity);
@@ -255,18 +256,18 @@ void addRelManager() {
 
     binaryTreeEntities_t *checkExistence;
     checkExistence = rbTreeEntitiesSearch(entitiesRoot, idDest);
-    if(checkExistence == binaryTreeEntitiesNIL) {
+    if (checkExistence == binaryTreeEntitiesNIL) {
         return;
     }
     char *idDestRef = checkExistence->id; // Store the reference for later use
     checkExistence = rbTreeEntitiesSearch(entitiesRoot, idOrig);
-    if(checkExistence == binaryTreeEntitiesNIL) {
+    if (checkExistence == binaryTreeEntitiesNIL) {
         return;
     }
     char *idOrigRef = checkExistence->id; // Store the reference for later use
 
-    binaryTreeRelTypes_t * relType = rbTreeRelTypesSearch(relTypesRoot, idRel);
-    if(relType == binaryTreeRelTypesNIL) { // Relation type does not exist, add it
+    binaryTreeRelTypes_t *relType = rbTreeRelTypesSearch(relTypesRoot, idRel);
+    if (relType == binaryTreeRelTypesNIL) { // Relation type does not exist, add it
         //Add new relation tipe
         binaryTreeRelTypes_t *newRelType = malloc(sizeof(binaryTreeRelTypes_t));
         strncpy(newRelType->id, idRel, RELATIONS_ID_SIZE);
@@ -274,7 +275,7 @@ void addRelManager() {
 
         //Add dest to the new relation type
         binaryTreeEntitiesDest_t *newDest = malloc(sizeof(binaryTreeEntitiesDest_t));
-        newDest->id=idDestRef;
+        newDest->id = idDestRef;
         newDest->relationsNum = 1;
         rbTreeEntitiesDestInsert(&(relType->destTreeRoot), newDest);
 
@@ -291,10 +292,10 @@ void addRelManager() {
 
     // If i reach there so the rel type already exists, go into it and search for origin
     binaryTreeEntitiesDest_t *destinyEnt = rbTreeEntitiesDestSearch(relType->destTreeRoot, idDest);
-    if(destinyEnt == binaryTreeEntitiesDestNIL) { // Relations dest doesn't exist, add it
+    if (destinyEnt == binaryTreeEntitiesDestNIL) { // Relations dest doesn't exist, add it
         //Add dest to the existent rel type
         binaryTreeEntitiesDest_t *newDest = malloc(sizeof(binaryTreeEntitiesDest_t));
-        newDest->id=idDestRef;
+        newDest->id = idDestRef;
         newDest->relationsNum = 1;
         rbTreeEntitiesDestInsert(&(relType->destTreeRoot), newDest);
 
@@ -304,10 +305,10 @@ void addRelManager() {
         hashDestInsert(newDest->hashDest, newOrig);
 
         // Check if maxrelations is greater than 1
-        if(relType->maxRelations < newDest->relationsNum) {
+        if (relType->maxRelations < newDest->relationsNum) {
             rbTreeEntitiesDestPurge(relType->maxDestRoot);
             rbTreeEntitiesDestInsert(&(relType->maxDestRoot), newDest);
-            relType->maxRelations = newDest -> relationsNum;
+            relType->maxRelations = newDest->relationsNum;
         } else if (relType->maxRelations == newDest->relationsNum) { // If it's 1, add it to the max tree
             rbTreeEntitiesDestInsert(&(relType->maxDestRoot), newDest);
         }
@@ -318,14 +319,14 @@ void addRelManager() {
     hashEntitiesOrig_t *newOrig = malloc(sizeof(hashEntitiesOrig_t));
     (destinyEnt->relationsNum)++; // Increase the relationsnum number accordingly
     newOrig->id = idOrigRef;
-    if(hashDestSearch(destinyEnt->hashDest, newOrig) == NOT_FOUND) { // Doesn't exist, add
+    if (hashDestSearch(destinyEnt->hashDest, newOrig) == NOT_FOUND) { // Doesn't exist, add
         hashDestInsert(destinyEnt->hashDest, newOrig);
 
         // Check if maxrelations is greater than 1
-        if(relType->maxRelations < destinyEnt->relationsNum) {
+        if (relType->maxRelations < destinyEnt->relationsNum) {
             rbTreeEntitiesDestPurge(relType->maxDestRoot);
             rbTreeEntitiesDestInsert(&(relType->maxDestRoot), destinyEnt);
-            relType->maxRelations = destinyEnt -> relationsNum;
+            relType->maxRelations = destinyEnt->relationsNum;
         } else if (relType->maxRelations == destinyEnt->relationsNum) { // If it's 1, add it to the max tree
             rbTreeEntitiesDestInsert(&(relType->maxDestRoot), destinyEnt);
         }
@@ -340,18 +341,19 @@ void delRelManager() {
 }
 
 void reportManager() {
-    if(relTypesRoot != binaryTreeRelTypesNIL) {
+    if (relTypesRoot != binaryTreeRelTypesNIL) {
         binaryTreeRelTypes_t *relTypesWalk = rbTreeRelTypesMinimum(relTypesRoot); // Print rel type name
         do {
-            fputs(relTypesWalk->id , stdout);
-            binaryTreeEntitiesDest_t *destWalk = rbTreeEntitiesDestMinimum(relTypesWalk->maxDestRoot); // Print dest names
+            fputs(relTypesWalk->id, stdout);
+            binaryTreeEntitiesDest_t *destWalk = rbTreeEntitiesDestMinimum(
+                    relTypesWalk->maxDestRoot); // Print dest names
             do {
-                fputs(destWalk->id , stdout);
+                fputs(destWalk->id, stdout);
                 destWalk = rbTreeEntitiesDestSuccessor(destWalk);
-            } while(destWalk != binaryTreeEntitiesDestNIL);
+            } while (destWalk != binaryTreeEntitiesDestNIL);
             printf("%i", relTypesWalk->maxRelations);
             relTypesWalk = rbTreeRelTypesSuccessor(relTypesWalk);
-        } while(relTypesWalk != binaryTreeRelTypesNIL);
+        } while (relTypesWalk != binaryTreeRelTypesNIL);
     }
 }
 
@@ -539,6 +541,7 @@ void rbTreeRelTypesInsertFixup(binaryTreeRelTypes_t **T, binaryTreeRelTypes_t *z
             }
         }
     }
+    (*T)->color = BLACK;
 }
 
 /*
@@ -639,7 +642,7 @@ void rbTreeRelTypesDeleteFixup(binaryTreeRelTypes_t **T, binaryTreeRelTypes_t *x
  * Free all the tree memory
  */
 void rbTreeRelTypesPurge(binaryTreeRelTypes_t *T) {
-    if(T == binaryTreeRelTypesNIL) {
+    if (T == binaryTreeRelTypesNIL) {
         return;
     }
     rbTreeRelTypesPurge(T->left); // Free left memory
@@ -827,6 +830,7 @@ void rbTreeEntitiesInsertFixup(binaryTreeEntities_t **T, binaryTreeEntities_t *z
             }
         }
     }
+    (*T)->color = BLACK;
 }
 
 /*
@@ -927,7 +931,7 @@ void rbTreeEntitiesDeleteFixup(binaryTreeEntities_t **T, binaryTreeEntities_t *x
  * Free all the tree memory
  */
 void rbTreeEntitiesPurge(binaryTreeEntities_t *T) {
-    if(T == binaryTreeEntitiesNIL) {
+    if (T == binaryTreeEntitiesNIL) {
         return;
     }
     rbTreeEntitiesPurge(T->left); // Free left memory
@@ -1115,6 +1119,7 @@ void rbTreeEntitiesDestInsertFixup(binaryTreeEntitiesDest_t **T, binaryTreeEntit
             }
         }
     }
+    (*T)->color = BLACK;
 }
 
 /*
@@ -1215,7 +1220,7 @@ void rbTreeEntitiesDestDeleteFixup(binaryTreeEntitiesDest_t **T, binaryTreeEntit
  * Free all the tree memory
  */
 void rbTreeEntitiesDestPurge(binaryTreeEntitiesDest_t *T) {
-    if(T == binaryTreeEntitiesDestNIL) {
+    if (T == binaryTreeEntitiesDestNIL) {
         return;
     }
     rbTreeEntitiesDestPurge(T->left); // Free left memory
