@@ -19,7 +19,7 @@
 #define RELATIONS_ID_SIZE 50
 #define RED 0
 #define BLACK 1
-#define HASH_TABLE_SIZE 500
+#define HASH_TABLE_SIZE 30
 #define NOT_FOUND -1
 
 /*
@@ -1541,6 +1541,8 @@ int hashDestDelete(hashOrigList_t **T, char *k) {
         return NOT_FOUND;
     }
     if (searchOrig->id == k) {
+        T[j]=searchOrig->next;
+        free(searchOrig);
         return j;
     }
     hashOrigList_t *prevOrig;
