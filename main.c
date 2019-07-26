@@ -1384,6 +1384,8 @@ void entDestEntSearch(char *strToSearch, binaryTreeEntitiesDest_t *x, binaryTree
             if (maxSearch != binaryTreeEntitiesDestNIL) { // It was in the max tree
                 int newMax = maxTreeNewMax((*root)->destTreeRoot);
                 (*root)->maxRelations = newMax;
+                rbTreeEntitiesDestPurge((*root)->maxDestRoot);
+                (*root)->maxDestRoot = binaryTreeEntitiesDestNIL;
                 maxTreeEntitiesDestReset(root, (*root)->destTreeRoot);
             }
 
@@ -1406,9 +1408,10 @@ void entDestEntSearch(char *strToSearch, binaryTreeEntitiesDest_t *x, binaryTree
                     if (maxSearch != binaryTreeEntitiesDestNIL) { // It was in the max tree
                         rbTreeEntitiesDestDelete(&((*root)->maxDestRoot), maxSearch); // Delete it from the maxTree
                         if ((*root)->maxDestRoot == binaryTreeEntitiesDestNIL) { // The maxTree is now clear, reload it
-                            ((*root)->maxRelations)--; // Decrease the maxRelations counter by one
-
-                            // Walk the tree and reset the maxTree
+                            int newMax = maxTreeNewMax((*root)->destTreeRoot);
+                            (*root)->maxRelations = newMax;
+                            rbTreeEntitiesDestPurge((*root)->maxDestRoot);
+                            (*root)->maxDestRoot = binaryTreeEntitiesDestNIL;
                             maxTreeEntitiesDestReset(root, (*root)->destTreeRoot);
                         }
                     }
@@ -1423,9 +1426,10 @@ void entDestEntSearch(char *strToSearch, binaryTreeEntitiesDest_t *x, binaryTree
                     if (maxSearch != binaryTreeEntitiesDestNIL) { // It was in the max tree
                         rbTreeEntitiesDestDelete(&((*root)->maxDestRoot), maxSearch); // Delete it from the maxTree
                         if ((*root)->maxDestRoot == binaryTreeEntitiesDestNIL) { // The maxTree is now clear, reload it
-                            ((*root)->maxRelations)--; // Decrease the maxRelations counter by one
-
-                            // Walk the tree and reset the maxTree
+                            int newMax = maxTreeNewMax((*root)->destTreeRoot);
+                            (*root)->maxRelations = newMax;
+                            rbTreeEntitiesDestPurge((*root)->maxDestRoot);
+                            (*root)->maxDestRoot = binaryTreeEntitiesDestNIL;
                             maxTreeEntitiesDestReset(root, (*root)->destTreeRoot);
                         }
                     }
