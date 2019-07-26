@@ -102,7 +102,7 @@ void rbTreeRelTypesDeleteFixup(binaryTreeRelTypes_t **T, binaryTreeRelTypes_t *x
 
 void rbTreeRelTypesPurge(binaryTreeRelTypes_t *T);
 
-void relTypeEntSearch(char *strToSearch, binaryTreeRelTypes_t *x);
+_Bool relTypeEntSearch(char *strToSearch, binaryTreeRelTypes_t *x);
 
 // Entities trees
 
@@ -158,7 +158,7 @@ void rbTreeEntitiesDestPurge(binaryTreeEntitiesDest_t *T);
 
 void maxTreeEntitiesDestReset(binaryTreeRelTypes_t **relType, binaryTreeEntitiesDest_t *x);
 
-void entDestEntSearch(char *strToSearch, binaryTreeEntitiesDest_t *x, binaryTreeRelTypes_t **root);
+_Bool entDestEntSearch(char *strToSearch, binaryTreeEntitiesDest_t *x, binaryTreeRelTypes_t **root);
 
 int maxTreeNewMax(binaryTreeEntitiesDest_t *x);
 
@@ -274,7 +274,10 @@ void delEntManager() {
     char *idEntRef = checkExistence->id; // Store the reference for later use
 
     // If i reach there the entity exists, check the relation types
-    relTypeEntSearch(idEntRef, relTypesRoot);
+    _Bool res = 0;
+    do {
+        res = relTypeEntSearch(idEntRef, relTypesRoot);
+    } while(res == 1);
     rbTreeEntitiesDelete(&entitiesRoot, checkExistence); // Delete the entity
 }
 
@@ -761,12 +764,16 @@ void rbTreeRelTypesPurge(binaryTreeRelTypes_t *T) {
 /*
  * Search in every rel type
  */
-void relTypeEntSearch(char *strToSearch, binaryTreeRelTypes_t *x) {
+_Bool relTypeEntSearch(char *strToSearch, binaryTreeRelTypes_t *x) {
     if (x != binaryTreeRelTypesNIL) {
-        relTypeEntSearch(strToSearch, x->left);
-        relTypeEntSearch(strToSearch, x->right);
-        entDestEntSearch(strToSearch, x->destTreeRoot, &x);
+        _Bool res1 = relTypeEntSearch(strToSearch, x->left);
+        _Bool res2 = relTypeEntSearch(strToSearch, x->right);
+        _Bool res3 = entDestEntSearch(strToSearch, x->destTreeRoot, &x);
+        if(res1==1 || res2==1 || res3==1) {
+            return 1;
+        }
     }
+    return 0;
 }
 
 /*
@@ -1370,12 +1377,10 @@ void maxTreeEntitiesDestReset(binaryTreeRelTypes_t **relType, binaryTreeEntities
 /*
  * Search for the entity in all the dest relations
  */
-void entDestEntSearch(char *strToSearch, binaryTreeEntitiesDest_t *x, binaryTreeRelTypes_t **root) {
-    _Bool rootDeleted = 0;
-
+_Bool entDestEntSearch(char *strToSearch, binaryTreeEntitiesDest_t *x, binaryTreeRelTypes_t **root) {
     if (x != binaryTreeEntitiesDestNIL) {
-        entDestEntSearch(strToSearch, x->left, root);
-        entDestEntSearch(strToSearch, x->right, root);
+        _Bool res1 = entDestEntSearch(strToSearch, x->left, root);
+        _Bool res2 = entDestEntSearch(strToSearch, x->right, root);
         if (x->id == strToSearch) { // Delete the dest relation
 
             // If it was in the max root, reload it
@@ -1393,7 +1398,7 @@ void entDestEntSearch(char *strToSearch, binaryTreeEntitiesDest_t *x, binaryTree
 
             if ((*root)->destTreeRoot == binaryTreeEntitiesDestNIL) { // Delete the relType
                 rbTreeRelTypesDelete(&relTypesRoot, *root);
-                return; // No maxTree to reload if you deleted the relType
+                return 1; // No maxTree to reload if you deleted the relType
             }
         } else {
             // Search for the rel in the orig
@@ -1421,7 +1426,7 @@ void entDestEntSearch(char *strToSearch, binaryTreeEntitiesDest_t *x, binaryTree
                     if ((*root)->destTreeRoot ==
                         binaryTreeEntitiesDestNIL) { // No relations remaining in relType, delete the relType
                         rbTreeRelTypesDelete(&relTypesRoot, *root);
-                        return; // No maxTree to reload if you deleted the relType
+                        return 1; // No maxTree to reload if you deleted the relType
                     }
                 } else {
                     binaryTreeEntitiesDest_t *maxSearch = rbTreeEntitiesDestSearch((*root)->maxDestRoot, x->id);
@@ -1437,10 +1442,14 @@ void entDestEntSearch(char *strToSearch, binaryTreeEntitiesDest_t *x, binaryTree
                     }
                 }
             } else { // Non esiste quella relazione
-                return;
+
             }
         }
+        if(res1==1 || res2==1) {
+            return 1;
+        }
     }
+    return 0;
 }
 
 /*
