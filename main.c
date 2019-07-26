@@ -44,7 +44,7 @@ struct binaryTreeRelTypes {
 // RB tree structs
 struct binaryTreeEntities {
     struct binaryTreeEntities *p;
-    char id[ENTITY_ID_SIZE];
+    char *id;
     _Bool color;
     struct binaryTreeEntities *left;
     struct binaryTreeEntities *right;
@@ -199,8 +199,8 @@ char deleted[HASH_TABLE_SIZE] = "                          ";
 
 
 int main() {
-    //freopen("input.txt","r",stdin);
-    //freopen("output.txt","w",stdout);
+    freopen("input.txt","r",stdin);
+    freopen("output.txt","w",stdout);
 
     relTypesRoot = malloc(sizeof(binaryTreeRelTypes_t));
     binaryTreeRelTypesNIL = malloc(sizeof(binaryTreeRelTypes_t));
@@ -978,7 +978,7 @@ binaryTreeEntities_t *rbTreeEntitiesDelete(binaryTreeEntities_t **T, binaryTreeE
         y->p->right = x;
     }
     if (y != z) {
-        strncpy(z->id, y->id, RELATIONS_ID_SIZE);
+        z->id = y->id;
     }
     if (y->color == BLACK) {
         rbTreeEntitiesDeleteFixup(T, x);
@@ -1519,7 +1519,9 @@ binaryTreeRelTypes_t *createRelType(char *idToSet) {
 
 binaryTreeEntities_t *createEntity(char *idToSet) {
     binaryTreeEntities_t *entity = malloc(sizeof(binaryTreeEntities_t));
-    strncpy(entity->id, idToSet, ENTITY_ID_SIZE);
+    char *entityName = malloc(strlen(idToSet)+1); // Create string of the correct size
+    strncpy(entityName, idToSet, strlen(idToSet)+1);
+    entity->id = entityName;
     rbTreeEntitiesInsert(&entitiesRoot, entity);
     return entity;
 }
