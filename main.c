@@ -32,7 +32,7 @@ typedef struct binaryTreeEntitiesDest binaryTreeEntitiesDest_t;
 // RB tree structs
 struct binaryTreeRelTypes {
     struct binaryTreeRelTypes *p;
-    char id[RELATIONS_ID_SIZE];
+    char *id;
     binaryTreeEntitiesDest_t *destTreeRoot;
     binaryTreeEntitiesDest_t *maxDestRoot;
     int maxRelations;
@@ -199,8 +199,8 @@ char deleted[HASH_TABLE_SIZE] = "                          ";
 
 
 int main() {
-    //freopen("input.txt","r",stdin);
-    //freopen("output.txt","w",stdout);
+    freopen("input.txt","r",stdin);
+    freopen("output.txt","w",stdout);
 
     relTypesRoot = malloc(sizeof(binaryTreeRelTypes_t));
     binaryTreeRelTypesNIL = malloc(sizeof(binaryTreeRelTypes_t));
@@ -764,8 +764,8 @@ void rbTreeRelTypesPurge(binaryTreeRelTypes_t *T) {
 void relTypeEntSearch(char *strToSearch, binaryTreeRelTypes_t *x) {
     if (x != binaryTreeRelTypesNIL) {
         relTypeEntSearch(strToSearch, x->left);
-        entDestEntSearch(strToSearch, x->destTreeRoot, &x);
         relTypeEntSearch(strToSearch, x->right);
+        entDestEntSearch(strToSearch, x->destTreeRoot, &x);
     }
 }
 
@@ -1512,7 +1512,9 @@ binaryTreeRelTypes_t *createRelType(char *idToSet) {
     relType->destTreeRoot = binaryTreeEntitiesDestNIL;
     relType->maxDestRoot = binaryTreeEntitiesDestNIL;
     relType->maxRelations = 1;
-    strncpy(relType->id, idToSet, RELATIONS_ID_SIZE);
+    char *relTypeName = malloc(strlen(idToSet)+1); // Create string of the correct size
+    strncpy(relTypeName, idToSet, strlen(idToSet)+1);
+    relType->id=relTypeName;
     rbTreeRelTypesInsert(&relTypesRoot, relType);
     return relType;
 }
