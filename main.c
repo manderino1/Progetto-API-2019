@@ -195,8 +195,8 @@ binaryTreeEntitiesDest_t *binaryTreeEntitiesDestNIL;
 
 
 int main() {
-    freopen("input.txt","r",stdin);
-    freopen("output.txt","w",stdout);
+    //freopen("input.txt","r",stdin);
+    //freopen("output.txt","w",stdout);
 
     relTypesRoot = malloc(sizeof(binaryTreeRelTypes_t));
     binaryTreeRelTypesNIL = malloc(sizeof(binaryTreeRelTypes_t));
@@ -393,11 +393,24 @@ void delRelManager() {
     // If i reach there the relation exists
     (destEnt->hashDest)[origEnt] = NULL; // Free the pointer
     if(destEnt->relationsNum == 1) { // There was only one relation, delete the dest from the relType tree
+        // Eventually fix the max tree
+        binaryTreeEntitiesDest_t *maxSearch = rbTreeEntitiesDestSearch(relType->maxDestRoot, idDestRef);
+        if(maxSearch != binaryTreeEntitiesDestNIL) { // It was in the max tree
+            rbTreeEntitiesDestDelete(&(relType->maxDestRoot), maxSearch); // Delete it from the maxTree
+            if(relType->maxDestRoot == binaryTreeEntitiesDestNIL) { // The maxTree is now clear, reload it
+                (relType->maxRelations)--; // Decrease the maxRelations counter by one
+
+                // Walk the tree and reset the maxTree
+                maxTreeEntitiesDestReset(&relType, relType->destTreeRoot);
+            }
+        }
+
         rbTreeEntitiesDestDelete(&(relType->destTreeRoot), destEnt);
         if(relType->destTreeRoot == binaryTreeEntitiesDestNIL) { // No relations remaining in relType, delete the relType
             rbTreeRelTypesDelete(&relTypesRoot, relType);
-            return; // Nothing to clear if i deleted the relType
         }
+
+        return; // Nothing to clear if i deleted the relType
     } else {
         (destEnt->relationsNum)--; // Decrease the relation counter
     }
@@ -1015,7 +1028,7 @@ void rbTreeEntitiesDeleteFixup(binaryTreeEntities_t **T, binaryTreeEntities_t *x
                 w->color = x->p->color;
                 x->p->color = BLACK;
                 w->left->color = BLACK;
-                rbTreeEntitiesLeftRotate(T, x->p);
+                rbTreeEntitiesRightRotate(T, x->p);
                 x = *T;
             }
         }
