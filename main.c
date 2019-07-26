@@ -19,7 +19,7 @@
 #define RELATIONS_ID_SIZE 50
 #define RED 0
 #define BLACK 1
-#define HASH_TABLE_SIZE 30
+#define HASH_TABLE_SIZE 200
 #define NOT_FOUND -1
 
 /*
@@ -1499,6 +1499,7 @@ int hashDestInsert(hashOrigList_t *T[], char *k) {
     hashOrigList_t *linkOrig = T[j];
     if (linkOrig == NULL) {
         T[j] = newOrig;
+        newOrig->next = NULL;
         return j;
     }
     hashOrigList_t *prevOrig = linkOrig;
@@ -1508,6 +1509,7 @@ int hashDestInsert(hashOrigList_t *T[], char *k) {
         linkOrig = linkOrig->next;
     }
     prevOrig->next = newOrig;
+    newOrig->next = NULL;
     return j;
 }
 
@@ -1554,6 +1556,7 @@ int hashDestDelete(hashOrigList_t **T, char *k) {
             free(searchOrig);
             return j;
         }
+        prevOrig=searchOrig;
         searchOrig=searchOrig->next;
     }
     return NOT_FOUND;
