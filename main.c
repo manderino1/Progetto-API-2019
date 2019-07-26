@@ -19,7 +19,7 @@
 #define RELATIONS_ID_SIZE 50
 #define RED 0
 #define BLACK 1
-#define HASH_TABLE_SIZE 50
+#define HASH_TABLE_SIZE 500
 #define NOT_FOUND -1
 
 /*
@@ -437,9 +437,15 @@ void delRelManager() {
 }
 
 void reportManager() {
+    _Bool first = 1;
     if (relTypesRoot != binaryTreeRelTypesNIL) {
         binaryTreeRelTypes_t *relTypesWalk = rbTreeRelTypesMinimum(relTypesRoot); // Print rel type name
         do {
+            if(first) {
+                first = 0;
+            } else {
+                fputs(" ", stdout);
+            }
             fputs(relTypesWalk->id, stdout);
             fputs(" ", stdout);
             binaryTreeEntitiesDest_t *destWalk = rbTreeEntitiesDestMinimum(
@@ -452,7 +458,7 @@ void reportManager() {
                 destWalk = rbTreeEntitiesDestSuccessor(destWalk);
             } while (destWalk != binaryTreeEntitiesDestNIL);
             printf("%i", relTypesWalk->maxRelations);
-            fputs("; ", stdout);
+            fputs(";", stdout);
             relTypesWalk = rbTreeRelTypesSuccessor(relTypesWalk);
         } while (relTypesWalk != binaryTreeRelTypesNIL);
         fputs("\n", stdout);
