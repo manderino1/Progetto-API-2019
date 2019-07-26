@@ -195,8 +195,8 @@ binaryTreeEntitiesDest_t *binaryTreeEntitiesDestNIL;
 
 
 int main() {
-    //freopen("input.txt","r",stdin);
-    //freopen("output.txt","w",stdout);
+    freopen("input.txt","r",stdin);
+    freopen("output.txt","w",stdout);
 
     relTypesRoot = malloc(sizeof(binaryTreeRelTypes_t));
     binaryTreeRelTypesNIL = malloc(sizeof(binaryTreeRelTypes_t));
@@ -396,6 +396,7 @@ void delRelManager() {
         rbTreeEntitiesDestDelete(&(relType->destTreeRoot), destEnt);
         if(relType->destTreeRoot == binaryTreeEntitiesDestNIL) { // No relations remaining in relType, delete the relType
             rbTreeRelTypesDelete(&relTypesRoot, relType);
+            return; // Nothing to clear if i deleted the relType
         }
     } else {
         (destEnt->relationsNum)--; // Decrease the relation counter
@@ -1344,6 +1345,7 @@ void entDestEntSearch(char *strToSearch, binaryTreeEntitiesDest_t *x, binaryTree
 
     if(x != binaryTreeEntitiesDestNIL) {
         entDestEntSearch(strToSearch, x->left, root);
+        entDestEntSearch(strToSearch, x->right, root);
         if(x->id == strToSearch) { // Delete the dest relation
             rbTreeEntitiesDestDelete(&((*root)->destTreeRoot), x);
             if((*root)->destTreeRoot == binaryTreeEntitiesDestNIL) { // Delete the relType
@@ -1363,6 +1365,8 @@ void entDestEntSearch(char *strToSearch, binaryTreeEntitiesDest_t *x, binaryTree
                         return; // No maxTree to reload if you deleted the relType
                     }
                 }
+            } else {
+                return;
             }
         }
 
@@ -1377,8 +1381,6 @@ void entDestEntSearch(char *strToSearch, binaryTreeEntitiesDest_t *x, binaryTree
                 maxTreeEntitiesDestReset(root, (*root)->destTreeRoot);
             }
         }
-
-        entDestEntSearch(strToSearch, x->right, root);
     }
 }
 
