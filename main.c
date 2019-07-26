@@ -19,7 +19,7 @@
 #define RELATIONS_ID_SIZE 50
 #define RED 0
 #define BLACK 1
-#define HASH_TABLE_SIZE 200
+#define HASH_TABLE_SIZE 5
 #define NOT_FOUND -1
 
 /*
@@ -202,8 +202,6 @@ binaryTreeEntities_t *binaryTreeEntitiesNIL;
 binaryTreeEntities_t *entitiesRoot;
 
 binaryTreeEntitiesDest_t *binaryTreeEntitiesDestNIL;
-
-char deleted[HASH_TABLE_SIZE] = "                          ";
 
 
 int main() {
@@ -689,7 +687,7 @@ binaryTreeRelTypes_t *rbTreeRelTypesDelete(binaryTreeRelTypes_t **T, binaryTreeR
         y->p->right = x;
     }
     if (y != z) {
-        strncpy(z->id, y->id, RELATIONS_ID_SIZE);
+        z->id = y->id;
         z->destTreeRoot = y->destTreeRoot;
         z->maxDestRoot = y->maxDestRoot;
         z->maxRelations = y->maxRelations;
@@ -1361,11 +1359,8 @@ void rbTreeEntitiesDestPurge(binaryTreeEntitiesDest_t *T) {
         return;
     }
     rbTreeEntitiesDestPurge(T->left); // Free left memory
-    T->left = binaryTreeEntitiesDestNIL;
     rbTreeEntitiesDestPurge(T->right); // Free right memory
-    T->right = binaryTreeEntitiesDestNIL;
     free(T);
-    T = binaryTreeEntitiesDestNIL;
 }
 
 /*
@@ -1496,20 +1491,16 @@ int hashDestInsert(hashOrigList_t *T[], char *k) {
     int j = hash(k, i); // FUNZIONE DA CALCOLARE
     hashOrigList_t *newOrig = malloc(sizeof(hashOrigList_t));
     newOrig->id=k;
+    newOrig->next = NULL;
     hashOrigList_t *linkOrig = T[j];
     if (linkOrig == NULL) {
         T[j] = newOrig;
-        newOrig->next = NULL;
         return j;
     }
-    hashOrigList_t *prevOrig = linkOrig;
-    linkOrig = linkOrig->next;
-    while (linkOrig != NULL) {
-        prevOrig = linkOrig;
+    while (linkOrig->next != NULL) {
         linkOrig = linkOrig->next;
     }
-    prevOrig->next = newOrig;
-    newOrig->next = NULL;
+    linkOrig->next = newOrig;
     return j;
 }
 
@@ -1517,20 +1508,24 @@ int hashDestSearch(hashOrigList_t **T, char *k) {
     int i = 1;
     int j;
     j = hash(k, i);
+    hashOrigList_t *head = T[j];
     hashOrigList_t *searchOrig = T[j];
     if(searchOrig == NULL) {
         return NOT_FOUND;
     }
     if (searchOrig->id == k) {
+        T[j] = head;
         return j;
     }
     searchOrig = searchOrig->next;
     while(searchOrig!=NULL) {
         if (searchOrig->id == k) {
+            T[j] = head;
             return j;
         }
         searchOrig=searchOrig->next;
     }
+    T[j] = head;
     return NOT_FOUND;
 }
 
@@ -1548,8 +1543,8 @@ int hashDestDelete(hashOrigList_t **T, char *k) {
         return j;
     }
     hashOrigList_t *prevOrig;
-    prevOrig = searchOrig;
-    searchOrig = searchOrig->next;
+    prevOrig = T[j];
+    searchOrig = (T[j])->next;
     while(searchOrig!=NULL) {
         if (searchOrig->id == k) {
             prevOrig->next=searchOrig->next;
