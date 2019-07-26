@@ -377,6 +377,9 @@ void delRelManager() {
     (destEnt->hashDest)[origEnt] = NULL; // Free the pointer
     if(destEnt->relationsNum == 1) { // There was only one relation, delete the dest from the relType tree
         rbTreeEntitiesDestDelete(&(relType->destTreeRoot), destEnt);
+        if(relType->destTreeRoot == binaryTreeEntitiesDestNIL) { // No relations remaining in relType, delete the relType
+            rbTreeRelTypesDelete(&relTypesRoot, relType);
+        }
     } else {
         (destEnt->relationsNum)--; // Decrease the relation counter
     }
