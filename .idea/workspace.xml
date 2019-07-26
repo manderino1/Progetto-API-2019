@@ -35,20 +35,11 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="202" column="4" selection-start-line="202" selection-start-column="4" selection-end-line="202" selection-end-column="4" />
+            <state relative-caret-position="188">
+              <caret line="1473" column="19" selection-start-line="1473" selection-start-column="19" selection-end-line="1473" selection-end-column="19" />
               <folding>
                 <element signature="e#83#101#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../APIC/main.c">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="468">
-              <caret line="119" column="26" lean-forward="true" selection-start-line="118" selection-start-column="4" selection-end-line="119" selection-end-column="26" />
             </state>
           </provider>
         </entry>
@@ -161,12 +152,12 @@
       <workItem from="1564058987247" duration="6863000" />
       <workItem from="1564069405751" duration="5262000" />
       <workItem from="1564076433538" duration="279000" />
-      <workItem from="1564124243925" duration="23080000" />
+      <workItem from="1564124243925" duration="25359000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="57881000" />
+    <option name="totallyTimeSpent" value="60160000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -186,17 +177,17 @@
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.2979415" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4664179" weight="0.32936078" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" sideWeight="0.37473348" visible="true" weight="0.3726977" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.46481878" weight="0.32936078" />
+      <window_info active="true" anchor="bottom" id="Debug" order="3" sideWeight="0.6114072" visible="true" weight="0.3726977" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49946696" weight="0.32936078" />
       <window_info anchor="bottom" id="Database Changes" order="7" />
       <window_info anchor="bottom" id="Terminal" order="8" />
-      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.62526655" side_tool="true" visible="true" weight="0.3726977" />
+      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.38859275" side_tool="true" visible="true" weight="0.3726977" />
       <window_info anchor="bottom" id="Version Control" order="10" weight="0.32936078" />
       <window_info anchor="bottom" id="CMake" order="11" />
-      <window_info anchor="bottom" id="Messages" order="12" sideWeight="0.34701493" weight="0.32936078" />
+      <window_info anchor="bottom" id="Messages" order="12" sideWeight="0.3347548" weight="0.32936078" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -252,6 +243,7 @@
       <configuration name="CMakeRunConfiguration">
         <watch expression="relTypesRoot" language="ObjectiveC" />
         <watch expression="entitiesRoot" />
+        <watch expression="relTypesRoot-&gt;right" />
       </configuration>
     </watches-manager>
   </component>
@@ -277,8 +269,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="202" column="4" selection-start-line="202" selection-start-column="4" selection-end-line="202" selection-end-column="4" />
+        <state relative-caret-position="188">
+          <caret line="1473" column="19" selection-start-line="1473" selection-start-column="19" selection-end-line="1473" selection-end-column="19" />
           <folding>
             <element signature="e#83#101#0" expanded="true" />
           </folding>

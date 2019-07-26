@@ -1469,16 +1469,16 @@ int maxTreeNewMax(binaryTreeEntitiesDest_t *x) {
  * Insert a value in the hash
  */
 int hash(char *k, int i) {
-    int res = 0;
+    unsigned int res = 1;
     for (int j = 0; j < strlen(k); j++) {
-        res = res + k[j];
+        res = res*3 + k[j];
     }
     res = (res * i) % HASH_TABLE_SIZE;
     return res;
 }
 
 int hashDestInsert(char *T[], char *k) {
-    int i = 0;
+    int i = 1;
     do {
         int j = hash(k, i); // FUNZIONE DA CALCOLARE
         if (T[j] == NULL) {
