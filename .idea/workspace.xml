@@ -35,8 +35,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="414">
-              <caret line="1247" column="9" lean-forward="true" selection-start-line="1247" selection-start-column="9" selection-end-line="1247" selection-end-column="9" />
+            <state relative-caret-position="428">
+              <caret line="657" column="42" selection-start-line="657" selection-start-column="42" selection-end-line="657" selection-end-column="42" />
               <folding>
                 <element signature="e#83#101#0" expanded="true" />
               </folding>
@@ -160,12 +160,12 @@
       <workItem from="1564058987247" duration="6863000" />
       <workItem from="1564069405751" duration="5262000" />
       <workItem from="1564076433538" duration="279000" />
-      <workItem from="1564124243925" duration="8430000" />
+      <workItem from="1564124243925" duration="8504000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="43231000" />
+    <option name="totallyTimeSpent" value="43305000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -251,7 +251,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/main.c</url>
-          <line>1353</line>
+          <line>1356</line>
           <option name="timeStamp" value="21" />
         </line-breakpoint>
       </breakpoints>
@@ -286,8 +286,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="414">
-          <caret line="1247" column="9" lean-forward="true" selection-start-line="1247" selection-start-column="9" selection-end-line="1247" selection-end-column="9" />
+        <state relative-caret-position="428">
+          <caret line="657" column="42" selection-start-line="657" selection-start-column="42" selection-end-line="657" selection-end-column="42" />
           <folding>
             <element signature="e#83#101#0" expanded="true" />
           </folding>

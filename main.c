@@ -653,6 +653,9 @@ binaryTreeRelTypes_t *rbTreeRelTypesDelete(binaryTreeRelTypes_t **T, binaryTreeR
     }
     if (y != z) {
         strncpy(z->id, y->id, RELATIONS_ID_SIZE);
+        z->destTreeRoot = y->destTreeRoot;
+        z->maxDestRoot = y->maxDestRoot;
+        z->maxRelations = y->maxRelations;
     }
     if (y->color == BLACK) {
         rbTreeRelTypesDeleteFixup(T, x);
