@@ -195,8 +195,8 @@ binaryTreeEntitiesDest_t *binaryTreeEntitiesDestNIL;
 
 
 int main() {
-    freopen("input.txt","r",stdin);
-    freopen("output.txt","w",stdout);
+    //freopen("input.txt","r",stdin);
+    //freopen("output.txt","w",stdout);
 
     relTypesRoot = malloc(sizeof(binaryTreeRelTypes_t));
     binaryTreeRelTypesNIL = malloc(sizeof(binaryTreeRelTypes_t));
@@ -1242,6 +1242,10 @@ binaryTreeEntitiesDest_t *rbTreeEntitiesDestDelete(binaryTreeEntitiesDest_t **T,
     }
     if (y != z) {
         strncpy(z->id, y->id, RELATIONS_ID_SIZE);
+        z->relationsNum = y->relationsNum;
+        for(int i=0; i<HASH_TABLE_SIZE; i++) {
+            (z->hashDest)[i] = (y->hashDest)[i];
+        }
     }
     if (y->color == BLACK) {
         rbTreeEntitiesDestDeleteFixup(T, x);
