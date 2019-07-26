@@ -1350,20 +1350,27 @@ void entDestEntSearch(char *strToSearch, binaryTreeEntitiesDest_t *x, binaryTree
             if(hashRow != NOT_FOUND) { // If there is, delete it
                 (x->hashDest)[hashRow] = NULL;
                 (x->relationsNum)--;
-
-                // If it was in the max root, reload it
-                binaryTreeEntitiesDest_t *maxSearch = rbTreeEntitiesDestSearch((*root)->maxDestRoot, strToSearch);
-                if(maxSearch != binaryTreeEntitiesDestNIL) { // It was in the max tree
-                    rbTreeEntitiesDestDelete(&((*root)->maxDestRoot), maxSearch); // Delete it from the maxTree
-                    if((*root)->maxDestRoot == binaryTreeEntitiesDestNIL) { // The maxTree is now clear, reload it
-                        ((*root)->maxRelations)--; // Decrease the maxRelations counter by one
-
-                        // Walk the tree and reset the maxTree
-                        maxTreeEntitiesDestReset(root, (*root)->destTreeRoot);
+                if(x->relationsNum == 0) {
+                    rbTreeEntitiesDestDelete(&((*root)->destTreeRoot), x);
+                    if((*root)->destTreeRoot == binaryTreeEntitiesDestNIL) { // No relations remaining in relType, delete the relType
+                        rbTreeRelTypesDelete(&relTypesRoot, *root);
                     }
                 }
             }
         }
+
+        // If it was in the max root, reload it
+        binaryTreeEntitiesDest_t *maxSearch = rbTreeEntitiesDestSearch((*root)->maxDestRoot, strToSearch);
+        if(maxSearch != binaryTreeEntitiesDestNIL) { // It was in the max tree
+            rbTreeEntitiesDestDelete(&((*root)->maxDestRoot), maxSearch); // Delete it from the maxTree
+            if((*root)->maxDestRoot == binaryTreeEntitiesDestNIL) { // The maxTree is now clear, reload it
+                ((*root)->maxRelations)--; // Decrease the maxRelations counter by one
+
+                // Walk the tree and reset the maxTree
+                maxTreeEntitiesDestReset(root, (*root)->destTreeRoot);
+            }
+        }
+
         entDestEntSearch(strToSearch, x->right, root);
     }
 }

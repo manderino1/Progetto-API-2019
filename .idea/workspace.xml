@@ -35,8 +35,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="87">
-              <caret line="1343" column="51" selection-start-line="1343" selection-start-column="51" selection-end-line="1343" selection-end-column="51" />
+            <state relative-caret-position="342">
+              <caret line="1355" column="61" selection-start-line="1355" selection-start-column="61" selection-end-line="1355" selection-end-column="61" />
               <folding>
                 <element signature="e#83#101#0" expanded="true" />
               </folding>
@@ -159,12 +159,12 @@
       <workItem from="1564058987247" duration="6863000" />
       <workItem from="1564069405751" duration="5262000" />
       <workItem from="1564076433538" duration="279000" />
-      <workItem from="1564124243925" duration="3807000" />
+      <workItem from="1564124243925" duration="4243000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="38608000" />
+    <option name="totallyTimeSpent" value="39044000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -184,17 +184,17 @@
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.2979415" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.47654584" weight="0.32936078" />
-      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.45575693" weight="0.3726977" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4760128" weight="0.32936078" />
+      <window_info active="true" anchor="bottom" id="Debug" order="3" sideWeight="0.45362473" visible="true" weight="0.3726977" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49946696" weight="0.32936078" />
       <window_info anchor="bottom" id="Database Changes" order="7" />
       <window_info anchor="bottom" id="Terminal" order="8" />
-      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.5623667" side_tool="true" visible="true" weight="0.32936078" />
+      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.5463753" side_tool="true" visible="true" weight="0.3726977" />
       <window_info anchor="bottom" id="Version Control" order="10" weight="0.32936078" />
       <window_info anchor="bottom" id="CMake" order="11" />
-      <window_info active="true" anchor="bottom" id="Messages" order="12" sideWeight="0.43763328" visible="true" weight="0.32936078" />
+      <window_info anchor="bottom" id="Messages" order="12" sideWeight="0.43550107" weight="0.32936078" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -275,8 +275,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="87">
-          <caret line="1343" column="51" selection-start-line="1343" selection-start-column="51" selection-end-line="1343" selection-end-column="51" />
+        <state relative-caret-position="342">
+          <caret line="1355" column="61" selection-start-line="1355" selection-start-column="61" selection-end-line="1355" selection-end-column="61" />
           <folding>
             <element signature="e#83#101#0" expanded="true" />
           </folding>
