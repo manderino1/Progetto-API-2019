@@ -102,6 +102,8 @@ void rbTreeRelTypesDeleteFixup(binaryTreeRelTypes_t **T, binaryTreeRelTypes_t *x
 
 void rbTreeRelTypesPurge(binaryTreeRelTypes_t *T);
 
+void relTypeEntSearch(char *strToSearch, binaryTreeRelTypes_t *x);
+
 // Entities trees
 
 binaryTreeEntities_t *rbTreeEntitiesSearch(binaryTreeEntities_t *x, char *k);
@@ -155,6 +157,8 @@ void rbTreeEntitiesDestDeleteFixup(binaryTreeEntitiesDest_t **T, binaryTreeEntit
 void rbTreeEntitiesDestPurge(binaryTreeEntitiesDest_t *T);
 
 void maxTreeEntitiesDestReset(binaryTreeRelTypes_t **relType, binaryTreeEntitiesDest_t *x);
+
+void entDestEntSearch(char *strToSearch, binaryTreeEntitiesDest_t *x, binaryTreeEntitiesDest_t **root);
 
 // Hash functions
 
@@ -254,7 +258,20 @@ void addEntManager() {
 }
 
 void delEntManager() {
+    char idEntity[ENTITY_ID_SIZE];
 
+    scanf("%s", idEntity); // Reading from stdin
+
+    binaryTreeEntities_t *checkExistence;
+    checkExistence = rbTreeEntitiesSearch(entitiesRoot, idEntity);
+    if (checkExistence == binaryTreeEntitiesNIL) { // If the entity does not exist do nothing
+        return;
+    }
+    char *idEntRef = checkExistence->id; // Store the reference for later use
+
+    // If i reach there the entity exists, check the relation types
+    relTypeEntSearch(idEntRef, relTypesRoot);
+    rbTreeEntitiesDelete(&entitiesRoot, checkExistence); // Delete the entity
 }
 
 void addRelManager() {
@@ -712,6 +729,17 @@ void rbTreeRelTypesPurge(binaryTreeRelTypes_t *T) {
     rbTreeRelTypesPurge(T->left); // Free left memory
     rbTreeRelTypesPurge(T->right); // Free right memory
     free(T);
+}
+
+/*
+ * Search in every rel type
+ */
+void relTypeEntSearch(char *strToSearch, binaryTreeRelTypes_t *x) {
+    if(x != binaryTreeEntitiesDestNIL) {
+        relTypeEntSearch(strToSearch, x->left);
+        entDestEntSearch(strToSearch, x->destTreeRoot, &(x->destTreeRoot));
+        relTypeEntSearch(strToSearch, x->right);
+    }
 }
 
 /*
@@ -1295,6 +1323,9 @@ void rbTreeEntitiesDestPurge(binaryTreeEntitiesDest_t *T) {
     T=binaryTreeEntitiesDestNIL;
 }
 
+/*
+ * Search back for the max elements and reset them
+ */
 void maxTreeEntitiesDestReset(binaryTreeRelTypes_t **relType, binaryTreeEntitiesDest_t *x) {
     if(x != binaryTreeEntitiesDestNIL) {
         maxTreeEntitiesDestReset(relType, x->left);
@@ -1302,6 +1333,25 @@ void maxTreeEntitiesDestReset(binaryTreeRelTypes_t **relType, binaryTreeEntities
             addEntityDestMax(relType, x->id);
         }
         maxTreeEntitiesDestReset(relType, x->right);
+    }
+}
+
+/*
+ * Search for the entity in all the dest relations
+ */
+void entDestEntSearch(char *strToSearch, binaryTreeEntitiesDest_t *x, binaryTreeEntitiesDest_t **root) {
+    if(x != binaryTreeEntitiesDestNIL) {
+        entDestEntSearch(strToSearch, x->left, root);
+        if(x->id == strToSearch) { // Delete the dest relation
+            rbTreeEntitiesDestDelete(root, x);
+        } else {
+            // Search for the rel in the orig
+            int hashRow = hashDestSearch(x->hashDest, strToSearch);
+            if(hashRow != NOT_FOUND) { // If there is, delete it
+                (x->hashDest)[hashRow] = NULL;
+            }
+        }
+        entDestEntSearch(strToSearch, x->right, root);
     }
 }
 
