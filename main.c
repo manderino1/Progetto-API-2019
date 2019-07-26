@@ -195,8 +195,8 @@ binaryTreeEntitiesDest_t *binaryTreeEntitiesDestNIL;
 
 
 int main() {
-    //freopen("input.txt","r",stdin);
-    //freopen("output.txt","w",stdout);
+    freopen("input.txt","r",stdin);
+    freopen("output.txt","w",stdout);
 
     relTypesRoot = malloc(sizeof(binaryTreeRelTypes_t));
     binaryTreeRelTypesNIL = malloc(sizeof(binaryTreeRelTypes_t));
@@ -1354,6 +1354,19 @@ void entDestEntSearch(char *strToSearch, binaryTreeEntitiesDest_t *x, binaryTree
         entDestEntSearch(strToSearch, x->left, root);
         entDestEntSearch(strToSearch, x->right, root);
         if(x->id == strToSearch) { // Delete the dest relation
+
+            // If it was in the max root, reload it
+            binaryTreeEntitiesDest_t *maxSearch = rbTreeEntitiesDestSearch((*root)->maxDestRoot, x->id);
+            if(maxSearch != binaryTreeEntitiesDestNIL) { // It was in the max tree
+                rbTreeEntitiesDestDelete(&((*root)->maxDestRoot), maxSearch); // Delete it from the maxTree
+                if((*root)->maxDestRoot == binaryTreeEntitiesDestNIL) { // The maxTree is now clear, reload it
+                    ((*root)->maxRelations)--; // Decrease the maxRelations counter by one
+
+                    // Walk the tree and reset the maxTree
+                    maxTreeEntitiesDestReset(root, (*root)->destTreeRoot);
+                }
+            }
+
             rbTreeEntitiesDestDelete(&((*root)->destTreeRoot), x);
             if((*root)->destTreeRoot == binaryTreeEntitiesDestNIL) { // Delete the relType
                 rbTreeRelTypesDelete(&relTypesRoot, *root);
@@ -1366,26 +1379,37 @@ void entDestEntSearch(char *strToSearch, binaryTreeEntitiesDest_t *x, binaryTree
                 (x->hashDest)[hashRow] = NULL;
                 (x->relationsNum)--;
                 if(x->relationsNum == 0) {
+                    // If it was in the max root, reload it
+                    binaryTreeEntitiesDest_t *maxSearch = rbTreeEntitiesDestSearch((*root)->maxDestRoot, x->id);
+                    if(maxSearch != binaryTreeEntitiesDestNIL) { // It was in the max tree
+                        rbTreeEntitiesDestDelete(&((*root)->maxDestRoot), maxSearch); // Delete it from the maxTree
+                        if((*root)->maxDestRoot == binaryTreeEntitiesDestNIL) { // The maxTree is now clear, reload it
+                            ((*root)->maxRelations)--; // Decrease the maxRelations counter by one
+
+                            // Walk the tree and reset the maxTree
+                            maxTreeEntitiesDestReset(root, (*root)->destTreeRoot);
+                        }
+                    }
+
                     rbTreeEntitiesDestDelete(&((*root)->destTreeRoot), x);
                     if((*root)->destTreeRoot == binaryTreeEntitiesDestNIL) { // No relations remaining in relType, delete the relType
                         rbTreeRelTypesDelete(&relTypesRoot, *root);
                         return; // No maxTree to reload if you deleted the relType
                     }
+                } else {
+                    binaryTreeEntitiesDest_t *maxSearch = rbTreeEntitiesDestSearch((*root)->maxDestRoot, x->id);
+                    if(maxSearch != binaryTreeEntitiesDestNIL) { // It was in the max tree
+                        rbTreeEntitiesDestDelete(&((*root)->maxDestRoot), maxSearch); // Delete it from the maxTree
+                        if((*root)->maxDestRoot == binaryTreeEntitiesDestNIL) { // The maxTree is now clear, reload it
+                            ((*root)->maxRelations)--; // Decrease the maxRelations counter by one
+
+                            // Walk the tree and reset the maxTree
+                            maxTreeEntitiesDestReset(root, (*root)->destTreeRoot);
+                        }
+                    }
                 }
             } else {
                 return;
-            }
-        }
-
-        // If it was in the max root, reload it
-        binaryTreeEntitiesDest_t *maxSearch = rbTreeEntitiesDestSearch((*root)->maxDestRoot, x->id);
-        if(maxSearch != binaryTreeEntitiesDestNIL) { // It was in the max tree
-            rbTreeEntitiesDestDelete(&((*root)->maxDestRoot), maxSearch); // Delete it from the maxTree
-            if((*root)->maxDestRoot == binaryTreeEntitiesDestNIL) { // The maxTree is now clear, reload it
-                ((*root)->maxRelations)--; // Decrease the maxRelations counter by one
-
-                // Walk the tree and reset the maxTree
-                maxTreeEntitiesDestReset(root, (*root)->destTreeRoot);
             }
         }
     }
