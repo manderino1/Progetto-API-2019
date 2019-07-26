@@ -195,6 +195,8 @@ binaryTreeEntities_t *entitiesRoot;
 
 binaryTreeEntitiesDest_t *binaryTreeEntitiesDestNIL;
 
+char deleted[HASH_TABLE_SIZE] = "                          ";
+
 
 int main() {
     //freopen("input.txt","r",stdin);
@@ -394,7 +396,7 @@ void delRelManager() {
     }
 
     // If i reach there the relation exists
-    (destEnt->hashDest)[origEnt] = NULL; // Free the pointer
+    (destEnt->hashDest)[origEnt] = deleted; // Free the pointer
     if (destEnt->relationsNum == 1) { // There was only one relation, delete the dest from the relType tree
         // Eventually fix the max tree
         binaryTreeEntitiesDest_t *maxSearch = rbTreeEntitiesDestSearch(relType->maxDestRoot, idDestRef);
@@ -1397,7 +1399,7 @@ void entDestEntSearch(char *strToSearch, binaryTreeEntitiesDest_t *x, binaryTree
             // Search for the rel in the orig
             int hashRow = hashDestSearch(x->hashDest, strToSearch);
             if (hashRow != NOT_FOUND) { // If there is, delete it
-                (x->hashDest)[hashRow] = NULL;
+                (x->hashDest)[hashRow] = deleted;
                 (x->relationsNum)--;
                 if (x->relationsNum == 0) {
                     // If it was in the max root, reload it
