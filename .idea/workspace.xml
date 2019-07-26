@@ -35,8 +35,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="176">
-              <caret line="230" selection-start-line="230" selection-end-line="230" />
+            <state relative-caret-position="9095">
+              <caret line="1269" column="22" selection-start-line="1269" selection-start-column="22" selection-end-line="1269" selection-end-column="22" />
               <folding>
                 <element signature="e#83#101#0" expanded="true" />
               </folding>
@@ -161,12 +161,12 @@
       <workItem from="1564058987247" duration="6863000" />
       <workItem from="1564069405751" duration="5262000" />
       <workItem from="1564076433538" duration="279000" />
-      <workItem from="1564124243925" duration="20266000" />
+      <workItem from="1564124243925" duration="21366000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="55067000" />
+    <option name="totallyTimeSpent" value="56167000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -187,16 +187,16 @@
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.2979415" />
       <window_info anchor="bottom" id="Run" order="2" sideWeight="0.467484" weight="0.32936078" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" sideWeight="0.391258" visible="true" weight="0.3726977" />
+      <window_info active="true" anchor="bottom" id="Debug" order="3" sideWeight="0.38379532" visible="true" weight="0.3726977" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49946696" weight="0.32936078" />
       <window_info anchor="bottom" id="Database Changes" order="7" />
       <window_info anchor="bottom" id="Terminal" order="8" />
-      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.608742" side_tool="true" visible="true" weight="0.3726977" />
+      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.6162047" side_tool="true" visible="true" weight="0.3726977" />
       <window_info anchor="bottom" id="Version Control" order="10" weight="0.32936078" />
       <window_info anchor="bottom" id="CMake" order="11" />
-      <window_info anchor="bottom" id="Messages" order="12" sideWeight="0.36460555" weight="0.32936078" />
+      <window_info anchor="bottom" id="Messages" order="12" sideWeight="0.35714287" weight="0.32936078" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -252,8 +252,8 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/main.c</url>
-          <line>266</line>
-          <option name="timeStamp" value="53" />
+          <line>264</line>
+          <option name="timeStamp" value="62" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -286,8 +286,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="230" selection-start-line="230" selection-end-line="230" />
+        <state relative-caret-position="9095">
+          <caret line="1269" column="22" selection-start-line="1269" selection-start-column="22" selection-end-line="1269" selection-end-column="22" />
           <folding>
             <element signature="e#83#101#0" expanded="true" />
           </folding>

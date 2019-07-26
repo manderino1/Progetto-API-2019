@@ -1267,7 +1267,7 @@ binaryTreeEntitiesDest_t *rbTreeEntitiesDestDelete(binaryTreeEntitiesDest_t **T,
         y->p->right = x;
     }
     if (y != z) {
-        strncpy(z->id, y->id, RELATIONS_ID_SIZE);
+        z->id = y->id;
         z->relationsNum = y->relationsNum;
         for (int i = 0; i < HASH_TABLE_SIZE; i++) {
             (z->hashDest)[i] = (y->hashDest)[i];
