@@ -1321,7 +1321,7 @@ void rbTreeEntitiesDestDeleteFixup(binaryTreeEntitiesDest_t **T, binaryTreeEntit
                 w->color = x->p->color;
                 x->p->color = BLACK;
                 w->left->color = BLACK;
-                rbTreeEntitiesDestLeftRotate(T, x->p);
+                rbTreeEntitiesDestRightRotate(T, x->p);
                 x = *T;
             }
         }

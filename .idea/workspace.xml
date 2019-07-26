@@ -35,8 +35,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="329">
-              <caret line="1027" column="39" lean-forward="true" selection-start-line="1027" selection-start-column="39" selection-end-line="1027" selection-end-column="39" />
+            <state relative-caret-position="4664">
+              <caret line="982" column="5" selection-start-line="982" selection-start-column="5" selection-end-line="982" selection-end-column="5" />
               <folding>
                 <element signature="e#83#101#0" expanded="true" />
               </folding>
@@ -47,7 +47,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="mock:///disassembly">
           <provider selected="true" editor-type-id="memory-view">
-            <state relative-caret-position="136">
+            <state>
               <caret line="8" selection-start-line="8" selection-end-line="8" />
             </state>
           </provider>
@@ -169,12 +169,12 @@
       <workItem from="1564058987247" duration="6863000" />
       <workItem from="1564069405751" duration="5262000" />
       <workItem from="1564076433538" duration="279000" />
-      <workItem from="1564124243925" duration="10720000" />
+      <workItem from="1564124243925" duration="11162000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="45521000" />
+    <option name="totallyTimeSpent" value="45963000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -194,17 +194,17 @@
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.2979415" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4728145" weight="0.32936078" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" sideWeight="0.43123668" visible="true" weight="0.3726977" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.47228146" weight="0.32936078" />
+      <window_info active="true" anchor="bottom" id="Debug" order="3" sideWeight="0.42910448" visible="true" weight="0.3726977" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49946696" weight="0.32936078" />
       <window_info anchor="bottom" id="Database Changes" order="7" />
       <window_info anchor="bottom" id="Terminal" order="8" />
-      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.5687633" side_tool="true" visible="true" weight="0.3726977" />
+      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.5708955" side_tool="true" visible="true" weight="0.3726977" />
       <window_info anchor="bottom" id="Version Control" order="10" weight="0.32936078" />
       <window_info anchor="bottom" id="CMake" order="11" />
-      <window_info anchor="bottom" id="Messages" order="12" sideWeight="0.4099147" weight="0.32936078" />
+      <window_info anchor="bottom" id="Messages" order="12" sideWeight="0.40724948" weight="0.32936078" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -285,8 +285,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="329">
-          <caret line="1027" column="39" lean-forward="true" selection-start-line="1027" selection-start-column="39" selection-end-line="1027" selection-end-column="39" />
+        <state relative-caret-position="4664">
+          <caret line="982" column="5" selection-start-line="982" selection-start-column="5" selection-end-line="982" selection-end-column="5" />
           <folding>
             <element signature="e#83#101#0" expanded="true" />
           </folding>
