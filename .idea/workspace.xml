@@ -35,11 +35,20 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="188">
-              <caret line="1473" column="19" selection-start-line="1473" selection-start-column="19" selection-end-line="1473" selection-end-column="19" />
+            <state relative-caret-position="295">
+              <caret line="1494" column="13" selection-start-line="1494" selection-start-column="13" selection-end-line="1494" selection-end-column="13" />
               <folding>
                 <element signature="e#83#101#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="mock:///disassembly">
+          <provider selected="true" editor-type-id="memory-view">
+            <state>
+              <caret line="8" selection-start-line="8" selection-end-line="8" />
             </state>
           </provider>
         </entry>
@@ -152,12 +161,12 @@
       <workItem from="1564058987247" duration="6863000" />
       <workItem from="1564069405751" duration="5262000" />
       <workItem from="1564076433538" duration="279000" />
-      <workItem from="1564124243925" duration="25359000" />
+      <workItem from="1564124243925" duration="25731000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="60160000" />
+    <option name="totallyTimeSpent" value="60532000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -178,16 +187,16 @@
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.2979415" />
       <window_info anchor="bottom" id="Run" order="2" sideWeight="0.46481878" weight="0.32936078" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" sideWeight="0.6114072" visible="true" weight="0.3726977" />
+      <window_info active="true" anchor="bottom" id="Debug" order="3" sideWeight="0.6098081" visible="true" weight="0.3726977" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49946696" weight="0.32936078" />
       <window_info anchor="bottom" id="Database Changes" order="7" />
       <window_info anchor="bottom" id="Terminal" order="8" />
-      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.38859275" side_tool="true" visible="true" weight="0.3726977" />
+      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.39019188" side_tool="true" visible="true" weight="0.3726977" />
       <window_info anchor="bottom" id="Version Control" order="10" weight="0.32936078" />
       <window_info anchor="bottom" id="CMake" order="11" />
-      <window_info anchor="bottom" id="Messages" order="12" sideWeight="0.3347548" weight="0.32936078" />
+      <window_info anchor="bottom" id="Messages" order="12" sideWeight="0.33315566" weight="0.32936078" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -239,6 +248,20 @@
     </option>
   </component>
   <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/main.c</url>
+          <line>264</line>
+          <option name="timeStamp" value="76" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/main.c</url>
+          <line>1378</line>
+          <option name="timeStamp" value="78" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
     <watches-manager>
       <configuration name="CMakeRunConfiguration">
         <watch expression="relTypesRoot" language="ObjectiveC" />
@@ -269,8 +292,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="188">
-          <caret line="1473" column="19" selection-start-line="1473" selection-start-column="19" selection-end-line="1473" selection-end-column="19" />
+        <state relative-caret-position="295">
+          <caret line="1494" column="13" selection-start-line="1494" selection-start-column="13" selection-end-line="1494" selection-end-column="13" />
           <folding>
             <element signature="e#83#101#0" expanded="true" />
           </folding>

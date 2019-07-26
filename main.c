@@ -199,8 +199,8 @@ char deleted[HASH_TABLE_SIZE] = "                          ";
 
 
 int main() {
-    freopen("input.txt","r",stdin);
-    freopen("output.txt","w",stdout);
+    //freopen("input.txt","r",stdin);
+    //freopen("output.txt","w",stdout);
 
     relTypesRoot = malloc(sizeof(binaryTreeRelTypes_t));
     binaryTreeRelTypesNIL = malloc(sizeof(binaryTreeRelTypes_t));
@@ -1492,7 +1492,7 @@ int hashDestInsert(char *T[], char *k) {
 }
 
 int hashDestSearch(char **T, char *k) {
-    int i = 0;
+    int i = 1;
     int j;
     do {
         j = hash(k, i);
