@@ -685,6 +685,7 @@ binaryTreeRelTypes_t *rbTreeRelTypesDelete(binaryTreeRelTypes_t **T, binaryTreeR
         z->destTreeRoot = y->destTreeRoot;
         z->maxDestRoot = y->maxDestRoot;
         z->maxRelations = y->maxRelations;
+        free(y);
     }
     if (y->color == BLACK) {
         rbTreeRelTypesDeleteFixup(T, x);
@@ -985,6 +986,7 @@ binaryTreeEntities_t *rbTreeEntitiesDelete(binaryTreeEntities_t **T, binaryTreeE
     }
     if (y != z) {
         z->id = y->id;
+        free(y);
     }
     if (y->color == BLACK) {
         rbTreeEntitiesDeleteFixup(T, x);
@@ -1278,6 +1280,7 @@ binaryTreeEntitiesDest_t *rbTreeEntitiesDestDelete(binaryTreeEntitiesDest_t **T,
         for (int i = 0; i < HASH_TABLE_SIZE; i++) {
             (z->hashDest)[i] = (y->hashDest)[i];
         }
+        free(y);
     }
     if (y->color == BLACK) {
         rbTreeEntitiesDestDeleteFixup(T, x);
