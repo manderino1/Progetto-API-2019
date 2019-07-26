@@ -14,9 +14,9 @@
 /*
  * Defines
  */
-#define COMMAND_READ_SIZE 500
-#define ENTITY_ID_SIZE 500
-#define RELATIONS_ID_SIZE 500
+#define COMMAND_READ_SIZE 10
+#define ENTITY_ID_SIZE 50
+#define RELATIONS_ID_SIZE 50
 #define RED 0
 #define BLACK 1
 #define HASH_TABLE_SIZE 50
@@ -154,6 +154,8 @@ void rbTreeEntitiesDestDeleteFixup(binaryTreeEntitiesDest_t **T, binaryTreeEntit
 
 void rbTreeEntitiesDestPurge(binaryTreeEntitiesDest_t *T);
 
+void maxTreeEntitiesDestReset(binaryTreeRelTypes_t **relType, binaryTreeEntitiesDest_t *x);
+
 // Hash functions
 
 inline int hash(char *k, int i);
@@ -189,8 +191,8 @@ binaryTreeEntitiesDest_t *binaryTreeEntitiesDestNIL;
 
 
 int main() {
-    freopen("input.txt","r",stdin);
-    freopen("output.txt","w",stdout);
+    //freopen("input.txt","r",stdin);
+    //freopen("output.txt","w",stdout);
 
     relTypesRoot = malloc(sizeof(binaryTreeRelTypes_t));
     binaryTreeRelTypesNIL = malloc(sizeof(binaryTreeRelTypes_t));
@@ -334,7 +336,62 @@ void addRelManager() {
 }
 
 void delRelManager() {
+    char idOrig[ENTITY_ID_SIZE];
+    char idDest[ENTITY_ID_SIZE];
+    char idRel[RELATIONS_ID_SIZE];
 
+    scanf("%s", idOrig);
+    scanf("%s", idDest);
+    scanf("%s", idRel);
+
+    binaryTreeEntities_t *checkExistence;
+    checkExistence = rbTreeEntitiesSearch(entitiesRoot, idDest);
+    if (checkExistence == binaryTreeEntitiesNIL) {
+        return;
+    }
+    char *idDestRef = checkExistence->id; // Store the reference for later use
+    checkExistence = rbTreeEntitiesSearch(entitiesRoot, idOrig);
+    if (checkExistence == binaryTreeEntitiesNIL) {
+        return;
+    }
+    char *idOrigRef = checkExistence->id; // Store the reference for later use
+
+    binaryTreeRelTypes_t *relType = rbTreeRelTypesSearch(relTypesRoot, idRel); // Search if the rel type exists
+    if(relType == binaryTreeRelTypesNIL) { // If the rel type does not exist return (do nothing)
+        return;
+    }
+
+    // If i reach there the relType exists
+    binaryTreeEntitiesDest_t *destEnt = rbTreeEntitiesDestSearch(relType->destTreeRoot, idDestRef); // Search if the dest ent exists
+    if(destEnt == binaryTreeEntitiesDestNIL) { // If the destEnt does not exist return (do nothing)
+        return;
+    }
+
+    // If i reach there the destEnt exists
+    int origEnt = hashDestSearch(destEnt->hashDest, idOrigRef);
+    if(origEnt == NOT_FOUND) { // If the origEnt does not exist
+        return;
+    }
+
+    // If i reach there the relation exists
+    (destEnt->hashDest)[origEnt] = NULL; // Free the pointer
+    if(destEnt->relationsNum == 1) { // There was only one relation, delete the dest from the relType tree
+        rbTreeEntitiesDestDelete(&(relType->destTreeRoot), destEnt);
+    } else {
+        (destEnt->relationsNum)--; // Decrease the relation counter
+    }
+
+    // Eventually fix the max tree
+    binaryTreeEntitiesDest_t *maxSearch = rbTreeEntitiesDestSearch(relType->maxDestRoot, idDestRef);
+    if(maxSearch != binaryTreeEntitiesDestNIL) { // It was in the max tree
+        rbTreeEntitiesDestDelete(&(relType->maxDestRoot), maxSearch); // Delete it from the maxTree
+        if(relType->maxDestRoot == binaryTreeEntitiesDestNIL) { // The maxTree is now clear, reload it
+            (relType->maxRelations)--; // Decrease the maxRelations counter by one
+
+            // Walk the tree and reset the maxTree
+            maxTreeEntitiesDestReset(&relType, relType->destTreeRoot);
+        }
+    }
 }
 
 void reportManager() {
@@ -1235,6 +1292,16 @@ void rbTreeEntitiesDestPurge(binaryTreeEntitiesDest_t *T) {
     T=binaryTreeEntitiesDestNIL;
 }
 
+void maxTreeEntitiesDestReset(binaryTreeRelTypes_t **relType, binaryTreeEntitiesDest_t *x) {
+    if(x != binaryTreeEntitiesDestNIL) {
+        maxTreeEntitiesDestReset(relType, x->left);
+        if(x->relationsNum == (*relType)->maxRelations) { // Add into the maxTree
+            addEntityDestMax(relType, x->id);
+        }
+        maxTreeEntitiesDestReset(relType, x->right);
+    }
+}
+
 /*
  * HASHING FUNCTIONS
  */
@@ -1275,7 +1342,7 @@ int hashDestSearch(char **T, char *k) {
         }
         i = i + 1;
     } while ((T[j] != NULL) && (i != HASH_TABLE_SIZE));
-    return -1;
+    return NOT_FOUND;
 }
 
 /*

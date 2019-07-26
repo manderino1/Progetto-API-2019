@@ -11,7 +11,10 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f9641f3d-1b78-4c33-93bd-443838e966af" name="Default Changelist" comment="" />
+    <list default="true" id="f9641f3d-1b78-4c33-93bd-443838e966af" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/main.c" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -33,11 +36,20 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="413">
-              <caret line="358" column="32" selection-start-line="358" selection-start-column="32" selection-end-line="358" selection-end-column="32" />
+            <state relative-caret-position="125">
+              <caret line="194" column="6" selection-start-line="194" selection-start-column="6" selection-end-line="194" selection-end-column="6" />
               <folding>
                 <element signature="e#83#101#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../APIC/main.c">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="8517">
+              <caret line="501" column="23" selection-start-line="495" selection-start-column="4" selection-end-line="501" selection-end-column="23" />
             </state>
           </provider>
         </entry>
@@ -147,11 +159,13 @@
       <workItem from="1564055677476" duration="110000" />
       <workItem from="1564058987247" duration="6863000" />
       <workItem from="1564069405751" duration="5262000" />
+      <workItem from="1564076433538" duration="279000" />
+      <workItem from="1564124243925" duration="1791000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="34522000" />
+    <option name="totallyTimeSpent" value="36592000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -164,23 +178,24 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.26599148" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.27132195" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.2979415" />
       <window_info anchor="bottom" id="Run" order="2" sideWeight="0.478145" weight="0.32936078" />
-      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.45842218" weight="0.3726977" />
+      <window_info active="true" anchor="bottom" id="Debug" order="3" sideWeight="0.45682302" visible="true" weight="0.3726977" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49946696" weight="0.32936078" />
       <window_info anchor="bottom" id="Database Changes" order="7" />
       <window_info anchor="bottom" id="Terminal" order="8" />
-      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.521855" side_tool="true" visible="true" weight="0.32936078" />
+      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.54317695" side_tool="true" visible="true" weight="0.3726977" />
       <window_info anchor="bottom" id="Version Control" order="10" weight="0.32936078" />
       <window_info anchor="bottom" id="CMake" order="11" />
-      <window_info anchor="bottom" id="Messages" order="12" sideWeight="0.4424307" weight="0.32936078" />
+      <window_info anchor="bottom" id="Messages" order="12" sideWeight="0.44083154" weight="0.32936078" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -254,15 +269,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/../APIC/main.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="9962">
-          <caret line="586" column="42" selection-start-line="586" selection-start-column="8" selection-end-line="586" selection-end-column="42" />
+        <state relative-caret-position="8517">
+          <caret line="501" column="23" selection-start-line="495" selection-start-column="4" selection-end-line="501" selection-end-column="23" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/main.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="413">
-          <caret line="358" column="32" selection-start-line="358" selection-start-column="32" selection-end-line="358" selection-end-column="32" />
+        <state relative-caret-position="125">
+          <caret line="194" column="6" selection-start-line="194" selection-start-column="6" selection-end-line="194" selection-end-column="6" />
           <folding>
             <element signature="e#83#101#0" expanded="true" />
           </folding>
