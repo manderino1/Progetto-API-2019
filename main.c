@@ -207,7 +207,7 @@ char *createHashOrig(binaryTreeEntitiesDest_t **destEnt, char *idToSet);
 
 void treePrint(binaryTreeEntitiesDest_t *root);
 
-void hashRelationAdd(int hashDestRow, int hashOrigRow, binaryTreeEntities_t *checkDestExistence, binaryTreeEntities_t *checkOrigExistence, binaryTreeRelTypes_t *relType);
+void hashRelationAdd(binaryTreeEntities_t *checkDestExistence, binaryTreeEntities_t *checkOrigExistence, binaryTreeRelTypes_t *relType);
 
 
 /*
@@ -321,14 +321,12 @@ void addRelManager() {
 
     binaryTreeEntities_t *checkDestExistence;
     checkDestExistence = rbTreeEntitiesSearch(entitiesRoot, idDest);
-    int hashDestRow = hashRelationSearch(checkDestExistence->hashRelation, idDest);
     if (checkDestExistence == binaryTreeEntitiesNIL) {
         return;
     }
     char *idDestRef = checkDestExistence->id; // Store the reference for later use
     binaryTreeEntities_t *checkOrigExistence;
     checkOrigExistence = rbTreeEntitiesSearch(entitiesRoot, idOrig);
-    int hashOrigRow = hashRelationSearch(checkDestExistence->hashRelation, idDest);
     if (checkOrigExistence == binaryTreeEntitiesNIL) {
         return;
     }
@@ -351,7 +349,7 @@ void addRelManager() {
         // Set maxRelations to the new rel created (1)
         newRelType->maxRelations = newDest->relationsNum;
 
-        hashRelationAdd(hashDestRow, hashOrigRow, checkDestExistence, checkOrigExistence, newRelType);
+        hashRelationAdd(checkDestExistence, checkOrigExistence, newRelType);
         return;
     }
 
@@ -373,7 +371,7 @@ void addRelManager() {
             addEntityDestMax(&relType, idDestRef);
         }
 
-        hashRelationAdd(hashDestRow, hashOrigRow, checkDestExistence, checkOrigExistence, relType);
+        hashRelationAdd(checkDestExistence, checkOrigExistence, relType);
         return;
     }
 
@@ -392,7 +390,7 @@ void addRelManager() {
             addEntityDestMax(&relType, idDestRef);
         }
 
-        hashRelationAdd(hashDestRow, hashOrigRow, checkDestExistence, checkOrigExistence, relType);
+        hashRelationAdd(checkDestExistence, checkOrigExistence, relType);
         return;
     }
 }
@@ -1733,12 +1731,15 @@ char *createHashOrig(binaryTreeEntitiesDest_t **destEnt, char *idToSet) {
     return NULL; // Already exists, nothing added
 }
 
-void hashRelationAdd(int hashDestRow, int hashOrigRow, binaryTreeEntities_t *checkDestExistence, binaryTreeEntities_t *checkOrigExistence, binaryTreeRelTypes_t *relType) {
+void hashRelationAdd(binaryTreeEntities_t *checkDestExistence, binaryTreeEntities_t *checkOrigExistence, binaryTreeRelTypes_t *relType) {
+    int hashDestRow = hashRelationSearch(checkDestExistence->hashRelation, relType->id);
     if(hashDestRow != NOT_FOUND) {
         ((checkDestExistence->hashRelation)[hashDestRow]->relationNumber)++; // Increase the relation number
     } else {
         hashRelationInsert(checkDestExistence->hashRelation, relType->id);
     }
+
+    int hashOrigRow = hashRelationSearch(checkOrigExistence->hashRelation, relType->id);
     if(hashOrigRow != NOT_FOUND) {
         ((checkOrigExistence->hashRelation)[hashOrigRow]->relationNumber)++; // Increase the relation number
     } else {
