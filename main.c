@@ -203,6 +203,9 @@ binaryTreeEntities_t *entitiesRoot;
 
 binaryTreeEntitiesDest_t *binaryTreeEntitiesDestNIL;
 
+binaryTreeRelTypes_t *relTypesToDelete[10];
+int relTypesToDeleteCounter = 0;
+
 
 int main() {
     freopen("input.txt","r",stdin);
@@ -281,6 +284,9 @@ void delEntManager() {
 
     // If i reach there the entity exists, check the relation types
     relTypeEntSearch(idEntRef, relTypesRoot);
+    for(int i = 0; i<relTypesToDeleteCounter; i++) {
+        rbTreeRelTypesDelete(&relTypesRoot, relTypesToDelete[i]);
+    }
     rbTreeEntitiesDelete(&entitiesRoot, checkExistence); // Delete the entity
 }
 
@@ -1406,7 +1412,8 @@ void entDestEntSearch(char *strToSearch, binaryTreeEntitiesDest_t *x, binaryTree
             }
 
             if ((*root)->destTreeRoot == binaryTreeEntitiesDestNIL) { // Delete the relType
-                rbTreeRelTypesDelete(&relTypesRoot, *root);
+                relTypesToDelete[relTypesToDeleteCounter] = *root;
+                relTypesToDeleteCounter++;
                 return; // No maxTree to reload if you deleted the relType
             }
         } else {
@@ -1434,7 +1441,8 @@ void entDestEntSearch(char *strToSearch, binaryTreeEntitiesDest_t *x, binaryTree
 
                     if ((*root)->destTreeRoot ==
                         binaryTreeEntitiesDestNIL) { // No relations remaining in relType, delete the relType
-                        rbTreeRelTypesDelete(&relTypesRoot, *root);
+                        relTypesToDelete[relTypesToDeleteCounter] = *root;
+                        relTypesToDeleteCounter++;
                         return; // No maxTree to reload if you deleted the relType
                     }
                 } else {
