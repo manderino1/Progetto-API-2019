@@ -468,7 +468,7 @@ void delRelManager() {
     }
 
     hashRelationRemove(checkDestExistence, checkOrigExistence, relType); // Decrease the counter
-    
+
     // Eventually fix the max tree
     binaryTreeEntitiesDest_t *maxSearch = rbTreeEntitiesDestSearch(relType->maxDestRoot, idDestRef);
     if (maxSearch != binaryTreeEntitiesDestNIL) { // It was in the max tree
@@ -1746,6 +1746,10 @@ void hashRelationAdd(binaryTreeEntities_t *checkDestExistence, binaryTreeEntitie
         hashRelationInsert(checkDestExistence->hashRelation, relType->id);
     }
 
+    if(checkDestExistence == checkOrigExistence) {
+        return;
+    }
+
     int hashOrigRow = hashRelationSearch(checkOrigExistence->hashRelation, relType->id);
     if(hashOrigRow != NOT_FOUND) {
         ((checkOrigExistence->hashRelation)[hashOrigRow]->relationNumber)++; // Increase the relation number
@@ -1762,6 +1766,10 @@ void hashRelationRemove(binaryTreeEntities_t *checkDestExistence, binaryTreeEnti
         if((checkDestExistence->hashRelation)[hashDestRow]->relationNumber == 0) { // If no relations left delete it
             hashRelationDelete(checkDestExistence->hashRelation, relType->id);
         }
+    }
+
+    if(checkDestExistence == checkOrigExistence) {
+        return;
     }
 
     int hashOrigRow = hashRelationSearch(checkOrigExistence->hashRelation, relType->id);
