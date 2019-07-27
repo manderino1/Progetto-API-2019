@@ -351,7 +351,7 @@ void addRelManager() {
         // Set maxRelations to the new rel created (1)
         newRelType->maxRelations = newDest->relationsNum;
 
-        hashRelationAdd(hashDestRow, hashOrigRow, checkDestExistence, checkOrigExistence, relType);
+        hashRelationAdd(hashDestRow, hashOrigRow, checkDestExistence, checkOrigExistence, newRelType);
         return;
     }
 
@@ -1609,6 +1609,7 @@ int hashRelationInsert(hashRelation_t *T[], char *k) {
     int j = hash(k, i); // FUNZIONE DA CALCOLARE
     hashRelation_t *newOrig = malloc(sizeof(hashOrigList_t));
     newOrig->id=k;
+    newOrig->relationNumber = 1;
     newOrig->next = NULL;
     hashRelation_t *linkOrig = T[j];
     if (linkOrig == NULL) {
