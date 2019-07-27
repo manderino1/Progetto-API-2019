@@ -251,7 +251,7 @@ int main() {
         } else {
             free(relTypesRoot);
             free(entitiesRoot);
-            exit (0);
+            return 0;
         }
     }
 }
@@ -1215,7 +1215,7 @@ void rbTreeEntitiesDestInsert(binaryTreeEntitiesDest_t **T, binaryTreeEntitiesDe
     z->left = binaryTreeEntitiesDestNIL;
     z->right = binaryTreeEntitiesDestNIL;
     z->color = RED;
-    rbTreeEntitiesDestInsertFixup(T, z);
+    //rbTreeEntitiesDestInsertFixup(T, z);
 }
 
 /*
@@ -1298,7 +1298,7 @@ binaryTreeEntitiesDest_t *rbTreeEntitiesDestDelete(binaryTreeEntitiesDest_t **T,
         }
     }
     if (y->color == BLACK) {
-        rbTreeEntitiesDestDeleteFixup(T, x);
+        //rbTreeEntitiesDestDeleteFixup(T, x);
     }
     return y;
 }
