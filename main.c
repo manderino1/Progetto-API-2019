@@ -1597,6 +1597,9 @@ binaryTreeEntities_t *createEntity(char *idToSet) {
 
 binaryTreeEntitiesDest_t *createEntityDest(binaryTreeRelTypes_t **relType, char *idToSet) {
     binaryTreeEntitiesDest_t *entityDest = malloc(sizeof(binaryTreeEntitiesDest_t));
+    for(int i=0; i<HASH_TABLE_SIZE; i++) {
+        (entityDest->hashOrigList)[i] = NULL;
+    }
     entityDest->id = idToSet;
     entityDest->relationsNum = 1;
     rbTreeEntitiesDestInsert(&((*relType)->destTreeRoot), entityDest);
@@ -1605,6 +1608,9 @@ binaryTreeEntitiesDest_t *createEntityDest(binaryTreeRelTypes_t **relType, char 
 
 binaryTreeEntitiesDest_t *addEntityDestMax(binaryTreeRelTypes_t **relType, char *idToSet) {
     binaryTreeEntitiesDest_t *entityDestMax = malloc(sizeof(binaryTreeEntitiesDest_t));
+    for(int i=0; i<HASH_TABLE_SIZE; i++) {
+        (entityDestMax->hashOrigList)[i] = NULL;
+    }
     entityDestMax->id = idToSet;
     rbTreeEntitiesDestInsert(&((*relType)->maxDestRoot), entityDestMax);
     return entityDestMax;
