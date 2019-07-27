@@ -20,6 +20,7 @@
 #define RED 0
 #define BLACK 1
 #define HASH_TABLE_SIZE 10
+#define HASH_RELATION_SIZE 20
 #define NOT_FOUND -1
 
 /*
@@ -29,6 +30,7 @@ typedef struct binaryTreeRelTypes binaryTreeRelTypes_t;
 typedef struct binaryTreeEntities binaryTreeEntities_t;
 typedef struct binaryTreeEntitiesDest binaryTreeEntitiesDest_t;
 typedef struct hashOrigList hashOrigList_t;
+typedef struct hashRelation hashRelation_t;
 
 // RB tree structs
 struct binaryTreeRelTypes {
@@ -47,6 +49,7 @@ struct binaryTreeEntities {
     struct binaryTreeEntities *p;
     char *id;
     _Bool color;
+    hashRelation_t *hashRelation[HASH_RELATION_SIZE];
     struct binaryTreeEntities *left;
     struct binaryTreeEntities *right;
 };
@@ -64,6 +67,12 @@ struct binaryTreeEntitiesDest {
 struct hashOrigList {
     char *id;
     struct hashOrigList *next;
+};
+
+struct hashRelation {
+    char *id;
+    char relationNumber;
+    struct hashRelation *next;
 };
 
 /*
@@ -178,6 +187,12 @@ int hashDestSearch(hashOrigList_t **T, char *k);
 
 int hashDestDelete(hashOrigList_t **T, char *k);
 
+int hashRelationInsert(hashRelation_t *T[], char *k);
+
+int hashRelationSearch(hashRelation_t **T, char *k);
+
+int hashRelationDelete(hashRelation_t **T, char *k);
+
 // Creating object and initializing functions
 
 binaryTreeRelTypes_t *createRelType(char *idToSet);
@@ -191,6 +206,8 @@ binaryTreeEntitiesDest_t *addEntityDestMax(binaryTreeRelTypes_t **relType, char 
 char *createHashOrig(binaryTreeEntitiesDest_t **destEnt, char *idToSet);
 
 void treePrint(binaryTreeEntitiesDest_t *root);
+
+void hashRelationAdd(int hashDestRow, int hashOrigRow, binaryTreeEntities_t *checkDestExistence, binaryTreeEntities_t *checkOrigExistence, binaryTreeRelTypes_t *relType);
 
 
 /*
@@ -210,8 +227,8 @@ int relTypesToDeleteCounter = 0;
 
 
 int main() {
-    freopen("input.txt","r",stdin);
-    freopen("output.txt","w",stdout);
+    //freopen("input.txt","r",stdin);
+    //freopen("output.txt","w",stdout);
 
     relTypesRoot = malloc(sizeof(binaryTreeRelTypes_t));
     binaryTreeRelTypesNIL = malloc(sizeof(binaryTreeRelTypes_t));
@@ -302,17 +319,20 @@ void addRelManager() {
     scanf("%s", idDest);
     scanf("%s", idRel);
 
-    binaryTreeEntities_t *checkExistence;
-    checkExistence = rbTreeEntitiesSearch(entitiesRoot, idDest);
-    if (checkExistence == binaryTreeEntitiesNIL) {
+    binaryTreeEntities_t *checkDestExistence;
+    checkDestExistence = rbTreeEntitiesSearch(entitiesRoot, idDest);
+    int hashDestRow = hashRelationSearch(checkDestExistence->hashRelation, idDest);
+    if (checkDestExistence == binaryTreeEntitiesNIL) {
         return;
     }
-    char *idDestRef = checkExistence->id; // Store the reference for later use
-    checkExistence = rbTreeEntitiesSearch(entitiesRoot, idOrig);
-    if (checkExistence == binaryTreeEntitiesNIL) {
+    char *idDestRef = checkDestExistence->id; // Store the reference for later use
+    binaryTreeEntities_t *checkOrigExistence;
+    checkOrigExistence = rbTreeEntitiesSearch(entitiesRoot, idOrig);
+    int hashOrigRow = hashRelationSearch(checkDestExistence->hashRelation, idDest);
+    if (checkOrigExistence == binaryTreeEntitiesNIL) {
         return;
     }
-    char *idOrigRef = checkExistence->id; // Store the reference for later use
+    char *idOrigRef = checkOrigExistence->id; // Store the reference for later use
 
     binaryTreeRelTypes_t *relType = rbTreeRelTypesSearch(relTypesRoot, idRel);
     if (relType == binaryTreeRelTypesNIL) { // Relation type does not exist, add it
@@ -330,6 +350,8 @@ void addRelManager() {
 
         // Set maxRelations to the new rel created (1)
         newRelType->maxRelations = newDest->relationsNum;
+
+        hashRelationAdd(hashDestRow, hashOrigRow, checkDestExistence, checkOrigExistence, relType);
         return;
     }
 
@@ -350,6 +372,8 @@ void addRelManager() {
         } else if (relType->maxRelations == newDest->relationsNum) { // If it's 1, add it to the max tree
             addEntityDestMax(&relType, idDestRef);
         }
+
+        hashRelationAdd(hashDestRow, hashOrigRow, checkDestExistence, checkOrigExistence, relType);
         return;
     }
 
@@ -367,6 +391,8 @@ void addRelManager() {
         } else if (relType->maxRelations == destinyEnt->relationsNum) { // If it's 1, add it to the max tree
             addEntityDestMax(&relType, idDestRef);
         }
+
+        hashRelationAdd(hashDestRow, hashOrigRow, checkDestExistence, checkOrigExistence, relType);
         return;
     }
 }
@@ -1576,6 +1602,80 @@ int hashDestDelete(hashOrigList_t **T, char *k) {
 }
 
 /*
+ * ENTITY HASH FUNCTIONS
+ */
+int hashRelationInsert(hashRelation_t *T[], char *k) {
+    int i = 1;
+    int j = hash(k, i); // FUNZIONE DA CALCOLARE
+    hashRelation_t *newOrig = malloc(sizeof(hashOrigList_t));
+    newOrig->id=k;
+    newOrig->next = NULL;
+    hashRelation_t *linkOrig = T[j];
+    if (linkOrig == NULL) {
+        T[j] = newOrig;
+        return j;
+    }
+    while (linkOrig->next != NULL) {
+        linkOrig = linkOrig->next;
+    }
+    linkOrig->next = newOrig;
+    return j;
+}
+
+int hashRelationSearch(hashRelation_t **T, char *k) {
+    int i = 1;
+    int j;
+    j = hash(k, i);
+    hashRelation_t *head = T[j];
+    hashRelation_t *searchOrig = T[j];
+    if(searchOrig == NULL) {
+        return NOT_FOUND;
+    }
+    if (searchOrig->id == k) {
+        T[j] = head;
+        return j;
+    }
+    searchOrig = searchOrig->next;
+    while(searchOrig!=NULL) {
+        if (searchOrig->id == k) {
+            T[j] = head;
+            return j;
+        }
+        searchOrig=searchOrig->next;
+    }
+    T[j] = head;
+    return NOT_FOUND;
+}
+
+int hashRelationDelete(hashRelation_t **T, char *k) {
+    int i = 1;
+    int j ;
+    j = hash(k, i);
+    hashRelation_t *searchOrig = T[j];
+    if(searchOrig == NULL) {
+        return NOT_FOUND;
+    }
+    if (searchOrig->id == k) {
+        T[j]=searchOrig->next;
+        free(searchOrig);
+        return j;
+    }
+    hashRelation_t *prevOrig;
+    prevOrig = T[j];
+    searchOrig = (T[j])->next;
+    while(searchOrig!=NULL) {
+        if (searchOrig->id == k) {
+            prevOrig->next=searchOrig->next;
+            free(searchOrig);
+            return j;
+        }
+        prevOrig=searchOrig;
+        searchOrig=searchOrig->next;
+    }
+    return NOT_FOUND;
+}
+
+/*
  * CREATE AND INIT NODES FUNCTIONS
  */
 binaryTreeRelTypes_t *createRelType(char *idToSet) {
@@ -1630,4 +1730,17 @@ char *createHashOrig(binaryTreeEntitiesDest_t **destEnt, char *idToSet) {
     }
 
     return NULL; // Already exists, nothing added
+}
+
+void hashRelationAdd(int hashDestRow, int hashOrigRow, binaryTreeEntities_t *checkDestExistence, binaryTreeEntities_t *checkOrigExistence, binaryTreeRelTypes_t *relType) {
+    if(hashDestRow != NOT_FOUND) {
+        ((checkDestExistence->hashRelation)[hashDestRow]->relationNumber)++; // Increase the relation number
+    } else {
+        hashRelationInsert(checkDestExistence->hashRelation, relType->id);
+    }
+    if(hashOrigRow != NOT_FOUND) {
+        ((checkOrigExistence->hashRelation)[hashOrigRow]->relationNumber)++; // Increase the relation number
+    } else {
+        hashRelationInsert(checkOrigExistence->hashRelation, relType->id);
+    }
 }
