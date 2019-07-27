@@ -1746,3 +1746,23 @@ void hashRelationAdd(binaryTreeEntities_t *checkDestExistence, binaryTreeEntitie
         hashRelationInsert(checkOrigExistence->hashRelation, relType->id);
     }
 }
+
+void hashRelationRemove(binaryTreeEntities_t *checkDestExistence, binaryTreeEntities_t *checkOrigExistence, binaryTreeRelTypes_t *relType) {
+    int hashDestRow = hashRelationSearch(checkDestExistence->hashRelation, relType->id);
+    if(hashDestRow != NOT_FOUND) {
+        ((checkDestExistence->hashRelation)[hashDestRow]->relationNumber)--; // Decrease the relation number
+        
+        if((checkDestExistence->hashRelation)[hashDestRow]->relationNumber == 0) { // If no relations left delete it
+            hashRelationDelete(checkDestExistence->hashRelation, relType->id);
+        }
+    }
+
+    int hashOrigRow = hashRelationSearch(checkOrigExistence->hashRelation, relType->id);
+    if(hashOrigRow != NOT_FOUND) {
+        ((checkOrigExistence->hashRelation)[hashOrigRow]->relationNumber)--; // Increase the relation number
+
+        if((checkOrigExistence->hashRelation)[hashDestRow]->relationNumber == 0) { // If no relations left delete it
+            hashRelationDelete(checkOrigExistence->hashRelation, relType->id);
+        }
+    }
+}
