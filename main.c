@@ -209,6 +209,8 @@ void treePrint(binaryTreeEntitiesDest_t *root);
 
 void hashRelationAdd(binaryTreeEntities_t *checkDestExistence, binaryTreeEntities_t *checkOrigExistence, binaryTreeRelTypes_t *relType);
 
+void hashRelationRemove(binaryTreeEntities_t *checkDestExistence, binaryTreeEntities_t *checkOrigExistence, binaryTreeRelTypes_t *relType);
+
 
 /*
  * Global variables
@@ -404,17 +406,18 @@ void delRelManager() {
     scanf("%s", idDest);
     scanf("%s", idRel);
 
-    binaryTreeEntities_t *checkExistence;
-    checkExistence = rbTreeEntitiesSearch(entitiesRoot, idDest);
-    if (checkExistence == binaryTreeEntitiesNIL) {
+    binaryTreeEntities_t *checkDestExistence;
+    checkDestExistence = rbTreeEntitiesSearch(entitiesRoot, idDest);
+    if (checkDestExistence == binaryTreeEntitiesNIL) {
         return;
     }
-    char *idDestRef = checkExistence->id; // Store the reference for later use
-    checkExistence = rbTreeEntitiesSearch(entitiesRoot, idOrig);
-    if (checkExistence == binaryTreeEntitiesNIL) {
+    char *idDestRef = checkDestExistence->id; // Store the reference for later use
+    binaryTreeEntities_t *checkOrigExistence;
+    checkOrigExistence = rbTreeEntitiesSearch(entitiesRoot, idOrig);
+    if (checkOrigExistence == binaryTreeEntitiesNIL) {
         return;
     }
-    char *idOrigRef = checkExistence->id; // Store the reference for later use
+    char *idOrigRef = checkOrigExistence->id; // Store the reference for later use
 
     binaryTreeRelTypes_t *relType = rbTreeRelTypesSearch(relTypesRoot, idRel); // Search if the rel type exists
     if (relType == binaryTreeRelTypesNIL) { // If the rel type does not exist return (do nothing)
@@ -457,11 +460,15 @@ void delRelManager() {
             rbTreeRelTypesDelete(&relTypesRoot, relType);
         }
 
+        hashRelationRemove(checkDestExistence, checkOrigExistence, relType); // Decrease the counter
+
         return; // Nothing to clear if i deleted the relType
     } else {
         (destEnt->relationsNum)--; // Decrease the relation counter
     }
 
+    hashRelationRemove(checkDestExistence, checkOrigExistence, relType); // Decrease the counter
+    
     // Eventually fix the max tree
     binaryTreeEntitiesDest_t *maxSearch = rbTreeEntitiesDestSearch(relType->maxDestRoot, idDestRef);
     if (maxSearch != binaryTreeEntitiesDestNIL) { // It was in the max tree
@@ -1751,7 +1758,7 @@ void hashRelationRemove(binaryTreeEntities_t *checkDestExistence, binaryTreeEnti
     int hashDestRow = hashRelationSearch(checkDestExistence->hashRelation, relType->id);
     if(hashDestRow != NOT_FOUND) {
         ((checkDestExistence->hashRelation)[hashDestRow]->relationNumber)--; // Decrease the relation number
-        
+
         if((checkDestExistence->hashRelation)[hashDestRow]->relationNumber == 0) { // If no relations left delete it
             hashRelationDelete(checkDestExistence->hashRelation, relType->id);
         }
