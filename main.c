@@ -287,6 +287,7 @@ void delEntManager() {
     for(int i = 0; i<relTypesToDeleteCounter; i++) {
         rbTreeRelTypesDelete(&relTypesRoot, relTypesToDelete[i]);
     }
+    relTypesToDeleteCounter = 0;
     rbTreeEntitiesDelete(&entitiesRoot, checkExistence); // Delete the entity
 }
 
