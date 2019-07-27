@@ -19,7 +19,7 @@
 #define RELATIONS_ID_SIZE 50
 #define RED 0
 #define BLACK 1
-#define HASH_TABLE_SIZE 5
+#define HASH_TABLE_SIZE 10
 #define NOT_FOUND -1
 
 /*
@@ -248,7 +248,7 @@ int main() {
         } else {
             free(relTypesRoot);
             free(entitiesRoot);
-            return 0;
+            exit (0);
         }
     }
 }
@@ -1282,7 +1282,12 @@ binaryTreeEntitiesDest_t *rbTreeEntitiesDestDelete(binaryTreeEntitiesDest_t **T,
         z->id = y->id;
         z->relationsNum = y->relationsNum;
         for (int i = 0; i < HASH_TABLE_SIZE; i++) {
-            (z->hashOrigList)[i] = (y->hashOrigList)[i];
+            if((y->hashOrigList)[i] != NULL) {
+                (z->hashOrigList)[i] = (y->hashOrigList)[i];
+            } else {
+                (z->hashOrigList)[i] = NULL;
+            }
+
         }
     }
     if (y->color == BLACK) {
