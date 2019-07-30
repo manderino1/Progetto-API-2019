@@ -494,7 +494,15 @@ void reportManager() {
             }
             fputs(relTypesWalk->id, stdout);
             fputs(" ", stdout);
-            treePrint(relTypesWalk->maxDestRoot);
+            binaryTreeEntitiesDest_t *destWalk = rbTreeEntitiesDestMinimum(
+                    relTypesWalk->maxDestRoot); // Print dest names
+            do {
+                if (destWalk != binaryTreeEntitiesDestNIL) {
+                    fputs(destWalk->id, stdout);
+                    fputs(" ", stdout);
+                }
+                destWalk = rbTreeEntitiesDestSuccessor(destWalk);
+            } while (destWalk != binaryTreeEntitiesDestNIL);
             printf("%i", relTypesWalk->maxRelations);
             fputs(";", stdout);
             relTypesWalk = rbTreeRelTypesSuccessor(relTypesWalk);
@@ -503,7 +511,6 @@ void reportManager() {
     } else {
         fputs("none\n", stdout);
     }
-    fflush(stdout);
 }
 
 void treePrint(binaryTreeEntitiesDest_t *root) {
