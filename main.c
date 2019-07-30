@@ -691,6 +691,7 @@ binaryTreeRelTypes_t *rbTreeRelTypesDelete(binaryTreeRelTypes_t **T, binaryTreeR
         y->p->right = x;
     }
     if (y != z) {
+        free(z->id);
         z->id = y->id;
         z->destTreeRoot = y->destTreeRoot;
         z->maxDestRoot = y->maxDestRoot;
