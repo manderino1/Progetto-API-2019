@@ -478,7 +478,6 @@ void reportManager() {
     } else {
         fputs("none\n", stdout);
     }
-    fflush(stdout);
 }
 
 /*
