@@ -71,7 +71,7 @@ struct hashOrigList {
 
 struct hashRelation {
     char *id;
-    char relationNumber;
+    int relationNumber;
     struct hashRelation *next;
 };
 
@@ -229,8 +229,8 @@ int relTypesToDeleteCounter = 0;
 
 
 int main() {
-    freopen("input.txt","r",stdin);
-    freopen("output.txt","w",stdout);
+    //freopen("input.txt","r",stdin);
+    //freopen("output.txt","w",stdout);
 
     relTypesRoot = malloc(sizeof(binaryTreeRelTypes_t));
     binaryTreeRelTypesNIL = malloc(sizeof(binaryTreeRelTypes_t));
@@ -455,12 +455,12 @@ void delRelManager() {
             }
         }
 
+        hashRelationRemove(checkDestExistence, checkOrigExistence, relType); // Decrease the counter
+
         if (relType->destTreeRoot ==
             binaryTreeEntitiesDestNIL) { // No relations remaining in relType, delete the relType
             rbTreeRelTypesDelete(&relTypesRoot, relType);
         }
-
-        hashRelationRemove(checkDestExistence, checkOrigExistence, relType); // Decrease the counter
 
         return; // Nothing to clear if i deleted the relType
     } else {
