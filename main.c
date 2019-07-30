@@ -211,7 +211,6 @@ int main() {
     freopen("input.txt","r",stdin);
     freopen("output.txt","w",stdout);
 
-    relTypesRoot = malloc(sizeof(binaryTreeRelTypes_t));
     binaryTreeRelTypesNIL = malloc(sizeof(binaryTreeRelTypes_t));
     binaryTreeRelTypesNIL->left = binaryTreeRelTypesNIL;
     binaryTreeRelTypesNIL->right = binaryTreeRelTypesNIL;
@@ -220,7 +219,6 @@ int main() {
 
     relTypesRoot = binaryTreeRelTypesNIL;
 
-    entitiesRoot = malloc(sizeof(binaryTreeEntities_t));
     binaryTreeEntitiesNIL = malloc(sizeof(binaryTreeEntities_t));
     binaryTreeEntitiesNIL->p = binaryTreeEntitiesNIL;
     binaryTreeEntitiesNIL->left = binaryTreeEntitiesNIL;
