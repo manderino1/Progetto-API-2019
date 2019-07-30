@@ -19,7 +19,7 @@
 #define RELATIONS_ID_SIZE 50
 #define RED 0
 #define BLACK 1
-#define HASH_TABLE_SIZE 50
+#define HASH_TABLE_SIZE 10
 #define NOT_FOUND -1
 
 /*
@@ -28,6 +28,7 @@
 typedef struct binaryTreeRelTypes binaryTreeRelTypes_t;
 typedef struct binaryTreeEntities binaryTreeEntities_t;
 typedef struct binaryTreeEntitiesDest binaryTreeEntitiesDest_t;
+typedef struct hashOrigList hashOrigList_t;
 
 // RB tree structs
 struct binaryTreeRelTypes {
@@ -53,11 +54,16 @@ struct binaryTreeEntities {
 struct binaryTreeEntitiesDest {
     struct binaryTreeEntitiesDest *p;
     char *id;
-    char *hashDest[HASH_TABLE_SIZE];
+    hashOrigList_t *hashOrigList[HASH_TABLE_SIZE];
     int relationsNum;
     _Bool color;
     struct binaryTreeEntitiesDest *left;
     struct binaryTreeEntitiesDest *right;
+};
+
+struct hashOrigList {
+    char *id;
+    struct hashOrigList *next;
 };
 
 /*
@@ -166,9 +172,11 @@ int maxTreeNewMax(binaryTreeEntitiesDest_t *x);
 
 inline int hash(char *k, int i);
 
-int hashDestInsert(char **T, char *k);
+int hashDestInsert(hashOrigList_t **T, char *k);
 
-int hashDestSearch(char **T, char *k);
+int hashDestSearch(hashOrigList_t **T, char *k);
+
+int hashDestDelete(hashOrigList_t **T, char *k);
 
 // Creating object and initializing functions
 
@@ -195,7 +203,8 @@ binaryTreeEntities_t *entitiesRoot;
 
 binaryTreeEntitiesDest_t *binaryTreeEntitiesDestNIL;
 
-char deleted[HASH_TABLE_SIZE] = "                          ";
+binaryTreeRelTypes_t *relTypesToDelete[10];
+int relTypesToDeleteCounter = 0;
 
 
 int main() {
@@ -275,6 +284,10 @@ void delEntManager() {
 
     // If i reach there the entity exists, check the relation types
     relTypeEntSearch(idEntRef, relTypesRoot);
+    for(int i = 0; i<relTypesToDeleteCounter; i++) {
+        rbTreeRelTypesDelete(&relTypesRoot, relTypesToDelete[i]);
+    }
+    relTypesToDeleteCounter = 0;
     rbTreeEntitiesDelete(&entitiesRoot, checkExistence); // Delete the entity
 }
 
@@ -390,13 +403,13 @@ void delRelManager() {
     }
 
     // If i reach there the destEnt exists
-    int origEnt = hashDestSearch(destEnt->hashDest, idOrigRef);
+    int origEnt = hashDestSearch(destEnt->hashOrigList, idOrigRef);
     if (origEnt == NOT_FOUND) { // If the origEnt does not exist
         return;
     }
 
     // If i reach there the relation exists
-    (destEnt->hashDest)[origEnt] = deleted; // Free the pointer
+    hashDestDelete(destEnt->hashOrigList, idOrigRef); // Free the pointer
     if (destEnt->relationsNum == 1) { // There was only one relation, delete the dest from the relType tree
         // Eventually fix the max tree
         binaryTreeEntitiesDest_t *maxSearch = rbTreeEntitiesDestSearch(relType->maxDestRoot, idDestRef);
@@ -465,7 +478,6 @@ void reportManager() {
     } else {
         fputs("none\n", stdout);
     }
-    fflush(stdout);
 }
 
 /*
@@ -681,7 +693,7 @@ binaryTreeRelTypes_t *rbTreeRelTypesDelete(binaryTreeRelTypes_t **T, binaryTreeR
         y->p->right = x;
     }
     if (y != z) {
-        strncpy(z->id, y->id, RELATIONS_ID_SIZE);
+        z->id = y->id;
         z->destTreeRoot = y->destTreeRoot;
         z->maxDestRoot = y->maxDestRoot;
         z->maxRelations = y->maxRelations;
@@ -1202,7 +1214,7 @@ void rbTreeEntitiesDestInsert(binaryTreeEntitiesDest_t **T, binaryTreeEntitiesDe
     z->left = binaryTreeEntitiesDestNIL;
     z->right = binaryTreeEntitiesDestNIL;
     z->color = RED;
-    rbTreeEntitiesDestInsertFixup(T, z);
+    //rbTreeEntitiesDestInsertFixup(T, z);
 }
 
 /*
@@ -1276,11 +1288,16 @@ binaryTreeEntitiesDest_t *rbTreeEntitiesDestDelete(binaryTreeEntitiesDest_t **T,
         z->id = y->id;
         z->relationsNum = y->relationsNum;
         for (int i = 0; i < HASH_TABLE_SIZE; i++) {
-            (z->hashDest)[i] = (y->hashDest)[i];
+            if((y->hashOrigList)[i] != NULL) {
+                (z->hashOrigList)[i] = (y->hashOrigList)[i];
+            } else {
+                (z->hashOrigList)[i] = NULL;
+            }
+
         }
     }
     if (y->color == BLACK) {
-        rbTreeEntitiesDestDeleteFixup(T, x);
+        //rbTreeEntitiesDestDeleteFixup(T, x);
     }
     return y;
 }
@@ -1353,11 +1370,8 @@ void rbTreeEntitiesDestPurge(binaryTreeEntitiesDest_t *T) {
         return;
     }
     rbTreeEntitiesDestPurge(T->left); // Free left memory
-    T->left = binaryTreeEntitiesDestNIL;
     rbTreeEntitiesDestPurge(T->right); // Free right memory
-    T->right = binaryTreeEntitiesDestNIL;
     free(T);
-    T = binaryTreeEntitiesDestNIL;
 }
 
 /*
@@ -1398,14 +1412,15 @@ void entDestEntSearch(char *strToSearch, binaryTreeEntitiesDest_t *x, binaryTree
             }
 
             if ((*root)->destTreeRoot == binaryTreeEntitiesDestNIL) { // Delete the relType
-                rbTreeRelTypesDelete(&relTypesRoot, *root);
+                relTypesToDelete[relTypesToDeleteCounter] = *root;
+                relTypesToDeleteCounter++;
                 return; // No maxTree to reload if you deleted the relType
             }
         } else {
             // Search for the rel in the orig
-            int hashRow = hashDestSearch(x->hashDest, strToSearch);
+            int hashRow = hashDestSearch(x->hashOrigList, strToSearch);
             if (hashRow != NOT_FOUND) { // If there is, delete it
-                (x->hashDest)[hashRow] = deleted;
+                hashDestDelete(x->hashOrigList, strToSearch);
                 (x->relationsNum)--;
                 if (x->relationsNum == 0) {
                     // If it was in the max root, reload it
@@ -1426,7 +1441,8 @@ void entDestEntSearch(char *strToSearch, binaryTreeEntitiesDest_t *x, binaryTree
 
                     if ((*root)->destTreeRoot ==
                         binaryTreeEntitiesDestNIL) { // No relations remaining in relType, delete the relType
-                        rbTreeRelTypesDelete(&relTypesRoot, *root);
+                        relTypesToDelete[relTypesToDeleteCounter] = *root;
+                        relTypesToDeleteCounter++;
                         return; // No maxTree to reload if you deleted the relType
                     }
                 } else {
@@ -1483,30 +1499,74 @@ int hash(char *k, int i) {
     return res;
 }
 
-int hashDestInsert(char *T[], char *k) {
+int hashDestInsert(hashOrigList_t *T[], char *k) {
     int i = 1;
-    do {
-        int j = hash(k, i); // FUNZIONE DA CALCOLARE
-        if (T[j] == NULL) {
-            T[j] = k;
-            return j;
-        } else {
-            i = i + 1;
-        }
-    } while (i != HASH_TABLE_SIZE);
-    return -1;
+    int j = hash(k, i); // FUNZIONE DA CALCOLARE
+    hashOrigList_t *newOrig = malloc(sizeof(hashOrigList_t));
+    newOrig->id=k;
+    newOrig->next = NULL;
+    hashOrigList_t *linkOrig = T[j];
+    if (linkOrig == NULL) {
+        T[j] = newOrig;
+        return j;
+    }
+    while (linkOrig->next != NULL) {
+        linkOrig = linkOrig->next;
+    }
+    linkOrig->next = newOrig;
+    return j;
 }
 
-int hashDestSearch(char **T, char *k) {
+int hashDestSearch(hashOrigList_t **T, char *k) {
     int i = 1;
     int j;
-    do {
-        j = hash(k, i);
-        if (T[j] == k) {
+    j = hash(k, i);
+    hashOrigList_t *head = T[j];
+    hashOrigList_t *searchOrig = T[j];
+    if(searchOrig == NULL) {
+        return NOT_FOUND;
+    }
+    if (searchOrig->id == k) {
+        T[j] = head;
+        return j;
+    }
+    searchOrig = searchOrig->next;
+    while(searchOrig!=NULL) {
+        if (searchOrig->id == k) {
+            T[j] = head;
             return j;
         }
-        i = i + 1;
-    } while ((T[j] != NULL) && (i != HASH_TABLE_SIZE));
+        searchOrig=searchOrig->next;
+    }
+    T[j] = head;
+    return NOT_FOUND;
+}
+
+int hashDestDelete(hashOrigList_t **T, char *k) {
+    int i = 1;
+    int j ;
+    j = hash(k, i);
+    hashOrigList_t *searchOrig = T[j];
+    if(searchOrig == NULL) {
+        return NOT_FOUND;
+    }
+    if (searchOrig->id == k) {
+        T[j]=searchOrig->next;
+        free(searchOrig);
+        return j;
+    }
+    hashOrigList_t *prevOrig;
+    prevOrig = T[j];
+    searchOrig = (T[j])->next;
+    while(searchOrig!=NULL) {
+        if (searchOrig->id == k) {
+            prevOrig->next=searchOrig->next;
+            free(searchOrig);
+            return j;
+        }
+        prevOrig=searchOrig;
+        searchOrig=searchOrig->next;
+    }
     return NOT_FOUND;
 }
 
@@ -1536,6 +1596,9 @@ binaryTreeEntities_t *createEntity(char *idToSet) {
 
 binaryTreeEntitiesDest_t *createEntityDest(binaryTreeRelTypes_t **relType, char *idToSet) {
     binaryTreeEntitiesDest_t *entityDest = malloc(sizeof(binaryTreeEntitiesDest_t));
+    for(int i=0; i<HASH_TABLE_SIZE; i++) {
+        (entityDest->hashOrigList)[i] = NULL;
+    }
     entityDest->id = idToSet;
     entityDest->relationsNum = 1;
     rbTreeEntitiesDestInsert(&((*relType)->destTreeRoot), entityDest);
@@ -1544,6 +1607,9 @@ binaryTreeEntitiesDest_t *createEntityDest(binaryTreeRelTypes_t **relType, char 
 
 binaryTreeEntitiesDest_t *addEntityDestMax(binaryTreeRelTypes_t **relType, char *idToSet) {
     binaryTreeEntitiesDest_t *entityDestMax = malloc(sizeof(binaryTreeEntitiesDest_t));
+    for(int i=0; i<HASH_TABLE_SIZE; i++) {
+        (entityDestMax->hashOrigList)[i] = NULL;
+    }
     entityDestMax->id = idToSet;
     rbTreeEntitiesDestInsert(&((*relType)->maxDestRoot), entityDestMax);
     return entityDestMax;
@@ -1553,8 +1619,8 @@ char *createHashOrig(binaryTreeEntitiesDest_t **destEnt, char *idToSet) {
     char *newOrig = malloc(sizeof(char));
     newOrig = idToSet;
 
-    if (hashDestSearch((*destEnt)->hashDest, newOrig) == NOT_FOUND) { // Doesn't exist, add
-        hashDestInsert((*destEnt)->hashDest, newOrig);
+    if (hashDestSearch((*destEnt)->hashOrigList, newOrig) == NOT_FOUND) { // Doesn't exist, add
+        hashDestInsert((*destEnt)->hashOrigList, newOrig);
         return newOrig;
     }
 
