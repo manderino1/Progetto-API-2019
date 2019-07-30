@@ -20,7 +20,7 @@
 #define RED 0
 #define BLACK 1
 #define HASH_TABLE_SIZE 10
-#define HASH_RELATION_SIZE 20
+#define HASH_RELATION_SIZE 10
 #define NOT_FOUND -1
 
 /*
@@ -229,8 +229,8 @@ int relTypesToDeleteCounter = 0;
 
 
 int main() {
-    //freopen("input.txt","r",stdin);
-    //freopen("output.txt","w",stdout);
+    freopen("input.txt","r",stdin);
+    freopen("output.txt","w",stdout);
 
     relTypesRoot = malloc(sizeof(binaryTreeRelTypes_t));
     binaryTreeRelTypesNIL = malloc(sizeof(binaryTreeRelTypes_t));
@@ -1787,7 +1787,7 @@ void hashRelationRemove(binaryTreeEntities_t *checkDestExistence, binaryTreeEnti
     if(hashOrigRow != NOT_FOUND) {
         ((checkOrigExistence->hashRelation)[hashOrigRow]->relationNumber)--; // Increase the relation number
 
-        if((checkOrigExistence->hashRelation)[hashDestRow]->relationNumber == 0) { // If no relations left delete it
+        if((checkOrigExistence->hashRelation)[hashOrigRow]->relationNumber == 0) { // If no relations left delete it
             hashRelationDelete(checkOrigExistence->hashRelation, relType->id);
         }
     }
