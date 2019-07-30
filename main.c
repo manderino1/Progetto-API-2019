@@ -106,7 +106,7 @@ binaryTreeRelTypes_t *rbTreeRelTypesDelete(binaryTreeRelTypes_t **T, binaryTreeR
 
 void rbTreeRelTypesDeleteFixup(binaryTreeRelTypes_t **T, binaryTreeRelTypes_t *x);
 
-void rbTreeRelTypesPurge(binaryTreeRelTypes_t *T);
+void rbTreeRelTypesPurge(binaryTreeRelTypes_t **T);
 
 void relTypeEntSearch(char *strToSearch, binaryTreeRelTypes_t *x);
 
@@ -698,7 +698,8 @@ binaryTreeRelTypes_t *rbTreeRelTypesDelete(binaryTreeRelTypes_t **T, binaryTreeR
     if (y->color == BLACK) {
         rbTreeRelTypesDeleteFixup(T, x);
     }
-    free(y);
+    //free(y);
+    y = binaryTreeRelTypesNIL;
     return y;
 }
 
@@ -765,15 +766,16 @@ void rbTreeRelTypesDeleteFixup(binaryTreeRelTypes_t **T, binaryTreeRelTypes_t *x
 /*
  * Free all the tree memory
  */
-void rbTreeRelTypesPurge(binaryTreeRelTypes_t *T) {
-    if (T == binaryTreeRelTypesNIL) {
+void rbTreeRelTypesPurge(binaryTreeRelTypes_t **T) {
+    if (*T == binaryTreeRelTypesNIL) {
         return;
     }
-    rbTreeRelTypesPurge(T->left); // Free left memory
-    rbTreeEntitiesDestPurge(&(T->maxDestRoot));
-    rbTreeEntitiesDestPurge(&(T->destTreeRoot));
-    rbTreeRelTypesPurge(T->right); // Free right memory
-    free(T);
+    rbTreeRelTypesPurge(&((*T)->left)); // Free left memory
+    rbTreeEntitiesDestPurge(&((*T)->maxDestRoot));
+    rbTreeEntitiesDestPurge(&((*T)->destTreeRoot));
+    rbTreeRelTypesPurge(&((*T)->right)); // Free right memory
+    free(*T);
+    *T = binaryTreeRelTypesNIL;
 }
 
 /*
@@ -1003,6 +1005,7 @@ binaryTreeEntities_t *rbTreeEntitiesDelete(binaryTreeEntities_t **T, binaryTreeE
         rbTreeEntitiesDeleteFixup(T, x);
     }
     free(y);
+    y = binaryTreeEntitiesNIL;
     return y;
 }
 
@@ -1302,6 +1305,9 @@ binaryTreeEntitiesDest_t *rbTreeEntitiesDestDelete(binaryTreeEntitiesDest_t **T,
     }
     if (y->color == BLACK) {
         //rbTreeEntitiesDestDeleteFixup(T, x);
+    }
+    for (int i = 0; i < HASH_TABLE_SIZE; i++) {
+        free((y->hashOrigList)[i]);
     }
     free(y);
     return y;
