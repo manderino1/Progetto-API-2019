@@ -816,7 +816,7 @@ void rbTreeRelTypesPurge(binaryTreeRelTypes_t *T) {
  * Search in every rel type
  */
 void relTypeEntSearch(char *strToSearch, binaryTreeRelTypes_t *x) {
-    if (x != binaryTreeRelTypesNIL) {
+    if (x != binaryTreeRelTypesNIL && hashRelationSearch(rbTreeEntitiesSearch(entitiesRoot, strToSearch)->hashRelation, x->id) != NOT_FOUND) {
         relTypeEntSearch(strToSearch, x->left);
         relTypeEntSearch(strToSearch, x->right);
         entDestEntSearch(strToSearch, x->destTreeRoot, &x);
