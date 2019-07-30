@@ -264,7 +264,7 @@ void addEntManager() {
 
     if (rbTreeEntitiesSearch(entitiesRoot, idEntity) ==
         binaryTreeEntitiesNIL) { // Go only if entity doesn't already exist (logn)
-        binaryTreeEntities_t *newEntity = createEntity(idEntity); // Add the new entity to the entities tree
+        createEntity(idEntity); // Add the new entity to the entities tree
     }
 }
 
@@ -336,7 +336,7 @@ void addRelManager() {
         binaryTreeEntitiesDest_t *newDest = createEntityDest(&relType, idDestRef);
 
         //Add orig to the new dest
-        char *newOrig = createHashOrig(&newDest, idOrigRef);
+        createHashOrig(&newDest, idOrigRef);
 
         // Check if maxrelations is greater than 1
         if (relType->maxRelations < newDest->relationsNum) {
@@ -1392,8 +1392,6 @@ void maxTreeEntitiesDestReset(binaryTreeRelTypes_t **relType, binaryTreeEntities
  * Search for the entity in all the dest relations
  */
 void entDestEntSearch(char *strToSearch, binaryTreeEntitiesDest_t *x, binaryTreeRelTypes_t **root) {
-    _Bool rootDeleted = 0;
-
     if (x != binaryTreeEntitiesDestNIL) {
         entDestEntSearch(strToSearch, x->left, root);
         entDestEntSearch(strToSearch, x->right, root);
