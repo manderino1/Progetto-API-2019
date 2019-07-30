@@ -160,7 +160,7 @@ binaryTreeEntitiesDest_t *rbTreeEntitiesDestDelete(binaryTreeEntitiesDest_t **T,
 
 void rbTreeEntitiesDestDeleteFixup(binaryTreeEntitiesDest_t **T, binaryTreeEntitiesDest_t *x);
 
-void rbTreeEntitiesDestPurge(binaryTreeEntitiesDest_t *T);
+void rbTreeEntitiesDestPurge(binaryTreeEntitiesDest_t **T);
 
 void maxTreeEntitiesDestReset(binaryTreeRelTypes_t **relType, binaryTreeEntitiesDest_t *x);
 
@@ -340,7 +340,7 @@ void addRelManager() {
 
         // Check if maxrelations is greater than 1
         if (relType->maxRelations < newDest->relationsNum) {
-            rbTreeEntitiesDestPurge(relType->maxDestRoot);
+            rbTreeEntitiesDestPurge(&(relType->maxDestRoot));
             addEntityDestMax(&relType, idDestRef);
             relType->maxRelations = newDest->relationsNum;
         } else if (relType->maxRelations == newDest->relationsNum) { // If it's 1, add it to the max tree
@@ -356,7 +356,7 @@ void addRelManager() {
         (destinyEnt->relationsNum)++; // Increase the relationsNum number accordingly
         // Check if maxRelations is greater than 1
         if (relType->maxRelations < destinyEnt->relationsNum) {
-            rbTreeEntitiesDestPurge(relType->maxDestRoot); // Clean the tree
+            rbTreeEntitiesDestPurge(&(relType->maxDestRoot)); // Clean the tree
             relType->maxDestRoot = binaryTreeEntitiesDestNIL;
             addEntityDestMax(&relType, idDestRef);
             relType->maxRelations = destinyEnt->relationsNum; // Set maxRelations to the new maxRelations value
@@ -700,6 +700,7 @@ binaryTreeRelTypes_t *rbTreeRelTypesDelete(binaryTreeRelTypes_t **T, binaryTreeR
     if (y->color == BLACK) {
         rbTreeRelTypesDeleteFixup(T, x);
     }
+    free(y);
     return y;
 }
 
@@ -771,6 +772,8 @@ void rbTreeRelTypesPurge(binaryTreeRelTypes_t *T) {
         return;
     }
     rbTreeRelTypesPurge(T->left); // Free left memory
+    rbTreeEntitiesDestPurge(&(T->maxDestRoot));
+    rbTreeEntitiesDestPurge(&(T->destTreeRoot));
     rbTreeRelTypesPurge(T->right); // Free right memory
     free(T);
 }
@@ -1001,6 +1004,7 @@ binaryTreeEntities_t *rbTreeEntitiesDelete(binaryTreeEntities_t **T, binaryTreeE
     if (y->color == BLACK) {
         rbTreeEntitiesDeleteFixup(T, x);
     }
+    free(y);
     return y;
 }
 
@@ -1072,6 +1076,7 @@ void rbTreeEntitiesPurge(binaryTreeEntities_t *T) {
         return;
     }
     rbTreeEntitiesPurge(T->left); // Free left memory
+    free(T->id);
     rbTreeEntitiesPurge(T->right); // Free right memory
     free(T);
 }
@@ -1300,6 +1305,7 @@ binaryTreeEntitiesDest_t *rbTreeEntitiesDestDelete(binaryTreeEntitiesDest_t **T,
     if (y->color == BLACK) {
         //rbTreeEntitiesDestDeleteFixup(T, x);
     }
+    free(y);
     return y;
 }
 
@@ -1366,13 +1372,17 @@ void rbTreeEntitiesDestDeleteFixup(binaryTreeEntitiesDest_t **T, binaryTreeEntit
 /*
  * Free all the tree memory
  */
-void rbTreeEntitiesDestPurge(binaryTreeEntitiesDest_t *T) {
-    if (T == binaryTreeEntitiesDestNIL) {
+void rbTreeEntitiesDestPurge(binaryTreeEntitiesDest_t **T) {
+    if (*T == binaryTreeEntitiesDestNIL) {
         return;
     }
-    rbTreeEntitiesDestPurge(T->left); // Free left memory
-    rbTreeEntitiesDestPurge(T->right); // Free right memory
-    free(T);
+    rbTreeEntitiesDestPurge(&((*T)->left)); // Free left memory
+    for(int i=0; i<HASH_TABLE_SIZE; i++) {
+        free(((*T)->hashOrigList)[i]);
+    }
+    rbTreeEntitiesDestPurge(&((*T)->right)); // Free right memory
+    free(*T);
+    *T = binaryTreeEntitiesDestNIL;
 }
 
 /*
@@ -1405,7 +1415,7 @@ void entDestEntSearch(char *strToSearch, binaryTreeEntitiesDest_t *x, binaryTree
             if (maxSearch != binaryTreeEntitiesDestNIL) { // It was in the max tree
                 int newMax = maxTreeNewMax((*root)->destTreeRoot);
                 (*root)->maxRelations = newMax;
-                rbTreeEntitiesDestPurge((*root)->maxDestRoot);
+                rbTreeEntitiesDestPurge(&((*root)->maxDestRoot));
                 (*root)->maxDestRoot = binaryTreeEntitiesDestNIL;
                 maxTreeEntitiesDestReset(root, (*root)->destTreeRoot);
             }
@@ -1432,7 +1442,7 @@ void entDestEntSearch(char *strToSearch, binaryTreeEntitiesDest_t *x, binaryTree
                         if ((*root)->maxDestRoot == binaryTreeEntitiesDestNIL) { // The maxTree is now clear, reload it
                             int newMax = maxTreeNewMax((*root)->destTreeRoot);
                             (*root)->maxRelations = newMax;
-                            rbTreeEntitiesDestPurge((*root)->maxDestRoot);
+                            rbTreeEntitiesDestPurge(&((*root)->maxDestRoot));
                             (*root)->maxDestRoot = binaryTreeEntitiesDestNIL;
                             maxTreeEntitiesDestReset(root, (*root)->destTreeRoot);
                         }
@@ -1451,7 +1461,7 @@ void entDestEntSearch(char *strToSearch, binaryTreeEntitiesDest_t *x, binaryTree
                         if ((*root)->maxDestRoot == binaryTreeEntitiesDestNIL) { // The maxTree is now clear, reload it
                             int newMax = maxTreeNewMax((*root)->destTreeRoot);
                             (*root)->maxRelations = newMax;
-                            rbTreeEntitiesDestPurge((*root)->maxDestRoot);
+                            rbTreeEntitiesDestPurge(&((*root)->maxDestRoot));
                             (*root)->maxDestRoot = binaryTreeEntitiesDestNIL;
                             maxTreeEntitiesDestReset(root, (*root)->destTreeRoot);
                         }
