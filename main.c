@@ -249,8 +249,6 @@ int main() {
         } else if (strcmp(commandRead, "report") == 0) {
             reportManager();
         } else {
-            free(relTypesRoot);
-            free(entitiesRoot);
             return 0;
         }
     }
@@ -1289,6 +1287,7 @@ binaryTreeEntitiesDest_t *rbTreeEntitiesDestDelete(binaryTreeEntitiesDest_t **T,
         z->id = y->id;
         z->relationsNum = y->relationsNum;
         for (int i = 0; i < HASH_TABLE_SIZE; i++) {
+            free((z->hashOrigList)[i]);
             if((y->hashOrigList)[i] != NULL) {
                 (z->hashOrigList)[i] = (y->hashOrigList)[i];
             } else {
@@ -1617,8 +1616,7 @@ binaryTreeEntitiesDest_t *addEntityDestMax(binaryTreeRelTypes_t **relType, char 
 }
 
 char *createHashOrig(binaryTreeEntitiesDest_t **destEnt, char *idToSet) {
-    char *newOrig = malloc(sizeof(char));
-    newOrig = idToSet;
+    char *newOrig = idToSet;
 
     if (hashDestSearch((*destEnt)->hashOrigList, newOrig) == NOT_FOUND) { // Doesn't exist, add
         hashDestInsert((*destEnt)->hashOrigList, newOrig);
