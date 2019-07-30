@@ -229,8 +229,8 @@ int relTypesToDeleteCounter = 0;
 
 
 int main() {
-    //freopen("input.txt","r",stdin);
-    //freopen("output.txt","w",stdout);
+    freopen("input.txt","r",stdin);
+    freopen("output.txt","w",stdout);
 
     relTypesRoot = malloc(sizeof(binaryTreeRelTypes_t));
     binaryTreeRelTypesNIL = malloc(sizeof(binaryTreeRelTypes_t));
@@ -1035,6 +1035,9 @@ binaryTreeEntities_t *rbTreeEntitiesDelete(binaryTreeEntities_t **T, binaryTreeE
     }
     if (y != z) {
         z->id = y->id;
+        for(int i=0; i<HASH_RELATION_SIZE; i++) {
+            (z->hashRelation)[i] = (y->hashRelation)[i];
+        }
     }
     if (y->color == BLACK) {
         rbTreeEntitiesDeleteFixup(T, x);
