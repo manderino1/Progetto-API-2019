@@ -1437,6 +1437,14 @@ void entDestEntSearch(char *strToSearch, binaryTreeEntitiesDest_t *x, binaryTree
             // If it was in the max root, reload it
             binaryTreeEntitiesDest_t *maxSearch = rbTreeEntitiesDestSearch((*root)->maxDestRoot, x->id);
 
+            // Remove all the relations in the hash table
+            for(int i=0; i<HASH_TABLE_SIZE; i++) {
+                hashOrigList_t *hashDest = (x->hashOrigList)[i];
+                while(hashDest != NULL) {
+                    hashRelationRemove(rbTreeEntitiesSearch(entitiesRoot, x->id), rbTreeEntitiesSearch(entitiesRoot, hashDest->id), *root);
+                    hashDest = hashDest->next;
+                }
+            }
             rbTreeEntitiesDestDelete(&((*root)->destTreeRoot), x);
 
             if (maxSearch != binaryTreeEntitiesDestNIL) { // It was in the max tree
@@ -1457,6 +1465,7 @@ void entDestEntSearch(char *strToSearch, binaryTreeEntitiesDest_t *x, binaryTree
             int hashRow = hashDestSearch(x->hashOrigList, strToSearch);
             if (hashRow != NOT_FOUND) { // If there is, delete it
                 hashDestDelete(x->hashOrigList, strToSearch);
+                hashRelationRemove(rbTreeEntitiesSearch(entitiesRoot, x->id), rbTreeEntitiesSearch(entitiesRoot, strToSearch), *root); // Remove from the rel counter
                 (x->relationsNum)--;
                 if (x->relationsNum == 0) {
                     // If it was in the max root, reload it
