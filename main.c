@@ -1005,6 +1005,8 @@ binaryTreeEntities_t *rbTreeEntitiesDelete(binaryTreeEntities_t **T, binaryTreeE
         free(z->id);
         z->id = NULL;
         z->id = y->id;
+    } else {
+        free(y->id);
     }
     if (y->color == BLACK) {
         rbTreeEntitiesDeleteFixup(T, x);
