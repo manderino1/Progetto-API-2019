@@ -1303,7 +1303,12 @@ binaryTreeEntitiesDest_t *rbTreeEntitiesDestDelete(binaryTreeEntitiesDest_t **T,
         z->id = y->id;
         z->relationsNum = y->relationsNum;
         for (int i = 0; i < HASH_TABLE_SIZE; i++) {
-            free((z->hashOrigList)[i]);
+            hashOrigList_t *hashDelete = (z->hashOrigList)[i];
+            while(hashDelete != NULL) {
+                hashOrigList_t *tempDelete = hashDelete;
+                hashDelete = hashDelete->next;
+                free(tempDelete);
+            }
             if((y->hashOrigList)[i] != NULL) {
                 (z->hashOrigList)[i] = (y->hashOrigList)[i];
             } else {
@@ -1313,7 +1318,12 @@ binaryTreeEntitiesDest_t *rbTreeEntitiesDestDelete(binaryTreeEntitiesDest_t **T,
         }
     } else {
         for (int i = 0; i < HASH_TABLE_SIZE; i++) {
-            free((y->hashOrigList)[i]);
+            hashOrigList_t *hashDelete = (y->hashOrigList)[i];
+            while(hashDelete != NULL) {
+                hashOrigList_t *tempDelete = hashDelete;
+                hashDelete = hashDelete->next;
+                free(tempDelete);
+            }
         }
     }
     if (y->color == BLACK) {
