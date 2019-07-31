@@ -681,6 +681,7 @@ binaryTreeRelTypes_t *rbTreeRelTypesDelete(binaryTreeRelTypes_t **T, binaryTreeR
         x = y->right;
     }
     x->p = y->p;
+    binaryTreeRelTypesNIL->p = binaryTreeRelTypesNIL;
     if (y->p == binaryTreeRelTypesNIL) {
         *T = x;
     } else if (y == y->p->left) {
@@ -690,6 +691,7 @@ binaryTreeRelTypes_t *rbTreeRelTypesDelete(binaryTreeRelTypes_t **T, binaryTreeR
     }
     if (y != z) {
         free(z->id);
+        z->id = NULL;
         z->id = y->id;
         z->destTreeRoot = y->destTreeRoot;
         z->maxDestRoot = y->maxDestRoot;
@@ -698,7 +700,7 @@ binaryTreeRelTypes_t *rbTreeRelTypesDelete(binaryTreeRelTypes_t **T, binaryTreeR
     if (y->color == BLACK) {
         rbTreeRelTypesDeleteFixup(T, x);
     }
-    //free(y);
+    free(y);
     y = binaryTreeRelTypesNIL;
     return y;
 }
@@ -999,6 +1001,7 @@ binaryTreeEntities_t *rbTreeEntitiesDelete(binaryTreeEntities_t **T, binaryTreeE
     }
     if (y != z) {
         free(z->id);
+        z->id = NULL;
         z->id = y->id;
     }
     if (y->color == BLACK) {
@@ -1078,8 +1081,10 @@ void rbTreeEntitiesPurge(binaryTreeEntities_t *T) {
     }
     rbTreeEntitiesPurge(T->left); // Free left memory
     free(T->id);
+    T->id = NULL;
     rbTreeEntitiesPurge(T->right); // Free right memory
     free(T);
+    T = binaryTreeEntitiesNIL;
 }
 
 /*
@@ -1306,10 +1311,8 @@ binaryTreeEntitiesDest_t *rbTreeEntitiesDestDelete(binaryTreeEntitiesDest_t **T,
     if (y->color == BLACK) {
         //rbTreeEntitiesDestDeleteFixup(T, x);
     }
-    for (int i = 0; i < HASH_TABLE_SIZE; i++) {
-        free((y->hashOrigList)[i]);
-    }
     free(y);
+    y = binaryTreeEntitiesDestNIL;
     return y;
 }
 
@@ -1566,6 +1569,7 @@ int hashDestDelete(hashOrigList_t **T, char *k) {
     if (searchOrig->id == k) {
         T[j]=searchOrig->next;
         free(searchOrig);
+        searchOrig = NULL;
         return j;
     }
     hashOrigList_t *prevOrig;
@@ -1575,6 +1579,7 @@ int hashDestDelete(hashOrigList_t **T, char *k) {
         if (searchOrig->id == k) {
             prevOrig->next=searchOrig->next;
             free(searchOrig);
+            searchOrig = NULL;
             return j;
         }
         prevOrig=searchOrig;
@@ -1591,7 +1596,7 @@ binaryTreeRelTypes_t *createRelType(char *idToSet) {
     relType->destTreeRoot = binaryTreeEntitiesDestNIL;
     relType->maxDestRoot = binaryTreeEntitiesDestNIL;
     relType->maxRelations = 1;
-    char *relTypeName = malloc(strlen(idToSet)+1); // Create string of the correct size
+    char *relTypeName = malloc(strlen(idToSet)+2); // Create string of the correct size
     strncpy(relTypeName, idToSet, strlen(idToSet)+1);
     relType->id=relTypeName;
     rbTreeRelTypesInsert(&relTypesRoot, relType);
