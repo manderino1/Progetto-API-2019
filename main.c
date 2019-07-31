@@ -1311,6 +1311,10 @@ binaryTreeEntitiesDest_t *rbTreeEntitiesDestDelete(binaryTreeEntitiesDest_t **T,
             }
 
         }
+    } else {
+        for (int i = 0; i < HASH_TABLE_SIZE; i++) {
+            free((y->hashOrigList)[i]);
+        }
     }
     if (y->color == BLACK) {
         //rbTreeEntitiesDestDeleteFixup(T, x);
