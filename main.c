@@ -192,6 +192,8 @@ binaryTreeEntitiesDest_t *addEntityDestMax(binaryTreeRelTypes_t **relType, char 
 
 char *createHashOrig(binaryTreeEntitiesDest_t **destEnt, char *idToSet);
 
+void treePrint(binaryTreeEntitiesDest_t *root);
+
 
 /*
  * Global variables
@@ -459,15 +461,7 @@ void reportManager() {
             }
             fputs_unlocked(relTypesWalk->id, stdout);
             fputs_unlocked(" ", stdout);
-            binaryTreeEntitiesDest_t *destWalk = rbTreeEntitiesDestMinimum(
-                    relTypesWalk->maxDestRoot); // Print dest names
-            do {
-                if (destWalk != binaryTreeEntitiesDestNIL) {
-                    fputs_unlocked(destWalk->id, stdout);
-                    fputs_unlocked(" ", stdout);
-                }
-                destWalk = rbTreeEntitiesDestSuccessor(destWalk);
-            } while (destWalk != binaryTreeEntitiesDestNIL);
+            treePrint(relTypesWalk->maxDestRoot);
             printf("%i", relTypesWalk->maxRelations);
             fputs_unlocked(";", stdout);
             relTypesWalk = rbTreeRelTypesSuccessor(relTypesWalk);
@@ -1662,4 +1656,14 @@ char *createHashOrig(binaryTreeEntitiesDest_t **destEnt, char *idToSet) {
     }
 
     return NULL; // Already exists, nothing added
+}
+
+void treePrint(binaryTreeEntitiesDest_t *root) {
+    if(root == binaryTreeEntitiesDestNIL) {
+        return;
+    }
+    treePrint(root->left);
+    fputs_unlocked(root->id, stdout);
+    fputs_unlocked(" ", stdout);
+    treePrint(root->right);
 }
