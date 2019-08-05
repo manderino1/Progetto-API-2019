@@ -4,6 +4,8 @@
  * 24/07/2019 - start
  */
 
+#define _GNU_SOURCE
+
 /*
  * Libraries
  */
@@ -453,26 +455,26 @@ void reportManager() {
             if(first) {
                 first = 0;
             } else {
-                fputs(" ", stdout);
+                fputs_unlocked(" ", stdout);
             }
-            fputs(relTypesWalk->id, stdout);
-            fputs(" ", stdout);
+            fputs_unlocked(relTypesWalk->id, stdout);
+            fputs_unlocked(" ", stdout);
             binaryTreeEntitiesDest_t *destWalk = rbTreeEntitiesDestMinimum(
                     relTypesWalk->maxDestRoot); // Print dest names
             do {
                 if (destWalk != binaryTreeEntitiesDestNIL) {
-                    fputs(destWalk->id, stdout);
-                    fputs(" ", stdout);
+                    fputs_unlocked(destWalk->id, stdout);
+                    fputs_unlocked(" ", stdout);
                 }
                 destWalk = rbTreeEntitiesDestSuccessor(destWalk);
             } while (destWalk != binaryTreeEntitiesDestNIL);
             printf("%i", relTypesWalk->maxRelations);
-            fputs(";", stdout);
+            fputs_unlocked(";", stdout);
             relTypesWalk = rbTreeRelTypesSuccessor(relTypesWalk);
         } while (relTypesWalk != binaryTreeRelTypesNIL);
-        fputs("\n", stdout);
+        fputs_unlocked("\n", stdout);
     } else {
-        fputs("none\n", stdout);
+        fputs_unlocked("none\n", stdout);
     }
 }
 
