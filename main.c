@@ -73,126 +73,126 @@ struct hashOrigList {
 */
 
 // Command management
-void addEntManager();
+static inline void addEntManager();
 
-void delEntManager();
+static inline void delEntManager();
 
-void addRelManager();
+static inline void addRelManager();
 
-void delRelManager();
+static inline void delRelManager();
 
-void reportManager();
+static inline void reportManager();
 
 // RB Trees relative functions
 
 // Rel types trees
-binaryTreeRelTypes_t *rbTreeRelTypesSearch(binaryTreeRelTypes_t *x, char *k);
+static inline binaryTreeRelTypes_t *rbTreeRelTypesSearch(binaryTreeRelTypes_t *x, char *k);
 
-binaryTreeRelTypes_t *rbTreeRelTypesMinimum(binaryTreeRelTypes_t *x);
+static inline binaryTreeRelTypes_t *rbTreeRelTypesMinimum(binaryTreeRelTypes_t *x);
 
-binaryTreeRelTypes_t *rbTreeRelTypesMaximum(binaryTreeRelTypes_t *x);
+static inline binaryTreeRelTypes_t *rbTreeRelTypesMaximum(binaryTreeRelTypes_t *x);
 
-binaryTreeRelTypes_t *rbTreeRelTypesSuccessor(binaryTreeRelTypes_t *x);
+static inline binaryTreeRelTypes_t *rbTreeRelTypesSuccessor(binaryTreeRelTypes_t *x);
 
-binaryTreeRelTypes_t *rbTreeRelTypesPredecessor(binaryTreeRelTypes_t *x);
+static inline binaryTreeRelTypes_t *rbTreeRelTypesPredecessor(binaryTreeRelTypes_t *x);
 
-void rbTreeRelTypesLeftRotate(binaryTreeRelTypes_t **T, binaryTreeRelTypes_t *x);
+static inline void rbTreeRelTypesLeftRotate(binaryTreeRelTypes_t **T, binaryTreeRelTypes_t *x);
 
-void rbTreeRelTypesRightRotate(binaryTreeRelTypes_t **T, binaryTreeRelTypes_t *x);
+static inline void rbTreeRelTypesRightRotate(binaryTreeRelTypes_t **T, binaryTreeRelTypes_t *x);
 
-void rbTreeRelTypesInsert(binaryTreeRelTypes_t **T, binaryTreeRelTypes_t *z);
+static inline void rbTreeRelTypesInsert(binaryTreeRelTypes_t **T, binaryTreeRelTypes_t *z);
 
-void rbTreeRelTypesInsertFixup(binaryTreeRelTypes_t **T, binaryTreeRelTypes_t *z);
+static inline void rbTreeRelTypesInsertFixup(binaryTreeRelTypes_t **T, binaryTreeRelTypes_t *z);
 
-binaryTreeRelTypes_t *rbTreeRelTypesDelete(binaryTreeRelTypes_t **T, binaryTreeRelTypes_t *z);
+static inline binaryTreeRelTypes_t *rbTreeRelTypesDelete(binaryTreeRelTypes_t **T, binaryTreeRelTypes_t *z);
 
-void rbTreeRelTypesDeleteFixup(binaryTreeRelTypes_t **T, binaryTreeRelTypes_t *x);
+static inline void rbTreeRelTypesDeleteFixup(binaryTreeRelTypes_t **T, binaryTreeRelTypes_t *x);
 
-void rbTreeRelTypesPurge(binaryTreeRelTypes_t **T);
+static inline void rbTreeRelTypesPurge(binaryTreeRelTypes_t **T);
 
-void relTypeEntSearch(char *strToSearch, binaryTreeRelTypes_t *x);
+static inline void relTypeEntSearch(char *strToSearch, binaryTreeRelTypes_t *x);
 
 // Entities trees
 
-binaryTreeEntities_t *rbTreeEntitiesSearch(binaryTreeEntities_t *x, char *k);
+static inline binaryTreeEntities_t *rbTreeEntitiesSearch(binaryTreeEntities_t *x, char *k);
 
-binaryTreeEntities_t *rbTreeEntitiesMinimum(binaryTreeEntities_t *x);
+static inline binaryTreeEntities_t *rbTreeEntitiesMinimum(binaryTreeEntities_t *x);
 
-binaryTreeEntities_t *rbTreeEntitiesMaximum(binaryTreeEntities_t *x);
+static inline binaryTreeEntities_t *rbTreeEntitiesMaximum(binaryTreeEntities_t *x);
 
-binaryTreeEntities_t *rbTreeEntitiesSuccessor(binaryTreeEntities_t *x);
+static inline binaryTreeEntities_t *rbTreeEntitiesSuccessor(binaryTreeEntities_t *x);
 
-binaryTreeEntities_t *rbTreeEntitiesPredecessor(binaryTreeEntities_t *x);
+static inline binaryTreeEntities_t *rbTreeEntitiesPredecessor(binaryTreeEntities_t *x);
 
-void rbTreeEntitiesLeftRotate(binaryTreeEntities_t **T, binaryTreeEntities_t *x);
+static inline void rbTreeEntitiesLeftRotate(binaryTreeEntities_t **T, binaryTreeEntities_t *x);
 
-void rbTreeEntitiesRightRotate(binaryTreeEntities_t **T, binaryTreeEntities_t *x);
+static inline void rbTreeEntitiesRightRotate(binaryTreeEntities_t **T, binaryTreeEntities_t *x);
 
-void rbTreeEntitiesInsert(binaryTreeEntities_t **T, binaryTreeEntities_t *z);
+static inline void rbTreeEntitiesInsert(binaryTreeEntities_t **T, binaryTreeEntities_t *z);
 
-void rbTreeEntitiesInsertFixup(binaryTreeEntities_t **T, binaryTreeEntities_t *z);
+static inline void rbTreeEntitiesInsertFixup(binaryTreeEntities_t **T, binaryTreeEntities_t *z);
 
-binaryTreeEntities_t *rbTreeEntitiesDelete(binaryTreeEntities_t **T, binaryTreeEntities_t *z);
+static inline binaryTreeEntities_t *rbTreeEntitiesDelete(binaryTreeEntities_t **T, binaryTreeEntities_t *z);
 
-void rbTreeEntitiesDeleteFixup(binaryTreeEntities_t **T, binaryTreeEntities_t *x);
+static inline void rbTreeEntitiesDeleteFixup(binaryTreeEntities_t **T, binaryTreeEntities_t *x);
 
-void rbTreeEntitiesPurge(binaryTreeEntities_t *T);
+static inline void rbTreeEntitiesPurge(binaryTreeEntities_t *T);
 
 // Dest entities trees
 
-binaryTreeEntitiesDest_t *rbTreeEntitiesDestSearch(binaryTreeEntitiesDest_t *x, char *k);
+static inline binaryTreeEntitiesDest_t *rbTreeEntitiesDestSearch(binaryTreeEntitiesDest_t *x, char *k);
 
-binaryTreeEntitiesDest_t *rbTreeEntitiesDestMinimum(binaryTreeEntitiesDest_t *x);
+static inline binaryTreeEntitiesDest_t *rbTreeEntitiesDestMinimum(binaryTreeEntitiesDest_t *x);
 
-binaryTreeEntitiesDest_t *rbTreeEntitiesDestMaximum(binaryTreeEntitiesDest_t *x);
+static inline binaryTreeEntitiesDest_t *rbTreeEntitiesDestMaximum(binaryTreeEntitiesDest_t *x);
 
-binaryTreeEntitiesDest_t *rbTreeEntitiesDestSuccessor(binaryTreeEntitiesDest_t *x);
+static inline binaryTreeEntitiesDest_t *rbTreeEntitiesDestSuccessor(binaryTreeEntitiesDest_t *x);
 
-binaryTreeEntitiesDest_t *rbTreeEntitiesDestPredecessor(binaryTreeEntitiesDest_t *x);
+static inline binaryTreeEntitiesDest_t *rbTreeEntitiesDestPredecessor(binaryTreeEntitiesDest_t *x);
 
-void rbTreeEntitiesDestLeftRotate(binaryTreeEntitiesDest_t **T, binaryTreeEntitiesDest_t *x);
+static inline void rbTreeEntitiesDestLeftRotate(binaryTreeEntitiesDest_t **T, binaryTreeEntitiesDest_t *x);
 
-void rbTreeEntitiesDestRightRotate(binaryTreeEntitiesDest_t **T, binaryTreeEntitiesDest_t *x);
+static inline void rbTreeEntitiesDestRightRotate(binaryTreeEntitiesDest_t **T, binaryTreeEntitiesDest_t *x);
 
-void rbTreeEntitiesDestInsert(binaryTreeEntitiesDest_t **T, binaryTreeEntitiesDest_t *z);
+static inline void rbTreeEntitiesDestInsert(binaryTreeEntitiesDest_t **T, binaryTreeEntitiesDest_t *z);
 
-void rbTreeEntitiesDestInsertFixup(binaryTreeEntitiesDest_t **T, binaryTreeEntitiesDest_t *z);
+static inline void rbTreeEntitiesDestInsertFixup(binaryTreeEntitiesDest_t **T, binaryTreeEntitiesDest_t *z);
 
-binaryTreeEntitiesDest_t *rbTreeEntitiesDestDelete(binaryTreeEntitiesDest_t **T, binaryTreeEntitiesDest_t *z);
+static inline binaryTreeEntitiesDest_t *rbTreeEntitiesDestDelete(binaryTreeEntitiesDest_t **T, binaryTreeEntitiesDest_t *z);
 
-void rbTreeEntitiesDestDeleteFixup(binaryTreeEntitiesDest_t **T, binaryTreeEntitiesDest_t *x);
+static inline void rbTreeEntitiesDestDeleteFixup(binaryTreeEntitiesDest_t **T, binaryTreeEntitiesDest_t *x);
 
-void rbTreeEntitiesDestPurge(binaryTreeEntitiesDest_t **T);
+static inline void rbTreeEntitiesDestPurge(binaryTreeEntitiesDest_t **T);
 
-void maxTreeEntitiesDestReset(binaryTreeRelTypes_t **relType, binaryTreeEntitiesDest_t *x);
+static inline void maxTreeEntitiesDestReset(binaryTreeRelTypes_t **relType, binaryTreeEntitiesDest_t *x);
 
-void entDestEntSearch(char *strToSearch, binaryTreeEntitiesDest_t *x, binaryTreeRelTypes_t **root);
+static inline void entDestEntSearch(char *strToSearch, binaryTreeEntitiesDest_t *x, binaryTreeRelTypes_t **root);
 
-int maxTreeNewMax(binaryTreeEntitiesDest_t *x);
+static inline int maxTreeNewMax(binaryTreeEntitiesDest_t *x);
 
 // Hash functions
 
-inline int hash(char *k, int i);
+static inline int hash(char *k, int i);
 
-int hashDestInsert(hashOrigList_t **T, char *k);
+static inline int hashDestInsert(hashOrigList_t **T, char *k);
 
-int hashDestSearch(hashOrigList_t **T, char *k);
+static inline int hashDestSearch(hashOrigList_t **T, char *k);
 
-int hashDestDelete(hashOrigList_t **T, char *k);
+static inline int hashDestDelete(hashOrigList_t **T, char *k);
 
 // Creating object and initializing functions
 
-binaryTreeRelTypes_t *createRelType(char *idToSet);
+static inline binaryTreeRelTypes_t *createRelType(char *idToSet);
 
-binaryTreeEntities_t *createEntity(char *idToSet);
+static inline binaryTreeEntities_t *createEntity(char *idToSet);
 
-binaryTreeEntitiesDest_t *createEntityDest(binaryTreeRelTypes_t **relType, char *idToSet);
+static inline binaryTreeEntitiesDest_t *createEntityDest(binaryTreeRelTypes_t **relType, char *idToSet);
 
-binaryTreeEntitiesDest_t *addEntityDestMax(binaryTreeRelTypes_t **relType, char *idToSet);
+static inline binaryTreeEntitiesDest_t *addEntityDestMax(binaryTreeRelTypes_t **relType, char *idToSet);
 
-char *createHashOrig(binaryTreeEntitiesDest_t **destEnt, char *idToSet);
+static inline char *createHashOrig(binaryTreeEntitiesDest_t **destEnt, char *idToSet);
 
-void treePrint(binaryTreeEntitiesDest_t *root);
+static inline void treePrint(binaryTreeEntitiesDest_t *root);
 
 
 /*
@@ -260,7 +260,7 @@ int main() {
  * COMMAND MANAGEMENT FUNCTIONS
  */
 
-void addEntManager() {
+static inline void addEntManager() {
     char idEntity[ENTITY_ID_SIZE];
     scanf("%s", idEntity); // Reading in buffer from stdin
 
@@ -270,7 +270,7 @@ void addEntManager() {
     }
 }
 
-void delEntManager() {
+static inline void delEntManager() {
     char idEntity[ENTITY_ID_SIZE];
 
     scanf("%s", idEntity); // Reading from stdin
@@ -291,7 +291,7 @@ void delEntManager() {
     rbTreeEntitiesDelete(&entitiesRoot, checkExistence); // Delete the entity
 }
 
-void addRelManager() {
+static inline void addRelManager() {
     char idOrig[ENTITY_ID_SIZE];
     char idDest[ENTITY_ID_SIZE];
     char idRel[RELATIONS_ID_SIZE];
@@ -369,7 +369,7 @@ void addRelManager() {
     }
 }
 
-void delRelManager() {
+static inline void delRelManager() {
     char idOrig[ENTITY_ID_SIZE];
     char idDest[ENTITY_ID_SIZE];
     char idRel[RELATIONS_ID_SIZE];
@@ -449,7 +449,7 @@ void delRelManager() {
     }
 }
 
-void reportManager() {
+static inline void reportManager() {
     _Bool first = 1;
     if (relTypesRoot != binaryTreeRelTypesNIL) {
         binaryTreeRelTypes_t *relTypesWalk = rbTreeRelTypesMinimum(relTypesRoot); // Print rel type name
@@ -485,7 +485,7 @@ void reportManager() {
  * Uses relations type struct, faster than recursive version
  * Check for string id alphabetical order
  */
-binaryTreeRelTypes_t *rbTreeRelTypesSearch(binaryTreeRelTypes_t *x, char *k) {
+static inline binaryTreeRelTypes_t *rbTreeRelTypesSearch(binaryTreeRelTypes_t *x, char *k) {
     while ((x != binaryTreeRelTypesNIL) && (strncmp(k, x->id, RELATIONS_ID_SIZE) != 0)) {
         if (strncmp(k, x->id, RELATIONS_ID_SIZE) < 0) {
             x = x->left;
@@ -499,7 +499,7 @@ binaryTreeRelTypes_t *rbTreeRelTypesSearch(binaryTreeRelTypes_t *x, char *k) {
 /*
  * Search for minimum of rb trees relation type
  */
-binaryTreeRelTypes_t *rbTreeRelTypesMinimum(binaryTreeRelTypes_t *x) {
+static inline binaryTreeRelTypes_t *rbTreeRelTypesMinimum(binaryTreeRelTypes_t *x) {
     while (x->left != binaryTreeRelTypesNIL) {
         x = x->left;
     }
@@ -509,7 +509,7 @@ binaryTreeRelTypes_t *rbTreeRelTypesMinimum(binaryTreeRelTypes_t *x) {
 /*
  * Search for maximum of rb trees relation type
  */
-binaryTreeRelTypes_t *rbTreeRelTypesMaximum(binaryTreeRelTypes_t *x) {
+static inline binaryTreeRelTypes_t *rbTreeRelTypesMaximum(binaryTreeRelTypes_t *x) {
     while (x->right != binaryTreeRelTypesNIL) {
         x = x->right;
     }
@@ -519,7 +519,7 @@ binaryTreeRelTypes_t *rbTreeRelTypesMaximum(binaryTreeRelTypes_t *x) {
 /*
  * Search for successor of rb trees relation type
  */
-binaryTreeRelTypes_t *rbTreeRelTypesSuccessor(binaryTreeRelTypes_t *x) {
+static inline binaryTreeRelTypes_t *rbTreeRelTypesSuccessor(binaryTreeRelTypes_t *x) {
     if (x->right != binaryTreeRelTypesNIL) {
         return rbTreeRelTypesMinimum(x->right);
     }
@@ -534,7 +534,7 @@ binaryTreeRelTypes_t *rbTreeRelTypesSuccessor(binaryTreeRelTypes_t *x) {
 /*
  * Search for predecessor of rb trees relation type
  */
-binaryTreeRelTypes_t *rbTreeRelTypesPredecessor(binaryTreeRelTypes_t *x) {
+static inline binaryTreeRelTypes_t *rbTreeRelTypesPredecessor(binaryTreeRelTypes_t *x) {
     if (x->left != binaryTreeRelTypesNIL) {
         return rbTreeRelTypesMaximum(x->left);
     }
@@ -550,7 +550,7 @@ binaryTreeRelTypes_t *rbTreeRelTypesPredecessor(binaryTreeRelTypes_t *x) {
 /*
  * Left rotate the rb tree for rel types
  */
-void rbTreeRelTypesLeftRotate(binaryTreeRelTypes_t **T, binaryTreeRelTypes_t *x) {
+static inline void rbTreeRelTypesLeftRotate(binaryTreeRelTypes_t **T, binaryTreeRelTypes_t *x) {
     binaryTreeRelTypes_t *y = x->right;
     x->right = y->left;
     if (y->left != binaryTreeRelTypesNIL) {
@@ -571,7 +571,7 @@ void rbTreeRelTypesLeftRotate(binaryTreeRelTypes_t **T, binaryTreeRelTypes_t *x)
 /*
  * Right rotate the rb tree for rel types
  */
-void rbTreeRelTypesRightRotate(binaryTreeRelTypes_t **T, binaryTreeRelTypes_t *x) {
+static inline void rbTreeRelTypesRightRotate(binaryTreeRelTypes_t **T, binaryTreeRelTypes_t *x) {
     binaryTreeRelTypes_t *y = x->left;
     x->left = y->right;
     if (y->right != binaryTreeRelTypesNIL) {
@@ -592,7 +592,7 @@ void rbTreeRelTypesRightRotate(binaryTreeRelTypes_t **T, binaryTreeRelTypes_t *x
 /*
  * Insert value in rb trees
  */
-void rbTreeRelTypesInsert(binaryTreeRelTypes_t **T, binaryTreeRelTypes_t *z) {
+static inline void rbTreeRelTypesInsert(binaryTreeRelTypes_t **T, binaryTreeRelTypes_t *z) {
     binaryTreeRelTypes_t *y = binaryTreeRelTypesNIL;
     binaryTreeRelTypes_t *x = *T;
     while (x != binaryTreeRelTypesNIL) {
@@ -620,7 +620,7 @@ void rbTreeRelTypesInsert(binaryTreeRelTypes_t **T, binaryTreeRelTypes_t *z) {
 /*
  * Fixup insert value in rb trees
  */
-void rbTreeRelTypesInsertFixup(binaryTreeRelTypes_t **T, binaryTreeRelTypes_t *z) {
+static inline void rbTreeRelTypesInsertFixup(binaryTreeRelTypes_t **T, binaryTreeRelTypes_t *z) {
     while (z->p->color == RED) {
         if (z->p == z->p->p->left) {
             binaryTreeRelTypes_t *y = z->p->p->right;
@@ -663,7 +663,7 @@ void rbTreeRelTypesInsertFixup(binaryTreeRelTypes_t **T, binaryTreeRelTypes_t *z
  * Delete rb trees selected value
  */
 
-binaryTreeRelTypes_t *rbTreeRelTypesDelete(binaryTreeRelTypes_t **T, binaryTreeRelTypes_t *z) {
+static inline binaryTreeRelTypes_t *rbTreeRelTypesDelete(binaryTreeRelTypes_t **T, binaryTreeRelTypes_t *z) {
     binaryTreeRelTypes_t *y;
     binaryTreeRelTypes_t *x;
     if ((z->left == binaryTreeRelTypesNIL) || (z->right == binaryTreeRelTypesNIL)) {
@@ -707,7 +707,7 @@ binaryTreeRelTypes_t *rbTreeRelTypesDelete(binaryTreeRelTypes_t **T, binaryTreeR
  * Fixup delete rb trees selected value
  */
 
-void rbTreeRelTypesDeleteFixup(binaryTreeRelTypes_t **T, binaryTreeRelTypes_t *x) {
+static inline void rbTreeRelTypesDeleteFixup(binaryTreeRelTypes_t **T, binaryTreeRelTypes_t *x) {
     binaryTreeRelTypes_t *w;
     while ((x != *T) && (x->color == BLACK)) {
         if (x == x->p->left) {
@@ -766,7 +766,7 @@ void rbTreeRelTypesDeleteFixup(binaryTreeRelTypes_t **T, binaryTreeRelTypes_t *x
 /*
  * Free all the tree memory
  */
-void rbTreeRelTypesPurge(binaryTreeRelTypes_t **T) {
+static inline void rbTreeRelTypesPurge(binaryTreeRelTypes_t **T) {
     if (*T == binaryTreeRelTypesNIL) {
         return;
     }
@@ -781,7 +781,7 @@ void rbTreeRelTypesPurge(binaryTreeRelTypes_t **T) {
 /*
  * Search in every rel type
  */
-void relTypeEntSearch(char *strToSearch, binaryTreeRelTypes_t *x) {
+static inline void relTypeEntSearch(char *strToSearch, binaryTreeRelTypes_t *x) {
     if (x != binaryTreeRelTypesNIL) {
         relTypeEntSearch(strToSearch, x->left);
         relTypeEntSearch(strToSearch, x->right);
@@ -798,7 +798,7 @@ void relTypeEntSearch(char *strToSearch, binaryTreeRelTypes_t *x) {
  * Uses relations type struct, faster than recursive version
  * Check for string id alphabetical order
  */
-binaryTreeEntities_t *rbTreeEntitiesSearch(binaryTreeEntities_t *x, char *k) {
+static inline binaryTreeEntities_t *rbTreeEntitiesSearch(binaryTreeEntities_t *x, char *k) {
     while ((x != binaryTreeEntitiesNIL) && (strncmp(k, x->id, RELATIONS_ID_SIZE) != 0)) {
         if (strncmp(k, x->id, RELATIONS_ID_SIZE) < 0) {
             x = x->left;
@@ -812,7 +812,7 @@ binaryTreeEntities_t *rbTreeEntitiesSearch(binaryTreeEntities_t *x, char *k) {
 /*
  * Search for minimum of rb trees entities type
  */
-binaryTreeEntities_t *rbTreeEntitiesMinimum(binaryTreeEntities_t *x) {
+static inline binaryTreeEntities_t *rbTreeEntitiesMinimum(binaryTreeEntities_t *x) {
     while (x->left != binaryTreeEntitiesNIL) {
         x = x->left;
     }
@@ -822,7 +822,7 @@ binaryTreeEntities_t *rbTreeEntitiesMinimum(binaryTreeEntities_t *x) {
 /*
  * Search for maximum of rb trees entities type
  */
-binaryTreeEntities_t *rbTreeEntitiesMaximum(binaryTreeEntities_t *x) {
+static inline binaryTreeEntities_t *rbTreeEntitiesMaximum(binaryTreeEntities_t *x) {
     while (x->right != binaryTreeEntitiesNIL) {
         x = x->right;
     }
@@ -832,7 +832,7 @@ binaryTreeEntities_t *rbTreeEntitiesMaximum(binaryTreeEntities_t *x) {
 /*
  * Search for successor of rb trees entities type
  */
-binaryTreeEntities_t *rbTreeEntitiesSuccessor(binaryTreeEntities_t *x) {
+static inline binaryTreeEntities_t *rbTreeEntitiesSuccessor(binaryTreeEntities_t *x) {
     if (x->right != binaryTreeEntitiesNIL) {
         return rbTreeEntitiesMinimum(x->right);
     }
@@ -847,7 +847,7 @@ binaryTreeEntities_t *rbTreeEntitiesSuccessor(binaryTreeEntities_t *x) {
 /*
  * Search for predecessor of rb trees entities type
  */
-binaryTreeEntities_t *rbTreeEntitiesPredecessor(binaryTreeEntities_t *x) {
+static inline binaryTreeEntities_t *rbTreeEntitiesPredecessor(binaryTreeEntities_t *x) {
     if (x->left != binaryTreeEntitiesNIL) {
         return rbTreeEntitiesMaximum(x->left);
     }
@@ -863,7 +863,7 @@ binaryTreeEntities_t *rbTreeEntitiesPredecessor(binaryTreeEntities_t *x) {
 /*
  * Left rotate the rb tree for entities types
  */
-void rbTreeEntitiesLeftRotate(binaryTreeEntities_t **T, binaryTreeEntities_t *x) {
+static inline void rbTreeEntitiesLeftRotate(binaryTreeEntities_t **T, binaryTreeEntities_t *x) {
     binaryTreeEntities_t *y = x->right;
     x->right = y->left;
     if (y->left != binaryTreeEntitiesNIL) {
@@ -884,7 +884,7 @@ void rbTreeEntitiesLeftRotate(binaryTreeEntities_t **T, binaryTreeEntities_t *x)
 /*
  * Right rotate the rb tree for entities types
  */
-void rbTreeEntitiesRightRotate(binaryTreeEntities_t **T, binaryTreeEntities_t *x) {
+static inline void rbTreeEntitiesRightRotate(binaryTreeEntities_t **T, binaryTreeEntities_t *x) {
     binaryTreeEntities_t *y = x->left;
     x->left = y->right;
     if (y->right != binaryTreeEntitiesNIL) {
@@ -905,7 +905,7 @@ void rbTreeEntitiesRightRotate(binaryTreeEntities_t **T, binaryTreeEntities_t *x
 /*
  * Insert value in rb trees
  */
-void rbTreeEntitiesInsert(binaryTreeEntities_t **T, binaryTreeEntities_t *z) {
+static inline void rbTreeEntitiesInsert(binaryTreeEntities_t **T, binaryTreeEntities_t *z) {
     binaryTreeEntities_t *y = binaryTreeEntitiesNIL;
     binaryTreeEntities_t *x = *T;
     while (x != binaryTreeEntitiesNIL) {
@@ -933,7 +933,7 @@ void rbTreeEntitiesInsert(binaryTreeEntities_t **T, binaryTreeEntities_t *z) {
 /*
  * Fixup insert value in rb trees
  */
-void rbTreeEntitiesInsertFixup(binaryTreeEntities_t **T, binaryTreeEntities_t *z) {
+static inline void rbTreeEntitiesInsertFixup(binaryTreeEntities_t **T, binaryTreeEntities_t *z) {
     while (z->p->color == RED) {
         if (z->p == z->p->p->left) {
             binaryTreeEntities_t *y = z->p->p->right;
@@ -976,7 +976,7 @@ void rbTreeEntitiesInsertFixup(binaryTreeEntities_t **T, binaryTreeEntities_t *z
  * Delete rb trees selected value
  */
 
-binaryTreeEntities_t *rbTreeEntitiesDelete(binaryTreeEntities_t **T, binaryTreeEntities_t *z) {
+static inline binaryTreeEntities_t *rbTreeEntitiesDelete(binaryTreeEntities_t **T, binaryTreeEntities_t *z) {
     binaryTreeEntities_t *y;
     binaryTreeEntities_t *x;
     if ((z->left == binaryTreeEntitiesNIL) || (z->right == binaryTreeEntitiesNIL)) {
@@ -1016,7 +1016,7 @@ binaryTreeEntities_t *rbTreeEntitiesDelete(binaryTreeEntities_t **T, binaryTreeE
  * Fixup delete rb trees selected value
  */
 
-void rbTreeEntitiesDeleteFixup(binaryTreeEntities_t **T, binaryTreeEntities_t *x) {
+static inline void rbTreeEntitiesDeleteFixup(binaryTreeEntities_t **T, binaryTreeEntities_t *x) {
     binaryTreeEntities_t *w;
     while ((x != *T) && (x->color == BLACK)) {
         if (x == x->p->left) {
@@ -1075,7 +1075,7 @@ void rbTreeEntitiesDeleteFixup(binaryTreeEntities_t **T, binaryTreeEntities_t *x
 /*
  * Free all the tree memory
  */
-void rbTreeEntitiesPurge(binaryTreeEntities_t *T) {
+static inline void rbTreeEntitiesPurge(binaryTreeEntities_t *T) {
     if (T == binaryTreeEntitiesNIL) {
         return;
     }
@@ -1096,7 +1096,7 @@ void rbTreeEntitiesPurge(binaryTreeEntities_t *T) {
  * Uses relations type struct, faster than recursive version
  * Check for string id alphabetical order
  */
-binaryTreeEntitiesDest_t *rbTreeEntitiesDestSearch(binaryTreeEntitiesDest_t *x, char *k) {
+static inline binaryTreeEntitiesDest_t *rbTreeEntitiesDestSearch(binaryTreeEntitiesDest_t *x, char *k) {
     while ((x != binaryTreeEntitiesDestNIL) && (strncmp(k, x->id, RELATIONS_ID_SIZE) != 0)) {
         if (strncmp(k, x->id, RELATIONS_ID_SIZE) < 0) {
             x = x->left;
@@ -1110,7 +1110,7 @@ binaryTreeEntitiesDest_t *rbTreeEntitiesDestSearch(binaryTreeEntitiesDest_t *x, 
 /*
  * Search for minimum of rb trees entities type
  */
-binaryTreeEntitiesDest_t *rbTreeEntitiesDestMinimum(binaryTreeEntitiesDest_t *x) {
+static inline binaryTreeEntitiesDest_t *rbTreeEntitiesDestMinimum(binaryTreeEntitiesDest_t *x) {
     while (x->left != binaryTreeEntitiesDestNIL) {
         x = x->left;
     }
@@ -1120,7 +1120,7 @@ binaryTreeEntitiesDest_t *rbTreeEntitiesDestMinimum(binaryTreeEntitiesDest_t *x)
 /*
  * Search for maximum of rb trees entities type
  */
-binaryTreeEntitiesDest_t *rbTreeEntitiesDestMaximum(binaryTreeEntitiesDest_t *x) {
+static inline binaryTreeEntitiesDest_t *rbTreeEntitiesDestMaximum(binaryTreeEntitiesDest_t *x) {
     while (x->right != binaryTreeEntitiesDestNIL) {
         x = x->right;
     }
@@ -1130,7 +1130,7 @@ binaryTreeEntitiesDest_t *rbTreeEntitiesDestMaximum(binaryTreeEntitiesDest_t *x)
 /*
  * Search for successor of rb trees entities type
  */
-binaryTreeEntitiesDest_t *rbTreeEntitiesDestSuccessor(binaryTreeEntitiesDest_t *x) {
+static inline binaryTreeEntitiesDest_t *rbTreeEntitiesDestSuccessor(binaryTreeEntitiesDest_t *x) {
     if (x->right != binaryTreeEntitiesDestNIL) {
         return rbTreeEntitiesDestMinimum(x->right);
     }
@@ -1145,7 +1145,7 @@ binaryTreeEntitiesDest_t *rbTreeEntitiesDestSuccessor(binaryTreeEntitiesDest_t *
 /*
  * Search for predecessor of rb trees entities type
  */
-binaryTreeEntitiesDest_t *rbTreeEntitiesDestPredecessor(binaryTreeEntitiesDest_t *x) {
+static inline binaryTreeEntitiesDest_t *rbTreeEntitiesDestPredecessor(binaryTreeEntitiesDest_t *x) {
     if (x->left != binaryTreeEntitiesDestNIL) {
         return rbTreeEntitiesDestMaximum(x->left);
     }
@@ -1161,7 +1161,7 @@ binaryTreeEntitiesDest_t *rbTreeEntitiesDestPredecessor(binaryTreeEntitiesDest_t
 /*
  * Left rotate the rb tree for entities types
  */
-void rbTreeEntitiesDestLeftRotate(binaryTreeEntitiesDest_t **T, binaryTreeEntitiesDest_t *x) {
+static inline void rbTreeEntitiesDestLeftRotate(binaryTreeEntitiesDest_t **T, binaryTreeEntitiesDest_t *x) {
     binaryTreeEntitiesDest_t *y = x->right;
     x->right = y->left;
     if (y->left != binaryTreeEntitiesDestNIL) {
@@ -1182,7 +1182,7 @@ void rbTreeEntitiesDestLeftRotate(binaryTreeEntitiesDest_t **T, binaryTreeEntiti
 /*
  * Right rotate the rb tree for entities types
  */
-void rbTreeEntitiesDestRightRotate(binaryTreeEntitiesDest_t **T, binaryTreeEntitiesDest_t *x) {
+static inline void rbTreeEntitiesDestRightRotate(binaryTreeEntitiesDest_t **T, binaryTreeEntitiesDest_t *x) {
     binaryTreeEntitiesDest_t *y = x->left;
     x->left = y->right;
     if (y->right != binaryTreeEntitiesDestNIL) {
@@ -1203,7 +1203,7 @@ void rbTreeEntitiesDestRightRotate(binaryTreeEntitiesDest_t **T, binaryTreeEntit
 /*
  * Insert value in rb trees
  */
-void rbTreeEntitiesDestInsert(binaryTreeEntitiesDest_t **T, binaryTreeEntitiesDest_t *z) {
+static inline void rbTreeEntitiesDestInsert(binaryTreeEntitiesDest_t **T, binaryTreeEntitiesDest_t *z) {
     binaryTreeEntitiesDest_t *y = binaryTreeEntitiesDestNIL;
     binaryTreeEntitiesDest_t *x = *T;
     while (x != binaryTreeEntitiesDestNIL) {
@@ -1231,7 +1231,7 @@ void rbTreeEntitiesDestInsert(binaryTreeEntitiesDest_t **T, binaryTreeEntitiesDe
 /*
  * Fixup insert value in rb trees
  */
-void rbTreeEntitiesDestInsertFixup(binaryTreeEntitiesDest_t **T, binaryTreeEntitiesDest_t *z) {
+static inline void rbTreeEntitiesDestInsertFixup(binaryTreeEntitiesDest_t **T, binaryTreeEntitiesDest_t *z) {
     while (z->p->color == RED) {
         if (z->p == z->p->p->left) {
             binaryTreeEntitiesDest_t *y = z->p->p->right;
@@ -1274,7 +1274,7 @@ void rbTreeEntitiesDestInsertFixup(binaryTreeEntitiesDest_t **T, binaryTreeEntit
  * Delete rb trees selected value
  */
 
-binaryTreeEntitiesDest_t *rbTreeEntitiesDestDelete(binaryTreeEntitiesDest_t **T, binaryTreeEntitiesDest_t *z) {
+static inline binaryTreeEntitiesDest_t *rbTreeEntitiesDestDelete(binaryTreeEntitiesDest_t **T, binaryTreeEntitiesDest_t *z) {
     binaryTreeEntitiesDest_t *y;
     binaryTreeEntitiesDest_t *x;
     if ((z->left == binaryTreeEntitiesDestNIL) || (z->right == binaryTreeEntitiesDestNIL)) {
@@ -1334,7 +1334,7 @@ binaryTreeEntitiesDest_t *rbTreeEntitiesDestDelete(binaryTreeEntitiesDest_t **T,
  * Fixup delete rb trees selected value
  */
 
-void rbTreeEntitiesDestDeleteFixup(binaryTreeEntitiesDest_t **T, binaryTreeEntitiesDest_t *x) {
+static inline void rbTreeEntitiesDestDeleteFixup(binaryTreeEntitiesDest_t **T, binaryTreeEntitiesDest_t *x) {
     binaryTreeEntitiesDest_t *w;
     while ((x != *T) && (x->color == BLACK)) {
         if (x == x->p->left) {
@@ -1393,7 +1393,7 @@ void rbTreeEntitiesDestDeleteFixup(binaryTreeEntitiesDest_t **T, binaryTreeEntit
 /*
  * Free all the tree memory
  */
-void rbTreeEntitiesDestPurge(binaryTreeEntitiesDest_t **T) {
+static inline void rbTreeEntitiesDestPurge(binaryTreeEntitiesDest_t **T) {
     if (*T == binaryTreeEntitiesDestNIL) {
         return;
     }
@@ -1409,7 +1409,7 @@ void rbTreeEntitiesDestPurge(binaryTreeEntitiesDest_t **T) {
 /*
  * Search back for the max elements and reset them
  */
-void maxTreeEntitiesDestReset(binaryTreeRelTypes_t **relType, binaryTreeEntitiesDest_t *x) {
+static inline void maxTreeEntitiesDestReset(binaryTreeRelTypes_t **relType, binaryTreeEntitiesDest_t *x) {
     if (x != binaryTreeEntitiesDestNIL) {
         maxTreeEntitiesDestReset(relType, x->left);
         if (x->relationsNum == (*relType)->maxRelations) { // Add into the maxTree
@@ -1422,7 +1422,7 @@ void maxTreeEntitiesDestReset(binaryTreeRelTypes_t **relType, binaryTreeEntities
 /*
  * Search for the entity in all the dest relations
  */
-void entDestEntSearch(char *strToSearch, binaryTreeEntitiesDest_t *x, binaryTreeRelTypes_t **root) {
+static inline void entDestEntSearch(char *strToSearch, binaryTreeEntitiesDest_t *x, binaryTreeRelTypes_t **root) {
     if (x != binaryTreeEntitiesDestNIL) {
         entDestEntSearch(strToSearch, x->left, root);
         entDestEntSearch(strToSearch, x->right, root);
@@ -1498,7 +1498,7 @@ void entDestEntSearch(char *strToSearch, binaryTreeEntitiesDest_t *x, binaryTree
 /*
  * Find new destTree max
  */
-int maxTreeNewMax(binaryTreeEntitiesDest_t *x) {
+static inline int maxTreeNewMax(binaryTreeEntitiesDest_t *x) {
     if (x != binaryTreeEntitiesDestNIL) {
         int max1 = maxTreeNewMax(x->left);
         int max2 = maxTreeNewMax(x->right);
@@ -1520,7 +1520,7 @@ int maxTreeNewMax(binaryTreeEntitiesDest_t *x) {
 /*
  * Insert a value in the hash
  */
-int hash(char *k, int i) {
+static inline int hash(char *k, int i) {
     unsigned int res = 1;
     for (int j = 0; j < strlen(k); j++) {
         res = res*3 + k[j];
@@ -1529,7 +1529,7 @@ int hash(char *k, int i) {
     return res;
 }
 
-int hashDestInsert(hashOrigList_t *T[], char *k) {
+static inline int hashDestInsert(hashOrigList_t *T[], char *k) {
     int i = 1;
     int j = hash(k, i); // FUNZIONE DA CALCOLARE
     hashOrigList_t *newOrig = malloc(sizeof(hashOrigList_t));
@@ -1547,7 +1547,7 @@ int hashDestInsert(hashOrigList_t *T[], char *k) {
     return j;
 }
 
-int hashDestSearch(hashOrigList_t **T, char *k) {
+static inline int hashDestSearch(hashOrigList_t **T, char *k) {
     int i = 1;
     int j;
     j = hash(k, i);
@@ -1572,7 +1572,7 @@ int hashDestSearch(hashOrigList_t **T, char *k) {
     return NOT_FOUND;
 }
 
-int hashDestDelete(hashOrigList_t **T, char *k) {
+static inline int hashDestDelete(hashOrigList_t **T, char *k) {
     int i = 1;
     int j ;
     j = hash(k, i);
@@ -1605,7 +1605,7 @@ int hashDestDelete(hashOrigList_t **T, char *k) {
 /*
  * CREATE AND INIT NODES FUNCTIONS
  */
-binaryTreeRelTypes_t *createRelType(char *idToSet) {
+static inline binaryTreeRelTypes_t *createRelType(char *idToSet) {
     binaryTreeRelTypes_t *relType = malloc(sizeof(binaryTreeRelTypes_t));
     relType->destTreeRoot = binaryTreeEntitiesDestNIL;
     relType->maxDestRoot = binaryTreeEntitiesDestNIL;
@@ -1617,7 +1617,7 @@ binaryTreeRelTypes_t *createRelType(char *idToSet) {
     return relType;
 }
 
-binaryTreeEntities_t *createEntity(char *idToSet) {
+static inline binaryTreeEntities_t *createEntity(char *idToSet) {
     binaryTreeEntities_t *entity = malloc(sizeof(binaryTreeEntities_t));
     char *entityName = malloc(strlen(idToSet)+1); // Create string of the correct size
     strncpy(entityName, idToSet, strlen(idToSet)+1);
@@ -1626,7 +1626,7 @@ binaryTreeEntities_t *createEntity(char *idToSet) {
     return entity;
 }
 
-binaryTreeEntitiesDest_t *createEntityDest(binaryTreeRelTypes_t **relType, char *idToSet) {
+static inline binaryTreeEntitiesDest_t *createEntityDest(binaryTreeRelTypes_t **relType, char *idToSet) {
     binaryTreeEntitiesDest_t *entityDest = malloc(sizeof(binaryTreeEntitiesDest_t));
     for(int i=0; i<HASH_TABLE_SIZE; i++) {
         (entityDest->hashOrigList)[i] = NULL;
@@ -1637,7 +1637,7 @@ binaryTreeEntitiesDest_t *createEntityDest(binaryTreeRelTypes_t **relType, char 
     return entityDest;
 }
 
-binaryTreeEntitiesDest_t *addEntityDestMax(binaryTreeRelTypes_t **relType, char *idToSet) {
+static inline binaryTreeEntitiesDest_t *addEntityDestMax(binaryTreeRelTypes_t **relType, char *idToSet) {
     binaryTreeEntitiesDest_t *entityDestMax = malloc(sizeof(binaryTreeEntitiesDest_t));
     for(int i=0; i<HASH_TABLE_SIZE; i++) {
         (entityDestMax->hashOrigList)[i] = NULL;
@@ -1647,7 +1647,7 @@ binaryTreeEntitiesDest_t *addEntityDestMax(binaryTreeRelTypes_t **relType, char 
     return entityDestMax;
 }
 
-char *createHashOrig(binaryTreeEntitiesDest_t **destEnt, char *idToSet) {
+static inline char *createHashOrig(binaryTreeEntitiesDest_t **destEnt, char *idToSet) {
     char *newOrig = idToSet;
 
     if (hashDestSearch((*destEnt)->hashOrigList, newOrig) == NOT_FOUND) { // Doesn't exist, add
@@ -1658,7 +1658,7 @@ char *createHashOrig(binaryTreeEntitiesDest_t **destEnt, char *idToSet) {
     return NULL; // Already exists, nothing added
 }
 
-void treePrint(binaryTreeEntitiesDest_t *root) {
+static inline void treePrint(binaryTreeEntitiesDest_t *root) {
     if(root == binaryTreeEntitiesDestNIL) {
         return;
     }
