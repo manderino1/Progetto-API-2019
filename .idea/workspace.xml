@@ -12,6 +12,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f9641f3d-1b78-4c33-93bd-443838e966af" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/main.c" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
@@ -49,11 +50,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="321">
-              <caret line="463" column="49" selection-start-line="463" selection-start-column="49" selection-end-line="463" selection-end-column="49" />
-              <folding>
-                <element signature="e#83#101#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="391">
+              <caret line="253" selection-start-line="253" selection-end-line="253" />
             </state>
           </provider>
         </entry>
@@ -110,7 +108,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -122,6 +119,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -174,11 +172,13 @@
       <workItem from="1564180643810" duration="4708000" />
       <workItem from="1564217269772" duration="215000" />
       <workItem from="1564217575579" duration="5122000" />
+      <workItem from="1565035000394" duration="133000" />
+      <workItem from="1566135895766" duration="658000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="75915000" />
+    <option name="totallyTimeSpent" value="76706000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -191,24 +191,23 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.31556502" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.32249466" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.2979415" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4552239" weight="0.32936078" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" sideWeight="0.5197228" visible="true" weight="0.3726977" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.45469084" weight="0.32936078" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.5197228" weight="0.3726977" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49946696" weight="0.32936078" />
       <window_info anchor="bottom" id="Database Changes" order="7" />
       <window_info anchor="bottom" id="Terminal" order="8" />
-      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.48027718" side_tool="true" visible="true" weight="0.32936078" />
+      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.5453092" side_tool="true" visible="true" weight="0.32936078" />
       <window_info anchor="bottom" id="Version Control" order="10" weight="0.32936078" />
       <window_info anchor="bottom" id="CMake" order="11" />
-      <window_info anchor="bottom" id="Messages" order="12" sideWeight="0.358742" weight="0.32936078" />
+      <window_info anchor="bottom" id="Messages" order="12" sideWeight="0.3576759" weight="0.32936078" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -260,10 +259,20 @@
     </option>
   </component>
   <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/main.c</url>
+          <line>252</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
     <watches-manager>
       <configuration name="CMakeRunConfiguration">
         <watch expression="relTypesRoot" language="ObjectiveC" />
         <watch expression="entitiesRoot" />
+        <watch expression="commandRead" />
       </configuration>
     </watches-manager>
   </component>
@@ -287,13 +296,13 @@
     <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
+    <entry file="file://D:/Download/Suite6 (2).c">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/main.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="321">
-          <caret line="463" column="49" selection-start-line="463" selection-start-column="49" selection-end-line="463" selection-end-column="49" />
-          <folding>
-            <element signature="e#83#101#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="391">
+          <caret line="253" selection-start-line="253" selection-end-line="253" />
         </state>
       </provider>
     </entry>

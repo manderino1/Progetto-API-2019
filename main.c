@@ -21,7 +21,7 @@
 #define RELATIONS_ID_SIZE 50
 #define RED 0
 #define BLACK 1
-#define HASH_TABLE_SIZE 10
+#define HASH_TABLE_SIZE 20
 #define NOT_FOUND -1
 
 /*
