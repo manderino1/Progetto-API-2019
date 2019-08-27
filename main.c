@@ -237,9 +237,21 @@ int main() {
     binaryTreeEntitiesDestNIL->p = binaryTreeEntitiesDestNIL;
     binaryTreeEntitiesDestNIL->color = BLACK;
 
+    size_t bufferSize = COMMAND_READ_SIZE;
+    char delim = ' ';
+    int stringIndex;
+
     for (;;) {
         char commandRead[COMMAND_READ_SIZE];
-        scanf("%s", commandRead);
+        stringIndex = 0;
+        do {
+            commandRead[stringIndex] = getchar_unlocked();
+            if((commandRead[stringIndex] == ' ') || (commandRead[stringIndex] == '\n')) {
+                commandRead[stringIndex] = '\0';
+            }
+            stringIndex++;
+        } while(commandRead[stringIndex-1] != '\0');
+
         if (strcmp(commandRead, "addent") == 0) {
             addEntManager();
         } else if (strcmp(commandRead, "delent") == 0) {
@@ -262,7 +274,13 @@ int main() {
 
 static inline void addEntManager() {
     char idEntity[ENTITY_ID_SIZE];
-    scanf("%s", idEntity); // Reading in buffer from stdin
+    int stringIndex = 0;
+    do {
+        if((idEntity[stringIndex] = getchar_unlocked()) == '\n') {
+            idEntity[stringIndex] = '\0';
+        }
+        stringIndex++;
+    } while(idEntity[stringIndex-1] != '\0');
 
     if (rbTreeEntitiesSearch(entitiesRoot, idEntity) ==
         binaryTreeEntitiesNIL) { // Go only if entity doesn't already exist (logn)
@@ -273,7 +291,13 @@ static inline void addEntManager() {
 static inline void delEntManager() {
     char idEntity[ENTITY_ID_SIZE];
 
-    scanf("%s", idEntity); // Reading from stdin
+    int stringIndex = 0;
+    do {
+        if((idEntity[stringIndex] = getchar_unlocked()) == '\n') {
+            idEntity[stringIndex] = '\0';
+        }
+        stringIndex++;
+    } while(idEntity[stringIndex-1] != '\0');
 
     binaryTreeEntities_t *checkExistence;
     checkExistence = rbTreeEntitiesSearch(entitiesRoot, idEntity);
@@ -296,9 +320,29 @@ static inline void addRelManager() {
     char idDest[ENTITY_ID_SIZE];
     char idRel[RELATIONS_ID_SIZE];
 
-    scanf("%s", idOrig); // Reading from stdin
-    scanf("%s", idDest);
-    scanf("%s", idRel);
+    int stringIndex = 0;
+    do {
+        if((idOrig[stringIndex] = getchar_unlocked()) == ' ') {
+            idOrig[stringIndex] = '\0';
+        }
+        stringIndex++;
+    } while(idOrig[stringIndex-1] != '\0');
+
+    stringIndex = 0;
+    do {
+        if((idDest[stringIndex] = getchar_unlocked()) == ' ') {
+            idDest[stringIndex] = '\0';
+        }
+        stringIndex++;
+    } while(idDest[stringIndex-1] != '\0');
+
+    stringIndex = 0;
+    do {
+        if((idRel[stringIndex] = getchar_unlocked()) == '\n') {
+            idRel[stringIndex] = '\0';
+        }
+        stringIndex++;
+    } while(idRel[stringIndex-1] != '\0');
 
     binaryTreeEntities_t *checkExistence;
     checkExistence = rbTreeEntitiesSearch(entitiesRoot, idDest);
@@ -374,9 +418,29 @@ static inline void delRelManager() {
     char idDest[ENTITY_ID_SIZE];
     char idRel[RELATIONS_ID_SIZE];
 
-    scanf("%s", idOrig);
-    scanf("%s", idDest);
-    scanf("%s", idRel);
+    int stringIndex = 0;
+    do {
+        if((idOrig[stringIndex] = getchar_unlocked()) == ' ') {
+            idOrig[stringIndex] = '\0';
+        }
+        stringIndex++;
+    } while(idOrig[stringIndex-1] != '\0');
+
+    stringIndex = 0;
+    do {
+        if((idDest[stringIndex] = getchar_unlocked()) == ' ') {
+            idDest[stringIndex] = '\0';
+        }
+        stringIndex++;
+    } while(idDest[stringIndex-1] != '\0');
+
+    stringIndex = 0;
+    do {
+        if((idRel[stringIndex] = getchar_unlocked()) == '\n') {
+            idRel[stringIndex] = '\0';
+        }
+        stringIndex++;
+    } while(idRel[stringIndex-1] != '\0');
 
     binaryTreeEntities_t *checkExistence;
     checkExistence = rbTreeEntitiesSearch(entitiesRoot, idDest);
